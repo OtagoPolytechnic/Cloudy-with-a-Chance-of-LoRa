@@ -1,0 +1,30 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: #87CEEB;
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    color: white;
+  }
+  
+  .widgets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
