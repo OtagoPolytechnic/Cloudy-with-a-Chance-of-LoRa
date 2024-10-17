@@ -5,20 +5,20 @@
     align-items: center;
     min-height: 100vh;
     min-width: 100vw;
-    background-color: #87CEEB;
+    background-color: var(--color-background);
     background-size: 100vw 100vh;
     background-attachment: fixed;
-    color: white;
+    color: #f8f8ff;
   }
   
   .widgets {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     gap: 20px;
     width: 90%;
-    max-width: 1200px;
+    transition: all 0.7s ease;
   }
   
   

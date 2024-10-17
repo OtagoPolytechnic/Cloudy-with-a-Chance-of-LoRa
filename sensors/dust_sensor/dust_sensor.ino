@@ -29,7 +29,8 @@ const lmic_pinmap lmic_pins = {
     .dio = {2, 6, 7},
 };
 
-const unsigned TX_INTERVAL = 30;
+// 10 minute delay
+const unsigned TX_INTERVAL = 600;
 
 int measurePin = A5;
 int ledPower = 12;

@@ -1,14 +1,14 @@
-version: '3.8'
-
 services:
-  backend:
+  fullstack-app:
     build:
       context: ./fullstack
     restart: always
     ports:
-      - "3000:3000"
+      - "3000:3000" 
     networks:
       - app-network
+    environment:
+      - NODE_ENV=production 
 
 networks:
   app-network:
