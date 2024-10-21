@@ -5,11 +5,12 @@
 float temperature = 0;
 float windSpeed = 0;  
 float rainfall = 0; 
+unsigned long int dataCount = 0;
 
 const int windVanePin = A0;  // Analog pin connected to wind vane voltage divider
 
 // Resistance values from the wind vane (in ohms) corresponding to wind directions
-const unsigned long windDirections[16] = {33000, 6570, 8200, 891, 1000, 688, 2200, 1410, 3900, 3140, 16000, 14120, 85000, 42120, 62000, 21880};
+const unsigned long windDirections[16] = {33000, 6570, 8200, 891, 1000, 688, 2200, 1410, 3900, 3140, 16000, 14120, 130000, 42120, 71500, 21880};
 const int windDegrees[16] = {0, 22, 45, 67, 90, 112, 135, 157, 180, 202, 225, 247, 270, 292, 315, 337};  // Corresponding degrees
 
 // Known resistor value (from the voltage divider)
@@ -25,25 +26,25 @@ int windDirection = 0;  // Store wind direction in degrees (0–360)
 // Timing variables for daily rainfall reset and wind speed updates
 unsigned long previousWindUpdateMillis = 0;
 unsigned long previousRainResetMillis = 0;
-const unsigned long windUpdateInterval = 5000;  // 10 seconds in milliseconds
-const unsigned long rainResetInterval = 86400000;  // 24 hours in milliseconds
+const unsigned long windUpdateInterval = 1000;  // 1 seconds in milliseconds
+const unsigned long rainResetInterval = 43200000;  // 12 hours in milliseconds
 
 // Payload array to hold all sensor data
 unsigned char payload[7];  
+int buttonState = 0;
 
 void setup() {
   Serial.begin(9600);  // Display on serial monitor
-  while (!Serial);
 
   Wire.begin(0x08);
   Wire.onRequest(requestEvent);
 
   // Initialize interrupts for wind speed and rainfall sensors
-  pinMode(2, INPUT_PULLUP);  // Wind sensor on D2
-  pinMode(3, INPUT_PULLUP);  // Rain sensor on D3
+  pinMode(0, INPUT_PULLUP);  // Wind sensor on D2
+  pinMode(1, INPUT_PULLUP);  // Rain sensor on D3
   pinMode(A0, INPUT);
-  attachInterrupt(digitalPinToInterrupt(2), windISR, RISING); // Wind sensor on D2/INT4
-  attachInterrupt(digitalPinToInterrupt(3), rainISR, RISING); // Rain sensor on D3/INT5
+  attachInterrupt(digitalPinToInterrupt(0), windISR, RISING); // Wind sensor on D2/INT4
+  attachInterrupt(digitalPinToInterrupt(1), rainISR, CHANGE); // Rain sensor on D3/INT5
 
   Serial.println("Sensors initialized.");
 }
@@ -55,12 +56,27 @@ void loop() {
   if (currentMillis - previousWindUpdateMillis >= windUpdateInterval) {
 
     // Wind speed calculation
-    windSpeed = windPulseCount * 2.4 / 10.0;  // Convert pulses to m/s (assuming 2.4 m/s for 1 pulse per second)
-    windPulseCount = 0;  // Reset wind pulse count after each update
+    windSpeed = (windPulseCount * 2.4) / dataCount;  // Convert pulses to m/s (assuming 2.4 m/s for 1 pulse per second)
+    
     previousWindUpdateMillis = currentMillis;  // Update the last wind update time
+    Serial.print("WindSpeed: ");
+    Serial.println(windSpeed);
 
     // Rainfall calculation (each pulse represents 0.2794 mm of rainfall)
-    rainfall = rainPulseCount * 0.2794;
+    rainfall = (rainPulseCount / 3) * 0.2794;
+
+    Serial.print("Rain: ");
+    Serial.println(rainfall);
+
+    buttonState = digitalRead(1);
+
+    dataCount++;
+
+  if (buttonState == HIGH) {     
+Serial.println ("1");
+  } 
+  else {
+  }
 
     // Get wind direction from the wind vane
     windDirection = getWindDirection();
@@ -77,7 +93,7 @@ void loop() {
     payload[3] = highByte(payloadRain);
     payload[4] = lowByte(payloadWindDir);  // Wind direction (low byte)
     payload[5] = highByte(payloadWindDir);  // Wind direction (high byte)
-    payload[6] = 0;  // Reserved or checksum byte (optional)
+    payload[6] = 0xFF;  // Reserved or checksum byte (optional)
 
   }
 
@@ -92,6 +108,8 @@ void loop() {
 void requestEvent() {
   // Send the payload via I2C
   Wire.write((char*)&payload, sizeof(payload));
+  dataCount = 0;
+  windPulseCount = 0;  // Reset wind pulse count after each update
 }
 
 uint16_t encodeFixedPoint(float value) {
@@ -113,7 +131,10 @@ void windISR() {
 
 // ISR for rain sensor on D3/INT5
 void rainISR() {
+  detachInterrupt(digitalPinToInterrupt(1));
   rainPulseCount++;  // Increment the rainfall pulse count
+  delay(1000);
+  attachInterrupt(digitalPinToInterrupt(1), rainISR, CHANGE); // Rain sensor on D3/INT5
 }
 
 int getWindDirection() {

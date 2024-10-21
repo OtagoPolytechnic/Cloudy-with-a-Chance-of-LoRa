@@ -39,7 +39,7 @@ const unsigned TX_INTERVAL = 600;
 int payloadState = 0;  // 0 = temperature/pressure, 1 = temperature/CO2
 
 void setup() {
-  delay(5000);
+  delay(5000);              //Wait for everything to be powered up before initializing anything
 
   Wire.begin();
   Serial.begin(9600);
@@ -55,13 +55,6 @@ void setup() {
   // Initialize the WDT with the new config structure
   esp_task_wdt_reconfigure(&wdt_config);
   esp_task_wdt_add(NULL);
-
-  // Error handling for I2C request
-  if (Wire.requestFrom(0x08, 8) == 8) {
-    Wire.readBytes(payloadR, 8);
-  } else {
-    Serial.println("Failed to read from I2C device");
-  }
 
   // LMIC init using the computed target
   const lmic_pinmap* pPinMap = Arduino_LMIC::GetPinmap_ThisBoard();
@@ -90,6 +83,8 @@ void setup() {
   LMIC_setLinkCheckMode(0);
   LMIC_setDrTxpow(DR_SF7, 14);
   LMIC_selectSubBand(1);
+
+  delay(5000);                          // wait for the sensors to settle before starting anything
 
   // Start job (sending automatically starts OTAA too)
   do_send(&sendjob);
@@ -283,6 +278,9 @@ void do_send(osjob_t* j) {
       esp_task_wdt_reset();  // Reset WDT again after processing
     } else {
       Serial.println("Failed to read from I2C device");
+      LMIC_setTxData2(1, NULL, 0, 0);  // Send on Fport 1
+      Serial.println(F("Sending nothing"));
+      esp_task_wdt_reset();  // Reset WDT again after processing
     }
   }
 }
