@@ -1,67 +1,78 @@
+/*
+Payload formatter for TTN
+
+function Decoder(bytes, port) {
+  if (bytes.length !== 10) {
+    return null; // Invalid payload length
+  }
+
+  let decoded = {};
+
+    let tempRaw = (bytes[1] << 8) | bytes[0];
+    let pressRaw = (bytes[3] << 8) | bytes[2];
+    let windSpeedRaw = (bytes[5] << 8) | bytes[4];
+    let rainRaw = (bytes[7] << 8) | bytes[6];
+    let windDirRaw = (bytes[9] << 8) | bytes[8];
+
+    let temperature = (tempRaw & 0x8000) ? -(0x10000 - tempRaw) : tempRaw;
+    let pressure = (pressRaw & 0x8000) ? -(0x10000 - pressRaw) : pressRaw;
+    let windSpeed = (windSpeedRaw & 0x8000) ? -(0x10000 - windSpeedRaw) : windSpeedRaw;
+    let rain = (rainRaw & 0x8000) ? -(0x10000 - rainRaw) : rainRaw;
+    let windDir = (windDirRaw & 0x8000) ? -(0x10000 - windDirRaw) : windDirRaw;
+    
+    decoded.temperature = temperature / 100.0; // Assuming the temp is in hundredths of degrees
+    decoded.pressure = pressure; // Pressure in Pa or other unit
+    decoded.windSpeed = windSpeed / 100.0; // Assuming the wind is in hundredths of m/s
+    decoded.rain = rain; // rain in mm
+    decoded.windDir = windDir; // Assuming the temp is in hundredths of degrees
+
+  return decoded;
+}
+*/
+
 #include <SPL06-007.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <lmic.h>
 #include <hal/hal.h>
 #include <arduino_lmic_hal_boards.h>
-#include <esp_task_wdt.h>  // Include ESP32 watchdog library
 
 // LoRaWAN settings
-static const u1_t PROGMEM APPEUI[8] = { 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+static const u1_t PROGMEM APPEUI[8] = { FILL ME IN };
 void os_getArtEui(u1_t* buf) {
   memcpy_P(buf, APPEUI, 8);
 }
 
-static const u1_t PROGMEM DEVEUI[8] = { 0x6B, 0xAA, 0x06, 0xD0, 0x7E, 0xD5, 0xB3, 0x70 };
+static const u1_t PROGMEM DEVEUI[8] = { FILL ME IN };
 void os_getDevEui(u1_t* buf) {
   memcpy_P(buf, DEVEUI, 8);
 }
 
-static const u1_t PROGMEM APPKEY[16] = { 0x7C, 0x0B, 0x79, 0xE6, 0x21, 0x9F, 0xE9, 0x2B, 0xFC, 0x5C, 0x67, 0x06, 0x25, 0x59, 0xE9, 0x85 };
+static const u1_t PROGMEM APPKEY[16] = { FILL ME IN };
 void os_getDevKey(u1_t* buf) {
   memcpy_P(buf, APPKEY, 16);
 }
 
 // Variables to track time
 unsigned long previousMillis = 0;
-const unsigned long interval = 86400000;  // 24 hours in milliseconds 86400000
+const unsigned long resetInterval = 43200000;  // 12 hours in milliseconds / 24 hours : 86400000
 unsigned long currentMilis = 0;
-unsigned long previousMillisWDT = 0;     // Store the last time the WDT was reset
-const unsigned long wdtInterval = 1000;  // 1 second interval
 
 unsigned char payload[11];
 unsigned char payloadR[11];
 static osjob_t sendjob;
-
 const unsigned TX_INTERVAL = 600;
 
 // State variable to track which payload to send
 int payloadState = 0;  // 0 = temperature/pressure, 1 = temperature/CO2
 
 void setup() {
-  delay(5000);
+  delay(5000);              //Wait for everything to be powered up before initializing anything
 
   Wire.begin();
   Serial.begin(9600);
   Serial.println(F("Starting"));
   SPL_init(); // Setup initial SPL chip registers
-
-  // Define the WDT config
-  const esp_task_wdt_config_t wdt_config = {
-    .timeout_ms = 10000,   // 10 seconds timeout
-    .trigger_panic = true  // Set true to trigger panic on timeout
-  };
-
-  // Initialize the WDT with the new config structure
-  esp_task_wdt_reconfigure(&wdt_config);
-  esp_task_wdt_add(NULL);
-
-  // Error handling for I2C request
-  if (Wire.requestFrom(0x08, 8) == 8) {
-    Wire.readBytes(payloadR, 8);
-  } else {
-    Serial.println("Failed to read from I2C device");
-  }
 
   // LMIC init using the computed target
   const lmic_pinmap* pPinMap = Arduino_LMIC::GetPinmap_ThisBoard();
@@ -90,6 +101,8 @@ void setup() {
   LMIC_setLinkCheckMode(0);
   LMIC_setDrTxpow(DR_SF7, 14);
   LMIC_selectSubBand(1);
+
+  delay(5000);                          // wait for the sensors to settle before starting anything
 
   // Start job (sending automatically starts OTAA too)
   do_send(&sendjob);
@@ -226,8 +239,7 @@ void onEvent(ev_t ev) {
 }
 
 void do_send(osjob_t* j) {
-  esp_task_wdt_reset();  // Reset the watchdog timer to prevent it from timing out
-
+  
   // Check if there is not a current TX/RX job running
   if (LMIC.opmode & OP_TXRXPEND) {
     Serial.println(F("OP_TXRXPEND, not sending"));
@@ -280,9 +292,10 @@ void do_send(osjob_t* j) {
 
       LMIC_setTxData2(1, payload, 10, 0);  // Send on Fport 1
       Serial.println(F("Sending wind/rain"));
-      esp_task_wdt_reset();  // Reset WDT again after processing
     } else {
       Serial.println("Failed to read from I2C device");
+      LMIC_setTxData2(1, NULL, 0, 0);  // Send on Fport 1
+      Serial.println(F("Sending nothing"));
     }
   }
 }
@@ -290,15 +303,9 @@ void do_send(osjob_t* j) {
 void loop() {
   currentMilis = millis();
 
-  // Check if it's time to reset the watchdog timer (every 1 second)
-  if (currentMilis - previousMillisWDT >= wdtInterval) {
-    previousMillisWDT = currentMilis;  // Save the last time WDT was reset
-    esp_task_wdt_reset();              // Reset (feed) the watchdog timer
-  }
-
-  // Check if 24 hours have passed
-  if (currentMilis >= interval) {
-    Serial.println("Restarting ESP32 after 24 hours...");
+  // Check if 12 hours have passed
+  if (currentMilis >= resetInterval) {
+    Serial.println("Restarting ESP32 after 12 hours...");
     ESP.restart();  // Restart the ESP32
   }
 

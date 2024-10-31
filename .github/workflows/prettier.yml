@@ -1,0 +1,47 @@
+name: Prettier Check
+
+on:
+  pull_request:
+    paths:
+      - '**/*.js'
+      - '**/*.ts'
+      - '**/*.json'
+  push:
+    branches:
+      - staging
+      - main  
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./fullstack
+
+      - name: Run Prettier
+        run: npm run format
+        working-directory: ./fullstack
+
+      - name: Run Prettier and commit changes
+        if: github.event_name == 'pull_request'
+        run: |
+          npm run format
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "chore: format code with Prettier" || echo "No changes to commit"
+          git pull --rebase origin ${{ github.head_ref }}  # Pull latest changes from the remote branch
+          git push origin HEAD:${{ github.head_ref }}
+        working-directory: ./fullstack
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

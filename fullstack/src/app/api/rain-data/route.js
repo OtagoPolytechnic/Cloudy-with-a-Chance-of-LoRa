@@ -1,6 +1,5 @@
 /**
- * @api {get} /api/dust-data Get gas data
- * @description This file is the route for the gas-data API
+ * @api {get} /api/rain-data Get Barometric Pressure Data
  */
 import db from '@/db';
 import { isRateLimited } from '@/app/utils/ratelimit';
@@ -19,9 +18,8 @@ export const GET = async (request) => {
     }
 
     const data = await db.any(
-      'select * FROM gas ORDER BY timestamp DESC LIMIT 1',
+      'select * FROM rain_gauge ORDER BY timestamp DESC LIMIT 1',
     );
-
     return new Response(JSON.stringify(data), {
       status: 200,
       headers: {

@@ -1,30 +1,22 @@
 .app-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    min-width: 100vw;
-    background-color: var(--color-background);
-    background-size: 100vw 100vh;
-    background-attachment: fixed;
-    color: #f8f8ff;
-  }
-  
-  .widgets {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    width: 90%;
-    transition: all 0.7s ease;
-  }
-  
-  
-  
-  
-  
-  
-  
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: var(--color-background);
+  background-size: 100vw 100vh;
+  background-attachment: fixed;
+  color: #f8f8ff;
+}
+
+.widgets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  width: 90%;
+  transition: all 0.7s ease;
+}
