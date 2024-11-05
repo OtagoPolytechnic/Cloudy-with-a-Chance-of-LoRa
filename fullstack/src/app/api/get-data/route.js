@@ -17,7 +17,7 @@ export const GET = async (request) => {
     const ip =
       request.headers.get('x-forwarded-for') ||
       request.connection.remoteAddress;
-    const MAX_REQUESTS = 10;
+    const MAX_REQUESTS = 50;
     const type = searchParams.get('type');
 
     if (!authHeader) return new Response('Authentication Required');
