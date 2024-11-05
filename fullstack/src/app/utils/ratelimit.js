@@ -1,7 +1,8 @@
 const rateLimit = {};
-const TIME_WINDOW = 15 * 60 * 1000;
+const TIME_WINDOW = 10 * 60 * 1000; // 10 minutes in milliseconds
+const MAX_REQUESTS = 100;
 
-export const isRateLimited = (ip, MAX_REQUESTS) => {
+export const isRateLimited = (ip) => {
   const now = Date.now();
 
   if (!rateLimit[ip]) {
@@ -19,9 +20,5 @@ export const isRateLimited = (ip, MAX_REQUESTS) => {
   rateLimit[ip].lastRequest = now;
   rateLimit[ip].requests += 1;
 
-  if (rateLimit[ip].requests > MAX_REQUESTS) {
-    return true;
-  }
-
-  return false;
+  return rateLimit[ip].requests > MAX_REQUESTS;
 };
