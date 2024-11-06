@@ -2,10 +2,13 @@
 import Widget from '@/components/widget';
 import LineChartComponent from '@/components/graphs/LineChartComponent';
 import BarChartComponent from '@/components/graphs/BarChartComponent';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import './page.css';
+export const queryClient = new QueryClient();
 
 export default function Home() {
   return (
+    <QueryClientProvider client={queryClient}>
     <div className="app-container">
       <div className="widgets">
         <Widget
@@ -20,5 +23,6 @@ export default function Home() {
         <Widget name="Dust" dataKey="dust" GraphComponent={null} />
       </div>
     </div>
+    </QueryClientProvider>
   );
 }
