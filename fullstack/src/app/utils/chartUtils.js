@@ -71,7 +71,7 @@ export const CustomXAxisTick = ({ x, y, payload, viewType, color }) => {
           y={0}
           dy={10}
           textAnchor="end"
-          fill= {color}
+          fill={color}
           fontSize={10}
           transform="rotate(-45)"
         >

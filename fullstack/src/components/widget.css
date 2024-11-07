@@ -19,7 +19,7 @@
 }
 
 .widget:hover:not(.expanded) {
-  background-color: #7CB9E8;
+  background-color: #7cb9e8;
   transform: translateY(-5px);
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
@@ -48,7 +48,7 @@
 }
 
 .button-group .btn:hover {
-  background-color: #7CB9E8;
+  background-color: #7cb9e8;
 }
 
 .button-group .btn.active {

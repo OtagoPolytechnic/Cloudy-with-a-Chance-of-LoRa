@@ -62,7 +62,7 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
             <XAxis
               dataKey={xAxisDataKey}
               stroke={xyAxis}
-              tick={<CustomXAxisTick viewType={viewType} color={xyAxis}/>}
+              tick={<CustomXAxisTick viewType={viewType} color={xyAxis} />}
               tickLine={{ transform: 'translateY(5px)' }}
               textAnchor="end"
               angle={-45}
