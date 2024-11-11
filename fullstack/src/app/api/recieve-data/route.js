@@ -78,46 +78,36 @@ export const POST = async (request) => {
     if (splitAuth !== process.env.PASSWORD)
       return new Response('You are not authorized to post');
 
-      if (!device_id) {
-        return new Response(
-          JSON.stringify({ message: 'Device ID is required' }),
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'POST',
-            },
-            status: 400,
+    if (!device_id) {
+      return new Response(
+        JSON.stringify({ message: 'Device ID is required' }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
           },
-        );
-      }
-  
-      for (const { condition, fetchData } of sensorData) {
-        if (condition) {
-          const results = await fetchData(
-            device_id,
-            ...(Array.isArray(condition) ? condition : [condition]),
-          );
-          send.push(results);
-        }
-      }
-  
-      return new Response(JSON.stringify(send), {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST',
+          status: 400,
         },
-        status: 200,
-      });
-    } catch (err) {
-      return new Response(JSON.stringify({ message: err.message }), {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST',
-        },
-        status: 500,
-      });
+      );
     }
-  };
+
+    return new Response(JSON.stringify(send), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Methods': 'POST', // Allow POST method
+      },
+      status: 200,
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ message: err.message }), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Methods': 'POST', // Allow POST method
+      },
+      status: 500,
+    });
+  }
+};

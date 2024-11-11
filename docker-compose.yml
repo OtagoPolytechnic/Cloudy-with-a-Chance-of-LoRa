@@ -1,10 +1,16 @@
+version: '3.8'
+
 services:
   fullstack-app:
     build:
       context: ./fullstack
+    # Set the time zone to Pacific/Auckland (NZDT)
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     restart: always
     ports:
-      - "3000:3000" 
+      - "3000:3000"
     env_file:
       - ./fullstack/.env
 
@@ -14,3 +20,5 @@ services:
     restart: always
     ports:
       - "8000:8000"
+    environment:
+      - TZ=Pacific/Auckland  

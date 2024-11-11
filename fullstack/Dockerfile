@@ -8,8 +8,7 @@ WORKDIR /Cloudy-with-a-Chance-of-LoRa/fullstack
 COPY package*.json ./
 
 # Install production and development dependencies
-RUN npm install --only=production pg pg-promise dotenv \
-    && npm install --save-dev tailwindcss postcss autoprefixer @vitejs/plugin-react-swc
+RUN npm install 
 
 # Copy the rest of the application code
 COPY . .
