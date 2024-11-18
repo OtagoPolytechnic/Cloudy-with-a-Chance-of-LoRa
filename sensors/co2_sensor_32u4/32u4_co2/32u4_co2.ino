@@ -25,7 +25,7 @@ float CO2 = 0;
 
 
 // Network Session Key (MSB)
-uint8_t NwkSkey[16] = { /*FILLMEIN*/ };
+uint8_t NwkSkey[16] = {  /*FILLMEIN*/ };
 
 // Application Session Key (MSB)
 uint8_t AppSkey[16] = { /*FILLMEIN*/ };
@@ -49,14 +49,14 @@ TinyLoRa lora = TinyLoRa(7, 8, 4);
 
 void setup() {
   Serial.begin(9600);  //display on serial monitor
-  while (!Serial)
-    ;
+  // while (!Serial)
+  //   ;
 
   Serial1.begin(9600);
 
   myMHZ19.begin(Serial1);    // Initialize the sensor with hardware serial port 1
   
-  // delay(20000000); // Warmup delay before calibration
+  delay(300000); // Warmup delay before calibration
   
   myMHZ19.autoCalibration();  // Turn auto calibration ON (use false to turn it OF
   myMHZ19.setRange(5000);
@@ -135,8 +135,8 @@ void loop() {
   digitalWrite(LED_BUILTIN, LOW);
 
   //sending interval 5 minutes
-  //delay(300000);
-  delay(6000); // 1 minute
+  delay(300000);
+  // delay(3000); // 1 minute
 }
 
 uint16_t encodeFixedPoint(float value) {
