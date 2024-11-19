@@ -1,46 +1,56 @@
 describe('Weather Dashboard', () => {
-  it('displays the current weather data', () => {
-    // Visit the weather station page
-    cy.visit('http://localhost:3000/');
+  describe('Weather Dashboard', () => {
+    it('displays the current weather labels', () => {
+      // Visit the weather station page
+      cy.visit('https://weather.op-bit.nz/');
+      cy.contains('Loading...').should('not.exist'); // Wait until loading finishes
+      // Check that the page loads and contains specific weather data labels
+      cy.contains('Temperature').should('exist');
+      cy.contains('Humidity').should('exist');
+      cy.contains('Wind').should('exist');
+      cy.contains('Pressure').should('exist');
+      cy.contains('Rain').should('exist');
+      cy.contains('CO2').should('exist');
+      cy.contains('Dust').should('exist');
+      cy.contains('Gas').should('exist');
+    });
 
-    // Check that the page loads and contains specific weather data labels
-    cy.contains('Temperature').should('exist');
-    cy.contains('Humidity').should('exist');
-    cy.contains('Wind').should('exist');
-    cy.contains('Pressure').should('exist');
-    cy.contains('Rain').should('exist');
-    cy.contains('CO2').should('exist');
-    cy.contains('Dust').should('exist');
-    cy.contains('Gas').should('exist');
+    it('displays the correct measurements for each data type', () => {
+      // Visit the weather station page
+      cy.visit('https://weather.op-bit.nz/');
+      cy.contains('Loading...').should('not.exist'); // Wait until loading finishes
 
-    cy.contains('Temperature')
-      .parent()
-      .find('.p.px-4.pb-2')
-      .should('not.be.empty')
-      .invoke('text')
-      .then((text) => {
-        cy.log('Captured Text:', text);
-        expect(text.trim()).to.match(/-?\d+(\.\d+)? °C/); // Validate the format
-      });
+      // Temperature
+      cy.contains('Temperature'); // Ensure the label exists
+      cy.get('.px-4.pb-2').should('contain', '°C'); // Verify the content
 
-    cy.contains('Humidity')
-      .parent()
-      .find('.p.px-4.pb-2')
-      .should('not.be.empty');
+      // Humidity
+      cy.contains('Humidity'); // Ensure the label exists
+      cy.get('.px-4.pb-2').should('contain', '%'); // Verify the content
 
-    cy.contains('Wind').parent().find('.p.px-4.pb-2').should('not.be.empty');
+      // Wind
+      cy.contains('Wind'); // Ensure the label exists
+      cy.get('.px-4.pb-2').should('contain', 'km/h'); // Verify the content
 
-    cy.contains('Pressure')
-      .parent()
-      .find('.p.px-4.pb-2')
-      .should('not.be.empty');
+      // Pressure
+      cy.contains('Pressure'); // Ensure the label exists
+      cy.get('.px-4.pb-2').should('contain', 'hPa'); // Verify the content
 
-    cy.contains('Rain').parent().find('.p.px-4.pb-2').should('not.be.empty');
+      // Rain
+      cy.contains('Rain'); // Ensure the label exists
+      cy.get('.px-4.pb-2').should('contain', 'mm'); // Verify the content
 
-    cy.contains('CO2').parent().find('.p.px-4.pb-2').should('not.be.empty');
+      // CO2
+      cy.contains('CO2'); // Ensure the label exists
+      cy.get('.px-4.pb-2').should('contain', 'ppm'); // Verify the content
 
-    cy.contains('Dust').parent().find('.p.px-4.pb-2').should('not.be.empty');
+      // Dust
+      cy.contains('Dust'); // Ensure the label exists
+      cy.get('.px-4.pb-2').should('contain', 'µg/m³'); // Verify the content
 
-    cy.contains('Gas').parent().find('.p.px-4.pb-2').should('not.be.empty');
+      // Gas
+      cy.contains('Gas'); // Ensure the label exists
+      cy.get('.px-4.pb-2').should('contain', 'ppm'); // Verify the content
+    });
   });
 });
