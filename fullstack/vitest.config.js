@@ -1,6 +1,6 @@
-import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
@@ -21,13 +21,13 @@ export default defineConfig({
       reportOnFailure: true,
       allowExternal: true,
       include: [
-          // path list to include in coverage report
-          '**/src/components/**',
-          '**/src/composables/**',
-          '**/src/server/**'
+        // path list to include in coverage report
+        '**/src/components/**',
+        '**/src/composables/**',
+        '**/src/server/**',
       ],
       clean: true,
     },
     reportOnFailure: true, // Persist coverage report even on failure
   },
-})
+});

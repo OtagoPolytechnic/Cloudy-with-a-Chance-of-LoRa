@@ -1,39 +1,39 @@
-name: Build and Deploy Docker Container
+# name: Build and Deploy Docker Container
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-      - name: Set up Docker Build
-        uses: docker/setup-buildx-action@v2
+#       - name: Set up Docker Build
+#         uses: docker/setup-buildx-action@v2
       
-      - name: Build Docker image
-        run: |
-          docker build -t cloudy-with-a-chance-of-lora:latest .
+#       - name: Build Docker image
+#         run: |
+#           docker build -t cloudy-with-a-chance-of-lora:latest .
       
-      - name: Push Docker image
-        run: |
-          docker tag cloudy-with-a-chance-of-lora:latest bitiot/cloudy-with-a-chance-of-lora:latest
-          docker push bitiot/cloudy-with-a-chance-of-lora:latest
+#       - name: Push Docker image
+#         run: |
+#           docker tag cloudy-with-a-chance-of-lora:latest bitiot/cloudy-with-a-chance-of-lora:latest
+#           docker push bitiot/cloudy-with-a-chance-of-lora:latest
 
-      - name: Set up SSH key
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#       - name: Set up SSH key
+#         uses: webfactory/ssh-agent@v0.5.3
+#         with:
+#           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to server
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-            docker pull bitiot/cloudy-with-a-chance-of-lora:latest && \
-            docker stop my-running-container || true && \
-            docker rm my-running-container || true && \
-            docker run -d --name my-running-container -p 3000:3000 bitiot/cloudy-with-a-chance-of-lora:latest"
+#       - name: Deploy to server
+#         run: |
+#           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+#             docker pull bitiot/cloudy-with-a-chance-of-lora:latest && \
+#             docker stop my-running-container || true && \
+#             docker rm my-running-container || true && \
+#             docker run -d --name my-running-container -p 3000:3000 bitiot/cloudy-with-a-chance-of-lora:latest"

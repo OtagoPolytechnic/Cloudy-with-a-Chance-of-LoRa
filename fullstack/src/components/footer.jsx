@@ -10,7 +10,7 @@ export default function Footer() {
       <p className="m-0 font-light">
         Developed by Samantha, Kieren, Jackson, Tom, and Ben
       </p>
-      <p className="m-0 font-light">Check out our Github page:</p>
+      <p className="m-0 font-light">Check out our GitHub page:</p>
       <div className="mt-2">
         <a
           href="https://github.com/OtagoPolytechnic/Cloudy-with-a-Chance-of-LoRa"

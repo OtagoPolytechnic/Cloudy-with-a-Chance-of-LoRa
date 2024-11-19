@@ -15,6 +15,7 @@ import {
   GasData,
   WindData,
   RainData,
+  HumidityData,
 } from '@/app/utils/receive-data-helper';
 export const dynamic = 'force-dynamic';
 
@@ -52,7 +53,12 @@ export const POST = async (request) => {
     const dust = decodedPayload.dustDensity ?? null;
     const wind_speed = decodedPayload.windSpeed ?? null;
     const wind_direction = decodedPayload.windDir ?? null;
-    const rain_gauge = decodedPayload.rain ?? null;
+    let rain_gauge = decodedPayload.rain ?? null;
+    const humidity = decodedPayload.humidity ?? null;
+
+    if (rain_gauge === 0) {
+      rain_gauge += 1;
+    }
 
     const sensorData = [
       { condition: dust, fetchData: DustData },
@@ -62,6 +68,7 @@ export const POST = async (request) => {
       { condition: gas_level, fetchData: GasData },
       { condition: wind_direction && wind_speed, fetchData: WindData },
       { condition: rain_gauge, fetchData: RainData },
+      { condition: humidity, fetchData: HumidityData },
     ];
 
     if (!authHeader) return new Response('Authentication Required');
@@ -77,46 +84,12 @@ export const POST = async (request) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*', // Allow all origins
-            'Access-Control-Allow-Methods': 'POST', // Allow POST method
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
           },
           status: 400,
         },
       );
-    }
-
-    for (const { condition, fetchData } of sensorData) {
-      if (condition) {
-        const results = await fetchData(
-          device_id,
-          ...(Array.isArray(condition) ? condition : [condition]),
-        );
-        send.push(results);
-      }
-    }
-
-    if (!device_id) {
-      return new Response(
-        JSON.stringify({ message: 'Device ID is required' }),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*', // Allow all origins
-            'Access-Control-Allow-Methods': 'POST', // Allow POST method
-          },
-          status: 400,
-        },
-      );
-    }
-
-    for (const { condition, fetchData } of sensorData) {
-      if (condition) {
-        const results = await fetchData(
-          device_id,
-          ...(Array.isArray(condition) ? condition : [condition]),
-        );
-        send.push(results);
-      }
     }
 
     return new Response(JSON.stringify(send), {

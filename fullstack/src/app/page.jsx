@@ -15,46 +15,51 @@ export const queryClient = new QueryClient();
 export default function Home() {
   return (
     <QueryClientProvider client={queryClient}>
-    <div className="app-container">
-      <Header />
+      <div className="app-container">
+        <Header />
 
-      {/* Widgets Section */}
-      <div className="widgets">
-        <Widget
-          name="Temperature"
-          dataKey="temperature"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget
-          name="Rain"
-          dataKey="rain"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget
-          name="Air Pressure"
-          dataKey="pressure"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget
-          name="Wind"
-          dataKey="wind"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget name="CO2" dataKey="co2" GraphComponent={BarChartComponent} />
-        <Widget name="Gas" dataKey="gas" GraphComponent={LineChartComponent} />
-        <Widget
-          name="Dust"
-          dataKey="dust"
-          GraphComponent={LineChartComponent}
-        />
-        <Cloud />
-        {/* name="Cloud Prediction Model"
+        {/* Widgets Section */}
+        <div className="widgets">
+          <Widget
+            name="Temperature"
+            dataKey="temperature"
+            GraphComponent={LineChartComponent}
+          />
+          <Widget
+            name="Rain"
+            dataKey="rain"
+            GraphComponent={LineChartComponent}
+          />
+          <Widget
+            name="Air Pressure"
+            dataKey="pressure"
+            GraphComponent={LineChartComponent}
+          />
+          <Widget
+            name="Wind"
+            dataKey="wind"
+            GraphComponent={LineChartComponent}
+          />
+          <Widget name="CO2" dataKey="co2" GraphComponent={BarChartComponent} />
+          <Widget name="Gas" dataKey="gas" GraphComponent={BarChartComponent} />
+          <Widget
+            name="Dust"
+            dataKey="dust"
+            GraphComponent={LineChartComponent}
+          />
+          <Widget
+            name="Humidity"
+            dataKey="humidity"
+            GraphComponent={LineChartComponent}
+          />
+          <Cloud />
+          {/* name="Cloud Prediction Model"
           dataKey="cloud"
           GraphComponent={LineChartComponent}
         /> */}
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
     </QueryClientProvider>
   );
 }
