@@ -10,7 +10,7 @@ Kieren Black\
 Jackson Williamson\
 Benjamin Campbell-Nelson\
 Samantha Craig\
-Thomas McIver-Chave\
+Thomas McIver-Chave
 
 2025 Team Members:\
 Taylah Baillie\
