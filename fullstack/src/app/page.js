@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import NavigationBar from "./NavigationBar";
 import SearchHeader from "./SearchHeader";
 import TodayForecast from "./TodayForecast";
+import MoreConditions from "./MoreConditions"; 
 export default function WeatherDashboard() {
 
 
@@ -15,7 +16,12 @@ export default function WeatherDashboard() {
       <NavigationBar />
       <div className="flex flex-col flex-1 ml-28 p-6 space-y-6">
         <SearchHeader />
+        
+
         <TodayForecast />
+
+
+        <MoreConditions />
       </div>
     </div>
   );
