@@ -4,7 +4,9 @@ import NavigationBar from "./NavigationBar";
 import SearchHeader from "./SearchHeader";
 import TodayForecast from "./TodayForecast";
 import MoreConditions from "./MoreConditions";
-import SevenDayForecast from "./SevenDayForecast";
+import SevenDayForecast from "./SevenDayForecast";  
+import SunriseSunset from "./SunriseSunset";
+import LocationDetails from "./LocationDetails";
 
 export default function WeatherDashboard() {
 
@@ -27,6 +29,10 @@ export default function WeatherDashboard() {
 
         <SevenDayForecast />
       </div>
+
+      <LocationDetails />
+
+      <SunriseSunset />
     </div>
   );
 }
