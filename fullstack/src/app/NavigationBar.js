@@ -1,5 +1,4 @@
-// NavigationBar.js
-'use client'; 
+
 import { Home, Cloud, Settings, Info } from "lucide-react";
 
 export default function NavigationBar() {

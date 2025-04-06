@@ -1,5 +1,4 @@
-// SearchHeader.js
-'use client'; 
+
 export default function SearchHeader() {
     return (
       <header className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 h-[300px] flex items-center justify-between shadow-lg">
