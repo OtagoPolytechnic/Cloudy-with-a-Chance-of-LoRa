@@ -1,62 +1,16 @@
-'use client';
+'use client'; 
+import { useState, useEffect } from "react";
 
-import Link from 'next/link'; // Import the Link component for internal navigation
-import Cloud from '@/components/cloud';
 
-import Widget from '@/components/widget';
-import LineChartComponent from '@/components/graphs/LineChartComponent';
-import BarChartComponent from '@/components/graphs/BarChartComponent';
-import Header from '../components/header';
-import Footer from '../components/footer';
-import './page.css';
-//import { Cloud } from 'lucide-react';
+export default function WeatherDashboard() {
 
-export default function Home() {
+
   return (
-    <div className="app-container">
-      <Header />
+    <div className="flex min-h-screen bg-gradient-to-br from-[#1E1B47] to-[#2F2C5D] text-white relative font-sans bg-cover bg-center"
+      style={{ backgroundImage: "url('https://living-future.org/wp-content/uploads/2022/10/2-5-scaled.jpg')" }}>
 
-      {/* Widgets Section */}
-      <div className="widgets">
-        <Widget
-          name="Temperature"
-          dataKey="temperature"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget
-          name="Rain"
-          dataKey="rain"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget
-          name="Air Pressure"
-          dataKey="pressure"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget
-          name="Wind"
-          dataKey="wind"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget name="CO2" dataKey="co2" GraphComponent={BarChartComponent} />
-        <Widget name="Gas" dataKey="gas" GraphComponent={BarChartComponent} />
-        <Widget
-          name="Dust"
-          dataKey="dust"
-          GraphComponent={LineChartComponent}
-        />
-        <Widget
-          name="Humidity"
-          dataKey="humidity"
-          GraphComponent={LineChartComponent}
-        />
-        <Cloud />
-        {/* name="Cloud Prediction Model"
-          dataKey="cloud"
-          GraphComponent={LineChartComponent}
-        /> */}
+      <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-lg"></div>
+
       </div>
-      <Footer />
-    </div>
   );
 }
