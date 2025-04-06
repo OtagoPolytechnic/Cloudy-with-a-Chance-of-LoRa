@@ -1,6 +1,6 @@
 'use client'; 
 import { useState, useEffect } from "react";
-
+import NavigationBar from "./NavigationBar";
 
 export default function WeatherDashboard() {
 
@@ -11,6 +11,10 @@ export default function WeatherDashboard() {
 
       <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-lg"></div>
 
+
+      <div className="flex flex-col flex-1 ml-28 p-6 space-y-6">
+      <NavigationBar />
       </div>
+    </div>
   );
 }
