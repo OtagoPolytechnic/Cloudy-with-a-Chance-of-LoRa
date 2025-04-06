@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import NavigationBar from "./NavigationBar";
 import SearchHeader from "./SearchHeader";
 import TodayForecast from "./TodayForecast";
-import MoreConditions from "./MoreConditions"; 
-export default function WeatherDashboard() {
+import MoreConditions from "./MoreConditions";
+import SevenDayForecast from "./SevenDayForecast";
 
+export default function WeatherDashboard() {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#1E1B47] to-[#2F2C5D] text-white relative font-sans bg-cover bg-center"
@@ -22,6 +23,9 @@ export default function WeatherDashboard() {
 
 
         <MoreConditions />
+
+
+        <SevenDayForecast />
       </div>
     </div>
   );
