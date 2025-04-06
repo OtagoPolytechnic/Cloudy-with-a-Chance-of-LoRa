@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 import { useState, useEffect } from "react";
 import NavigationBar from "./NavigationBar";
 import SearchHeader from "./SearchHeader";
@@ -19,19 +19,21 @@ export default function WeatherDashboard() {
       <NavigationBar />
       <div className="flex flex-col flex-1 ml-28 p-6 space-y-6">
         <SearchHeader />
+
+        <div className="flex flex-row space-x-6">
+          <div className="flex-1">
+            <TodayForecast />
+            <MoreConditions />
+          </div>
+
         
+            <SevenDayForecast />
+   
+        </div>
 
-        <TodayForecast />
-
-
-        <MoreConditions />
-
-
-        <SevenDayForecast />
       </div>
 
       <LocationDetails />
-
       <SunriseSunset />
     </div>
   );

@@ -11,7 +11,7 @@ const TodayForecast = () => {
   ];
 
   return (
-    <section className="bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl shadow-lg">
+    <section className="bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl shadow-lg md:w-[830px]">
       <h2 className="text-xl font-semibold mb-4">Today's Forecast</h2>
       <div className="grid grid-cols-6 gap-4 text-center">
         {forecastData.map((hour, i) => (

@@ -9,9 +9,9 @@ const MoreConditions = () => {
   };
 
   return (
-    <section className="bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl md:h-[300px] shadow-lg">
+    <section className="bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl md:h-[280px] md:w-[835px] shadow-lg pt-4 mt-8"> {/* Added mt-8 for top margin */}
       <h2 className="text-xl font-semibold mb-4">More Conditions</h2>
-      <div className="space-y-2 text-sm">
+      <div className="space-y-2 text-sm"> 
         <p>
           Feels Like: <span className="font-bold">{airData.feelsLike}</span>
         </p>
