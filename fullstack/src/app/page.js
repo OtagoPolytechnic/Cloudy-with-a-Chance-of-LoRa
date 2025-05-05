@@ -1,12 +1,13 @@
 'use client';
 import { useState, useEffect } from "react";
-import NavigationBar from "./NavigationBar";
-import SearchHeader from "./SearchHeader";
-import TodayForecast from "./TodayForecast";
-import MoreConditions from "./MoreConditions";
-import SevenDayForecast from "./SevenDayForecast";  
-import SunriseSunset from "./SunriseSunset";
-import LocationDetails from "./LocationDetails";
+import NavigationBar from "./LandingPageComponents/NavigationBar";
+import SearchHeader from "./LandingPageComponents/SearchHeader";
+import TodayForecast from "./LandingPageComponents/TodayForecast";
+import MoreConditions from "./LandingPageComponents/MoreConditions";
+import SevenDayForecast from "./LandingPageComponents/SevenDayForecast";
+import SunriseSunset from "./LandingPageComponents/SunriseSunset";
+import LocationDetails from "./LandingPageComponents/LocationDetails";
+
 
 export default function WeatherDashboard() {
 
