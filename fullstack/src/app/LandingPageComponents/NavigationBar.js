@@ -1,4 +1,4 @@
-'use client'; // Only needed if this is in an app router (Next.js 13+)
+'use client';
 
 import Link from "next/link";
 import { Home, Cloud, Settings, Info } from "lucide-react";
