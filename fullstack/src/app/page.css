@@ -1,21 +1,109 @@
-.app-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #1e3c72, #6699cc);
-  background-size: 100vw 100vh;
-  background-attachment: fixed;
-  color: #f8f8ff;
-}
-
-.widgets {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 20px;
-  width: 90%;
-  transition: all 0.7s ease;
-}
+.app-container.dark-theme {
+    background-color: #2c2453;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
+  
+  .weather-dashboard {
+    display: flex;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  
+  .sidebar {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .search-box {
+    width: 200px;
+    padding: 0.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    border: none;
+  }
+  
+  .sidebar-icons .icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  .main-content {
+    flex: 1;
+  }
+  
+  .current-weather {
+    text-align: center;
+  }
+  
+  .weather-icon {
+    font-size: 3rem;
+  }
+  
+  .temperature {
+    font-size: 4rem;
+    margin-top: 0.5rem;
+  }
+  
+  .forecast-timeline {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    background-color: #3b2e6e;
+    padding: 1rem;
+    border-radius: 15px;
+  }
+  
+  .forecast-block {
+    text-align: center;
+  }
+  
+  .forecast-icon {
+    font-size: 1.5rem;
+  }
+  
+  .air-conditions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  
+  .condition-box {
+    flex: 1 1 150px;
+    background-color: #3b2e6e;
+    padding: 1rem;
+    border-radius: 15px;
+    text-align: center;
+  }
+  
+  .see-more {
+    background-color: white;
+    color: #3b2e6e;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+  
+  .weekly-forecast {
+    width: 200px;
+    background-color: #3b2e6e;
+    border-radius: 15px;
+    padding: 1rem;
+  }
+  
+  .weekly-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+  
