@@ -2,35 +2,37 @@
 
 import Link from "next/link";
 import NavigationBar from "../LandingPageComponents/NavigationBar";
+import SearchHeader from "../LandingPageComponents/SearchHeader"; // Import SearchHeader
 
 export default function CO2Page() {
   return (
     <div
-      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#1E1B47] to-[#2F2C5D] text-white font-sans bg-cover bg-center"
+      className="flex min-h-screen bg-gradient-to-br from-[#1E1B47] to-[#2F2C5D] text-white relative font-sans bg-cover bg-center"
       style={{
-        backgroundImage: "url('https://hub.op.ac.nz/assets/newsandevents/DUNEDIN-CAMPUS-HUB_100123_6__ScaleMaxWidthWzEwMDBd.jpg')",
+        backgroundImage:
+          "url('https://hub.op.ac.nz/assets/newsandevents/DUNEDIN-CAMPUS-HUB_100123_6__ScaleMaxWidthWzEwMDBd.jpg')",
       }}
     >
+      {/* Background overlay */}
+      <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-lg z-0" />
 
-      <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-lg z-0"></div>
-
-
-      <div className="z-10 w-full">
+      {/* Left-side Navigation Bar */}
+      <div className="sticky top-0 z-20">
         <NavigationBar />
       </div>
 
-
-      <main className="z-10 flex flex-col items-center justify-center flex-1 p-6">
-        <div className="border-2 border-black bg-white text-black rounded-xl p-8 text-center max-w-md shadow-lg">
-          <h1 className="text-2xl font-bold mb-4">🚧 CO2 In Maintenance</h1>
-          <p className="mb-6">Please return later.</p>
-          <Link href="/">
-            <button className="px-6 py-2 bg-black text-white rounded hover:bg-gray-800 transition">
-              Return Home
-            </button>
-          </Link>
+      {/* Main Page Content */}
+      <div className="flex flex-col flex-1 ml-28 p-6  z-10">
+        {/* Search Header (same layout as in WeatherDashboard) */}
+        <div className="rounded-xl sticky top-0 z-10 mb-8">
+          <SearchHeader />
         </div>
-      </main>
+
+        {/* Content Container*/}
+        <div className="bg-white/70 text-black rounded-xl p-8 shadow-lg w-full h-[43vh]">
+        <h2 className="text-xl font-bold mb-4">CO₂ Page </h2>
+        </div>
+      </div>
     </div>
   );
 }
