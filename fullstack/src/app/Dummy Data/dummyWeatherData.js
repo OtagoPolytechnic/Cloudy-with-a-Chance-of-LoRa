@@ -16,6 +16,17 @@ const dummyWeatherData = {
     { time: "Sat", temperature: 26, humidity: 64, rain: 0.3, wind: 5 },
     { time: "Sun", temperature: 24, humidity: 61, rain: 1.0, wind: 7 },
   ],
+
+  "CO2 Data": [
+  { time: "Mon", co2: 420, gas: 150, dust: 70, pressure: 1012 },
+  { time: "Tue", co2: 415, gas: 140, dust: 65, pressure: 1010 },
+  { time: "Wed", co2: 418, gas: 160, dust: 68, pressure: 1008 },
+  { time: "Thu", co2: 422, gas: 155, dust: 72, pressure: 1013 },
+  { time: "Fri", co2: 417, gas: 145, dust: 66, pressure: 1011 },
+  { time: "Sat", co2: 419, gas: 150, dust: 69, pressure: 1009 },
+  { time: "Sun", co2: 416, gas: 148, dust: 67, pressure: 1010 },
+],
+
   "30 Days": Array.from({ length: 30 }, (_, i) => ({
     time: `Day ${i + 1}`,
     temperature: 20 + Math.random() * 6,
