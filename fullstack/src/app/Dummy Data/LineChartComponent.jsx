@@ -11,10 +11,15 @@ import {
 export default function LineChartComponent({ data, dataKey, unit }) {
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+      <LineChart data={data} margin={{ top: 10, right: 30, left: 20, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
         <XAxis dataKey="time" stroke="#000" />
-        <YAxis stroke="#000" unit={unit} />
+        <YAxis
+          stroke="#000"
+          unit={unit}
+          width={60}
+          tick={{ dx: 10, fill: "#000", fontSize: 12 }}
+        />
         <Tooltip
           formatter={(value) => `${value} ${unit || ''}`}
           labelStyle={{ color: "#000" }}

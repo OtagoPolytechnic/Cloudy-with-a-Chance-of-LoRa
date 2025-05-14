@@ -1,36 +1,102 @@
 'use client';
 
-import Link from "next/link";
+import { useState } from "react";
 import NavigationBar from "../LandingPageComponents/NavigationBar";
-import SearchHeader from "../LandingPageComponents/SearchHeader"; // Import SearchHeader
+import SearchHeader from "../LandingPageComponents/SearchHeader";
+import LineChartComponent from "../Dummy Data/LineChartComponent";
+import dummyWeatherData from "../Dummy Data/dummyWeatherData";
 
 export default function CO2Page() {
+  const [selectedMetric, setSelectedMetric] = useState("CO2");
+  const [selectedTimeFilter, setSelectedTimeFilter] = useState("1 Day");
+
+  const graphOptions = {
+    CO2: { dataKey: "co2", unit: "ppm" },
+    Gas: { dataKey: "gas", unit: "ppm" },
+    Dust: { dataKey: "dust", unit: "µg/m³" },
+    Pressure: { dataKey: "pressure", unit: "hPa" },
+  };
+
+  const timeFilters = ["1 Day", "7 Days", "30 Days", "Statistics"];
+
+  const dataKey = graphOptions[selectedMetric].dataKey;
+  const unit = graphOptions[selectedMetric].unit;
+
+  const chartData =
+    dummyWeatherData?.["CO2 Data"]?.[selectedTimeFilter] || [];
+
   return (
     <div
-      className="flex min-h-screen bg-gradient-to-br from-[#1E1B47] to-[#2F2C5D] text-white relative font-sans bg-cover bg-center"
+      className="flex min-h-screen text-white font-sans relative bg-cover bg-center"
       style={{
         backgroundImage:
           "url('https://hub.op.ac.nz/assets/newsandevents/DUNEDIN-CAMPUS-HUB_100123_6__ScaleMaxWidthWzEwMDBd.jpg')",
       }}
     >
-      {/* Background overlay */}
-      <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-lg z-0" />
-
-      {/* Left-side Navigation Bar */}
-      <div className="sticky top-0 z-20">
-        <NavigationBar />
-      </div>
-
-      {/* Main Page Content */}
-      <div className="flex flex-col flex-1 ml-28 p-6  z-10">
-        {/* Search Header (same layout as in WeatherDashboard) */}
-        <div className="rounded-xl sticky top-0 z-10 mb-8">
-          <SearchHeader />
+      <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-md z-0" />
+      <div className="relative flex flex-col flex-1 z-10 min-h-screen w-full">
+        <div className="fixed top-0 left-0 w-full z-20 bg-white bg-opacity-90 shadow">
+          <NavigationBar />
         </div>
 
-        {/* Content Container*/}
-        <div className="bg-white/70 text-black rounded-xl p-8 shadow-lg w-full h-[43vh]">
-        <h2 className="text-xl font-bold mb-4">CO₂ Page </h2>
+        <div className="flex flex-col flex-1 ml-28 p-6 z-10 overflow-y-auto max-h-screen">
+          <div className="rounded-xl sticky top-0 z-10 mb-8 text-white">
+            <SearchHeader />
+          </div>
+
+          {/* Metric Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-6">
+            {Object.keys(graphOptions).map((metric) => (
+              <button
+                key={metric}
+                onClick={() => setSelectedMetric(metric)}
+                className={`px-5 py-2.5 rounded-full font-semibold text-sm transition duration-300 ${
+                  selectedMetric === metric
+                    ? "bg-black text-white shadow-md"
+                    : "bg-gray-300 text-black hover:bg-gray-400"
+                }`}
+              >
+                {metric}
+              </button>
+            ))}
+          </div>
+
+          {/* Chart Section */}
+          <div className="bg-white text-black rounded-xl p-8 shadow-lg w-full max-w-6xl mx-auto">
+            <h2 className="text-2xl font-bold mb-6 text-center">Air Quality Statistics</h2>
+
+            {/* Time Filter Buttons */}
+            <div className="flex justify-center space-x-4 mb-6">
+              {timeFilters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setSelectedTimeFilter(filter)}
+                  className={`px-4 py-2 rounded-full transition font-medium ${
+                    selectedTimeFilter === filter
+                      ? "bg-black text-white"
+                      : "bg-gray-300 text-black hover:bg-gray-400"
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+
+            {/* Line Chart */}
+            <div className="bg-white rounded-xl h-[32rem] p-4 text-black font-semibold shadow-inner border border-gray-200">
+              <h3 className="text-xl font-semibold mb-4 text-center">
+                {selectedMetric} Over Time ({unit})
+              </h3>
+
+              {dataKey ? (
+                <div className="flex justify-center items-center h-[27rem]">
+                  <LineChartComponent data={chartData} dataKey={dataKey} unit={unit} />
+                </div>
+              ) : (
+                <p className="text-center">Select a metric to view the graph.</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
