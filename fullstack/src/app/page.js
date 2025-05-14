@@ -7,7 +7,7 @@ import MoreConditions from "./LandingPageComponents/MoreConditions";
 import SevenDayForecast from "./LandingPageComponents/SevenDayForecast";
 import SunriseSunset from "./LandingPageComponents/SunriseSunset";
 import LocationDetails from "./LandingPageComponents/LocationDetails";
-
+import ClothingSuggestionIcons from "./LandingPageComponents/ClothingSuggestionIcons";
 
 export default function WeatherDashboard() {
 
@@ -27,7 +27,7 @@ export default function WeatherDashboard() {
             <MoreConditions />
           </div>
 
-        
+        <ClothingSuggestionIcons />
             <SevenDayForecast />
    
         </div>
