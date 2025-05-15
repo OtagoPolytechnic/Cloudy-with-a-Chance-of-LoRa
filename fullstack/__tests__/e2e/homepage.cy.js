@@ -83,6 +83,21 @@ describe('Weather Dashboard', () => {
           .and('include', '2-5-scaled.jpg');
       });
 
+      it('should navigate to weather page', () => {
+        cy.get('a[href="/weather"]').click();
+        cy.url().should('include', '/weather');
+      });
+
+      it('should navigate to co2 page', () => {
+        cy.get('a[href="/co2"]').click();
+        cy.url().should('include', '/co2');
+      });
+
+      it('should navigate to about page', () => {
+        cy.get('a[href="/about"]').click();
+        cy.url().should('include', '/about');
+      });
+
   });
 
   
