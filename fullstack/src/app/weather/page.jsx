@@ -1,11 +1,14 @@
 'use client';
 
+
 import { useState } from "react";
 import NavigationBar from "../LandingPageComponents/NavigationBar";
 import SearchHeader from "../LandingPageComponents/SearchHeader";
 
 import LineChartComponent from "../Dummy Data/LineChartComponent";
 import dummyWeatherData from "../Dummy Data/dummyWeatherData";
+import SunriseSunset from "../LandingPageComponents/SunriseSunset";
+import LocationDetails from "../LandingPageComponents/LocationDetails";
 
 export default function WeatherDetails() {
   // State for selected weather metric (e.g., Temperature, Humidity)
@@ -105,6 +108,11 @@ export default function WeatherDetails() {
           </div>
         </div>
       </div>
+<div className="text-white">
+  <LocationDetails />
+  <SunriseSunset />
+</div>
     </div>
+    
   );
 }
