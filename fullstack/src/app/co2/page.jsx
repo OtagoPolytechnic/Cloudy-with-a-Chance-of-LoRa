@@ -62,7 +62,7 @@ export default function CO2Page() {
           </div>
 
           {/* Chart Section */}
-          <div className="bg-white text-black rounded-xl p-8 shadow-lg w-full max-w-6xl mx-auto">
+          <div className="bg-white/80 backdrop-blur-md text-black rounded-2xl p-8 shadow-xl w-full max-w-6xl mx-auto border border-gray-300">
             <h2 className="text-2xl font-bold mb-6 text-center">Air Quality Statistics</h2>
 
             {/* Time Filter Buttons */}
@@ -83,7 +83,7 @@ export default function CO2Page() {
             </div>
 
             {/* Line Chart */}
-            <div className="bg-white rounded-xl h-[32rem] p-4 text-black font-semibold shadow-inner border border-gray-200">
+            <div className="bg-white/70 backdrop-blur-md rounded-2xl h-[32rem] p-6 text-black font-semibold shadow-md border border-gray-200">
               <h3 className="text-xl font-semibold mb-4 text-center">
                 {selectedMetric} Over Time ({unit})
               </h3>

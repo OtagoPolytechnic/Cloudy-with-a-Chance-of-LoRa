@@ -55,7 +55,7 @@ export default function WeatherDetails() {
             {Object.keys(graphOptions).map((metric) => (
               <button
                 key={metric}
-                onClick={() => setSelectedGraph(metric)} // Update selected metric
+                onClick={() => setSelectedGraph(metric)}
                 className={`px-5 py-2.5 rounded-full font-semibold text-sm transition duration-300 ${
                   selectedGraph === metric
                     ? "bg-black text-white shadow-md"
@@ -68,7 +68,7 @@ export default function WeatherDetails() {
           </div>
 
           {/* Chart Container */}
-          <div className="bg-white text-black rounded-xl p-8 shadow-lg w-full max-w-6xl mx-auto">
+          <div className="bg-white/80 backdrop-blur-md text-black rounded-2xl p-8 shadow-xl w-full max-w-6xl mx-auto border border-gray-300">
             <h2 className="text-2xl font-bold mb-6 text-center">Weather Statistics</h2>
 
             {/* Time Filter Buttons */}
@@ -76,7 +76,7 @@ export default function WeatherDetails() {
               {timeFilters.map((filter) => (
                 <button
                   key={filter}
-                  onClick={() => setSelectedTimeFilter(filter)} // Update selected time frame
+                  onClick={() => setSelectedTimeFilter(filter)}
                   className={`px-4 py-2 rounded-full transition font-medium ${
                     selectedTimeFilter === filter
                       ? "bg-black text-white"
@@ -89,12 +89,11 @@ export default function WeatherDetails() {
             </div>
 
             {/* Line Chart Component */}
-            <div className="bg-white rounded-xl h-[32rem] p-4 text-black font-semibold shadow-inner border border-gray-200">
+            <div className="bg-white/70 backdrop-blur-md rounded-2xl h-[32rem] p-6 text-black font-semibold shadow-md border border-gray-200">
               <h3 className="text-xl font-semibold mb-4 text-center">
                 {selectedGraph} Over Time ({unit})
               </h3>
 
-              {/* Chart renders only if a metric is selected */}
               {dataKey ? (
                 <div className="flex justify-center items-center h-[27rem]">
                   <LineChartComponent data={chartData} dataKey={dataKey} unit={unit} />
