@@ -18,6 +18,14 @@ const dummyWeatherData = {
   ],
 
   "CO2 Data": {
+    Hourly: [
+      { time: "10:00", co2: 420, gas: 150, dust: 70, pressure: 1012 },
+      { time: "11:00", co2: 422, gas: 152, dust: 72, pressure: 1013 },
+      { time: "12:00", co2: 419, gas: 148, dust: 68, pressure: 1011 },
+      { time: "13:00", co2: 421, gas: 149, dust: 69, pressure: 1012 },
+      { time: "14:00", co2: 423, gas: 151, dust: 71, pressure: 1010 },
+      { time: "15:00", co2: 425, gas: 153, dust: 73, pressure: 1011 },
+    ],
     "1 Day": [
       { time: "10:00", co2: 420, gas: 150, dust: 70, pressure: 1012 },
       { time: "11:00", co2: 422, gas: 152, dust: 72, pressure: 1013 },
