@@ -1,4 +1,8 @@
 import dummyWeatherData from "../Dummy Data/dummyWeatherData";
+import { FaBars, FaMapMarkerAlt } from "react-icons/fa";
+import { FiSettings } from "react-icons/fi";
+import NavigationBar from "../LandingPageComponents/NavigationBar";
+
 
 export default function SearchHeader() {
   const hourlyData = dummyWeatherData["Hourly"];
@@ -33,29 +37,61 @@ export default function SearchHeader() {
   const icon = conditionIconMap[condition] || "🌦️";
 
   return (
-    <header className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 h-[300px] flex items-center justify-between shadow-lg">
-      <div className="w-2/5 space-y-4">
+    <>
+      {/* Mobile layout: shown only on small screens */}
+      <div className="block sm:hidden w-full p-6 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-lg">
         <input
           type="text"
           placeholder="Search for Locations..."
-          className="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none"
+className="w-full max-w-[200px] h-[33px] p-3 pl-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none mb-4 ml-14"
+
         />
-        <div>
-          <h1 className="text-3xl font-semibold tracking-wide">
-            Otago Polytechnic
-          </h1>
-          <p className="text-gray-300 text-sm">Chance of rain: {rainChance}%</p>
-        </div>
-        <div className="flex items-center space-x-4">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
-            <span className="text-[#2F2C5D] text-4xl font-bold">{icon}</span>
-          </div>
-          <div>
-            <span className="text-6xl font-bold">{temperature}°</span>
-            <p className="text-gray-200 text-sm">{condition}</p>
+        <div className="flex justify-between items-start">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm font-medium">
+            
+              <span>Otago Polytechnic</span>
+              <FaMapMarkerAlt className="text-xs" />
+            </div>
+            <p className="text-gray-300 text-sm">Chance of rain: {rainChance}%</p>
+            <div className="flex items-center space-x-4 mt-2">
+              <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
+                <span className="text-[#2F2C5D] text-3xl font-bold">{icon}</span>
+              </div>
+              <div>
+                <span className="text-5xl font-bold">{temperature}°</span>
+                <p className="text-gray-200 text-sm">{condition}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </header>
+
+      {/* Desktop layout: shown only on medium and up */}
+      <div className="hidden sm:flex w-full justify-between items-center bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 h-[300px] shadow-lg">
+        <div className="w-2/5 space-y-4">
+          <input
+            type="text"
+            placeholder="Search for Locations..."
+            className="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none"
+          />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-wide">
+              Otago Polytechnic
+            </h1>
+            <p className="text-gray-300 text-sm">Chance of rain: {rainChance}%</p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
+              <span className="text-[#2F2C5D] text-4xl font-bold">{icon}</span>
+            </div>
+            <div>
+              <span className="text-6xl font-bold">{temperature}°</span>
+              <p className="text-gray-200 text-sm">{condition}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

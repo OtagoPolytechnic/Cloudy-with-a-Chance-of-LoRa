@@ -56,11 +56,18 @@ const SunriseSunset = () => {
   }, []);
 
   return (
-    <section className="absolute bottom-6 right-6 w-[300px] bg-white/20 backdrop-blur-md border border-white/30 p-4 rounded-2xl shadow-lg">
-      <h3 className="text-sm font-semibold mb-2">Sunrise & Sunset</h3>
-      <p>🌅 Sunrise: {sunTimes.sunrise}</p>
-      <p>🌇 Sunset: {sunTimes.sunset}</p>
-    </section>
+    <div
+      className="
+        bg-white/20 backdrop-blur-md border border-white/30 p-4 rounded-2xl shadow-lg
+        sm:absolute sm:bottom-6 sm:right-6 sm:w-[300px] sm:h-[95px]
+        relative w-full
+      "
+    >
+      <h3 className="text-sm text-gray-300">Sunrise & Sunset</h3>
+      <p className="text-lg font-bold">
+        🌅 {sunTimes.sunrise} &nbsp;&nbsp;&nbsp; 🌇 {sunTimes.sunset}
+      </p>
+    </div>
   );
 };
 

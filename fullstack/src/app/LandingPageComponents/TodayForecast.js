@@ -13,9 +13,11 @@ const TodayForecast = () => {
   };
 
   return (
-    <section className="bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl shadow-lg md:w-[830px]">
-      <h2 className="text-xl font-semibold mb-4">Today's Forecast</h2>
-      <div className="grid grid-cols-6 gap-4 text-center">
+    <section className="bg-white/20 backdrop-blur-md border border-white/30 p-4 sm:p-6 rounded-2xl shadow-lg w-full md:w-[830px]">
+      <h2 className="text-lg sm:text-xl font-semibold mb-4">Today's Forecast</h2>
+      
+      {/* Grid that adjusts per screen size */}
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 text-center text-xs sm:text-sm">
         {hourlyData.map((hour, i) => (
           <div key={i} className="flex flex-col items-center bg-white/10 p-2 rounded-lg shadow-md">
             <span className="text-lg">{getConditionIcon(hour.temperature)}</span>

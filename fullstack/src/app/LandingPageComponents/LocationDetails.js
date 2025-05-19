@@ -76,10 +76,15 @@ export default function LocationDetails() {
 
   // Render the location info in a styled container
   return (
-    <div className="absolute bottom-6 left-6 w-[300px] bg-white/20 backdrop-blur-md border border-white/30 p-4 rounded-2xl shadow-lg">
+    <div
+      className="
+        bg-white/20 backdrop-blur-md border border-white/30 p-4 rounded-2xl shadow-lg
+        sm:absolute sm:bottom-6 sm:left-6 sm:w-[300px] sm:h-[95px]
+        relative w-full
+      "
+    >
       {/* Heading */}
       <h3 className="text-sm text-gray-300">Current Location</h3>
-      
       {/* City and Country */}
       <p className="text-lg font-bold">
         {location.city}, {location.country}

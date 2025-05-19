@@ -22,7 +22,7 @@ const MoreConditions = () => {
   ];
 
   return (
-    <section className="relative bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl md:h-[340px] md:w-[835px] shadow-lg mt-8">
+    <section className="relative bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl md:h-[320px] md:w-[835px] shadow-lg mt-8">
       <button
         onClick={() => router.push("/weather")}
         className="absolute top-4 right-4 flex items-center gap-1 text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-md text-xs transition"

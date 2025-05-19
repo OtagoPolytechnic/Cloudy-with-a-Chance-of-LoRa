@@ -40,7 +40,7 @@ export default function ClothingSuggestionIcons({ currentTemp = 22 }) {
   }, [currentTemp]);
 
   return (
-    <div className="grid grid-cols-2 gap-4 p-6 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 shadow-lg w-[640px] h-[490px]">
+    <div className="grid grid-cols-2 gap-4 p-6 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 shadow-lg w-[640px] h-[557px]">
       {suggestions.map((item, index) => {
         const isActive = index === activeIndex;
 
