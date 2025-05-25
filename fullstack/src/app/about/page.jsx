@@ -38,11 +38,32 @@ export default function AboutPage() {
         <div className="flex flex-col md:flex-row justify-center items-start gap-8 mt-8">
         <div className="bg-black/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl text-white md:h-[280px] md:w-[835px] p-8 pt-4 text-justify leading-relaxed">
         <p className="first-letter:text-2xl first-letter:font-bold first-letter:mr-1 first-letter:float-left">
-        The goal of this project is to build a weather station that fits the requirements set out by our lecturer. We are ustilising the LoRaWAN and Internet of Things to collect and send our sensor data to somewhere we can process the data. 
+        This project was a student-built weather station designed to meet the requirements outlined by our lecturer. It showcases the integration of LoRaWAN technology and the Internet of Things (IoT) to collect and transmit real-time environmental data.
+        </p>
+        <p className="mt-4">
+          Our weather station uses various sensors to measure key conditions such as:
+        </p>
+
+        <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
+        <li> Temperature</li>
+        <li> Humidity</li>
+        <li> Wind speed</li>
+        <li> And more...</li>
+        </ul>
+
+        <p className="mt-4">
+        Using LoRaWAN (Long Range Wide Area Network), this data is sent wire lessly over long distances to a central server where it can be processed, stored, and visualized.
+        This approach allows for low-power, long-range communication, making the system ideal for remote or outdoor locations.
+        </p>
+        
+        <p className="mt-4">
+        The primary goal of this project is not only to meet technical criteria, but to deepen our understanding of modern communication protocols, IoT infrastructure,
+        and environmental monitoring through hands-on development and testing.
         </p>
         </div>
 
-      <div className="md:w-1/2 space-y-4">
+      {/* FAQ Section */}
+      <div className="w-full md:max-w-md space-y-4">
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
         <summary className="cursor-pointer font-semibold">How do you read the weather?</summary>
         <p className="mt-2 text-sm leading-relaxed">You will have access to a personalized dashboard where you can track data, make updates, and manage your sensor configurations.</p>
@@ -69,4 +90,3 @@ export default function AboutPage() {
     </div>
   );
 }
-// bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl md:h-[280px] md:w-[835px] shadow-lg pt-4 mt-8"
