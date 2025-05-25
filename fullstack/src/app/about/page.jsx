@@ -36,11 +36,11 @@ export default function AboutPage() {
         </div>
         <div className="w-full px-4 sm:px-8 lg:px-32">
         <div className="flex flex-col md:flex-row justify-center items-start gap-8 mt-8">
-        <div className="bg-black/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl text-white md:h-[280px] md:w-[835px] p-8 pt-4 text-justify leading-relaxed">
+        <div className="bg-black/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl text-white md:w-[835px] p-8 pt-4 text-justify leading-relaxed">
         <p className="first-letter:text-2xl first-letter:font-bold first-letter:mr-1 first-letter:float-left">
         This project was a student-built weather station designed to meet the requirements outlined by our lecturer. It showcases the integration of LoRaWAN technology and the Internet of Things (IoT) to collect and transmit real-time environmental data.
         </p>
-        <p className="mt-4">
+        <p className="mt-4">  
           Our weather station uses various sensors to measure key conditions such as:
         </p>
 
@@ -65,23 +65,28 @@ export default function AboutPage() {
       {/* FAQ Section */}
       <div className="w-full md:max-w-md space-y-4">
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-        <summary className="cursor-pointer font-semibold">How do you read the weather?</summary>
+        <summary className="cursor-pointer font-semibold">What sensors are used in the system?</summary>
         <p className="mt-2 text-sm leading-relaxed">You will have access to a personalized dashboard where you can track data, make updates, and manage your sensor configurations.</p>
       </details>
 
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-        <summary className="cursor-pointer font-semibold">Is the content on this website available in other languages?</summary>
-        <p className="mt-2 text-sm leading-relaxed">We currently support English but plan to add more language options in future updates.</p>
+        <summary className="cursor-pointer font-semibold">How often is the data updated?</summary>
+        <p className="mt-2 text-sm leading-relaxed">Who knows</p>
       </details>
 
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-        <summary className="cursor-pointer font-semibold">What does it mean to be a part of our platform?</summary>
+        <summary className="cursor-pointer font-semibold">What does it mean to be a part of this platform</summary>
         <p className="mt-2 text-sm leading-relaxed">Being part of our platform means you can remotely monitor, analyze, and receive insights from real-world weather and environmental data.</p>
       </details>
 
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
         <summary className="cursor-pointer font-semibold">What if I have more questions?</summary>
         <p className="mt-2 text-sm leading-relaxed">Feel free to contact our support team or refer to the FAQ section in your dashboard for more guidance.</p>
+      </details>
+
+      <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
+        <summary className="cursor-pointer font-semibold">Where is the weather sensor located?</summary>
+        <p className="mt-2 text-sm leading-relaxed">Roof.</p>
       </details>
       </div>
         </div>
