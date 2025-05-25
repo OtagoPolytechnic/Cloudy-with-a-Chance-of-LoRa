@@ -26,7 +26,7 @@ export default function AboutPage() {
           <h1 className="text-2xl font-bold text-black text-center">About Us</h1>
           <div className="w-40 h-40 md:w-48 md:h-48 relative">
             <Image
-              src="/images/OP-logo.png"
+              src="/images/OP_shield_2009.gif"
               alt="Logo"
               layout="fill"
               objectFit="contain"
