@@ -1,28 +1,28 @@
 'use client';
 
-import { useState } from "react";
-import NavigationBar from "../LandingPageComponents/NavigationBar";
-import SearchHeader from "../LandingPageComponents/SearchHeader";
-import LineChartComponent from "../Dummy Data/LineChartComponent";
-import dummyWeatherData from "../Dummy Data/dummyWeatherData";
-import SunriseSunset from "../LandingPageComponents/SunriseSunset";
-import LocationDetails from "../LandingPageComponents/LocationDetails";
+import { useState } from 'react';
+import NavigationBar from '../LandingPageComponents/NavigationBar';
+import SearchHeader from '../LandingPageComponents/SearchHeader';
+import LineChartComponent from '../Dummy Data/LineChartComponent';
+import dummyWeatherData from '../Dummy Data/dummyWeatherData';
+import SunriseSunset from '../LandingPageComponents/SunriseSunset';
+import LocationDetails from '../LandingPageComponents/LocationDetails';
 
 export default function CO2Page() {
-  const [selectedMetric, setSelectedMetric] = useState("CO2");
-  const [selectedTimeFilter, setSelectedTimeFilter] = useState("Hourly");
+  const [selectedMetric, setSelectedMetric] = useState('CO2');
+  const [selectedTimeFilter, setSelectedTimeFilter] = useState('Hourly');
 
   const graphOptions = {
-    CO2: { dataKey: "co2", unit: "ppm" },
-    Gas: { dataKey: "gas", unit: "ppm" },
-    Dust: { dataKey: "dust", unit: "µg/m³" },
-    Pressure: { dataKey: "pressure", unit: "hPa" },
+    CO2: { dataKey: 'co2', unit: 'ppm' },
+    Gas: { dataKey: 'gas', unit: 'ppm' },
+    Dust: { dataKey: 'dust', unit: 'µg/m³' },
+    Pressure: { dataKey: 'pressure', unit: 'hPa' },
   };
 
-  const timeFilters = ["Hourly", "7 Days", "30 Days", "Statistics"];
+  const timeFilters = ['Hourly', '7 Days', '30 Days', 'Statistics'];
   const dataKey = graphOptions[selectedMetric].dataKey;
   const unit = graphOptions[selectedMetric].unit;
-  const chartData = dummyWeatherData?.["CO2 Data"]?.[selectedTimeFilter] || [];
+  const chartData = dummyWeatherData?.['CO2 Data']?.[selectedTimeFilter] || [];
 
   return (
     <div
@@ -69,8 +69,8 @@ export default function CO2Page() {
                     sm:px-5 sm:py-2.5
                     ${
                       selectedMetric === metric
-                        ? "bg-black text-white shadow-md"
-                        : "bg-gray-300 text-black hover:bg-gray-400"
+                        ? 'bg-black text-white shadow-md'
+                        : 'bg-gray-300 text-black hover:bg-gray-400'
                     }
                     min-w-[40px] sm:min-w-[110px]
                     text-center
@@ -96,8 +96,8 @@ export default function CO2Page() {
                     onClick={() => setSelectedTimeFilter(filter)}
                     className={`px-2 py-2 rounded-full transition font-medium text-xs ${
                       selectedTimeFilter === filter
-                        ? "bg-black text-white"
-                        : "bg-gray-300 text-black hover:bg-gray-400"
+                        ? 'bg-black text-white'
+                        : 'bg-gray-300 text-black hover:bg-gray-400'
                     }`}
                   >
                     {filter}
@@ -120,7 +120,9 @@ export default function CO2Page() {
                     />
                   </div>
                 ) : (
-                  <p className="text-center">Select a metric to view the graph.</p>
+                  <p className="text-center">
+                    Select a metric to view the graph.
+                  </p>
                 )}
               </div>
             </div>

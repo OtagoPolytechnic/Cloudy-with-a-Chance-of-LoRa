@@ -1,11 +1,10 @@
-import dummyWeatherData from "../Dummy Data/dummyWeatherData";
-import { FaBars, FaMapMarkerAlt } from "react-icons/fa";
-import { FiSettings } from "react-icons/fi";
-import NavigationBar from "../LandingPageComponents/NavigationBar";
-
+import dummyWeatherData from '../Dummy Data/dummyWeatherData';
+import { FaBars, FaMapMarkerAlt } from 'react-icons/fa';
+import { FiSettings } from 'react-icons/fi';
+import NavigationBar from '../LandingPageComponents/NavigationBar';
 
 export default function SearchHeader() {
-  const hourlyData = dummyWeatherData["Hourly"];
+  const hourlyData = dummyWeatherData['Hourly'];
   const latestData = hourlyData.slice(-1)[0];
   const temperature = latestData?.temperature ?? 0;
 
@@ -14,24 +13,24 @@ export default function SearchHeader() {
 
   const condition =
     temperature >= 30
-      ? "Hot"
+      ? 'Hot'
       : temperature >= 22
-      ? "Warm"
-      : temperature >= 15
-      ? "Clear"
-      : temperature >= 5
-      ? "Rain"
-      : "Snowing";
+        ? 'Warm'
+        : temperature >= 15
+          ? 'Clear'
+          : temperature >= 5
+            ? 'Rain'
+            : 'Snowing';
 
   const conditionIconMap = {
-    Clear: "☀️",
-    Rain: "🌧️",
-    Warm: "🌤️",
-    Hot: "🔥",
-    Snowing: "❄️",
+    Clear: '☀️',
+    Rain: '🌧️',
+    Warm: '🌤️',
+    Hot: '🔥',
+    Snowing: '❄️',
   };
 
-  const icon = conditionIconMap[condition] || "🌦️";
+  const icon = conditionIconMap[condition] || '🌦️';
 
   return (
     <div className="text-white">
@@ -51,7 +50,9 @@ export default function SearchHeader() {
             <p className="text-sm">Chance of rain: {rainChance}%</p>
             <div className="flex items-center space-x-4 mt-2">
               <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
-                <span className="text-[#2F2C5D] text-3xl font-bold">{icon}</span>
+                <span className="text-[#2F2C5D] text-3xl font-bold">
+                  {icon}
+                </span>
               </div>
               <div>
                 <span className="text-5xl font-bold">{temperature}°</span>

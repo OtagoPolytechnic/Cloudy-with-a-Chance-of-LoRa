@@ -1,33 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export default function ClothingSuggestionIcons({ currentTemp = 22 }) {
   const suggestions = [
     {
-      icon: "🧥",
-      label: "Jacket",
-      tempRange: "0°–10°C",
-      bg: "bg-blue-400/30",  // Soft blue background with more opacity for inactive state
+      icon: '🧥',
+      label: 'Jacket',
+      tempRange: '0°–10°C',
+      bg: 'bg-blue-400/30', // Soft blue background with more opacity for inactive state
       isMatch: (temp) => temp <= 10,
     },
     {
-      icon: "🧣",
-      label: "Layer Up",
-      tempRange: "10°–18°C",
-      bg: "bg-purple-400/30",  // Soft purple background for inactive state
+      icon: '🧣',
+      label: 'Layer Up',
+      tempRange: '10°–18°C',
+      bg: 'bg-purple-400/30', // Soft purple background for inactive state
       isMatch: (temp) => temp > 10 && temp <= 18,
     },
     {
-      icon: "👕",
-      label: "Light Wear",
-      tempRange: "18°–26°C",
-      bg: "bg-yellow-400/30",  // Soft yellow background for inactive state
+      icon: '👕',
+      label: 'Light Wear',
+      tempRange: '18°–26°C',
+      bg: 'bg-yellow-400/30', // Soft yellow background for inactive state
       isMatch: (temp) => temp > 18 && temp <= 26,
     },
     {
-      icon: "🩳",
-      label: "Relaxing",
-      tempRange: "26°C+",
-      bg: "bg-orange-400/30",  // Soft orange background for inactive state
+      icon: '🩳',
+      label: 'Relaxing',
+      tempRange: '26°C+',
+      bg: 'bg-orange-400/30', // Soft orange background for inactive state
       isMatch: (temp) => temp > 26,
     },
   ];
@@ -49,7 +49,7 @@ export default function ClothingSuggestionIcons({ currentTemp = 22 }) {
             key={index}
             className={`flex flex-col items-center justify-center rounded-2xl p-4 transition-all duration-300 ${
               isActive
-                ? "bg-white/80 text-black border border-white/20 shadow-xl scale-105" // Active state: white background, black text, and "glass" effect (backdrop blur)
+                ? 'bg-white/80 text-black border border-white/20 shadow-xl scale-105' // Active state: white background, black text, and "glass" effect (backdrop blur)
                 : `${item.bg} text-white opacity-60 border border-white/20` // Inactive state: soft background color with reduced opacity and subtle border
             }`}
           >
