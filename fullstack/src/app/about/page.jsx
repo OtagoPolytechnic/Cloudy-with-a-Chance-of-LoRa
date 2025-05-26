@@ -39,6 +39,8 @@ export default function AboutPage() {
         </div>
         <div className="w-full px-4 sm:px-8 lg:px-32">
         <div className="flex flex-col md:flex-row justify-center items-start gap-8 mt-8">
+
+        {/* Project description box */}
         <div className="bg-black/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl text-white md:w-[835px] p-8 pt-4 text-justify leading-relaxed">
         <p className="first-letter:text-2xl first-letter:font-bold first-letter:mr-1 first-letter:float-left">
         This project was a student-built weather station designed to meet the requirements outlined by our lecturer. It showcases the integration of LoRaWAN technology and the Internet of Things (IoT) to collect and transmit real-time environmental data.
@@ -46,19 +48,22 @@ export default function AboutPage() {
         <p className="mt-4">  
           Our weather station uses various sensors to measure key conditions such as:
         </p>
-
+        
+        {/* List of sensor types */}
         <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
         <li> Temperature</li>
         <li> Humidity</li>
         <li> Wind speed</li>
         <li> And more...</li>
         </ul>
-
+        
+        {/* Description of data transmission using LoRaWAN */}
         <p className="mt-4">
         Using LoRaWAN (Long Range Wide Area Network), this data is sent wire lessly over long distances to a central server where it can be processed, stored, and visualized.
         This approach allows for low-power, long-range communication, making the system ideal for remote or outdoor locations.
         </p>
         
+        {/* Project goals */}
         <p className="mt-4">
         The primary goal of this project is not only to meet technical criteria, but to deepen our understanding of modern communication protocols, IoT infrastructure,
         and environmental monitoring through hands-on development and testing.
@@ -66,6 +71,7 @@ export default function AboutPage() {
         </div>
 
       {/* FAQ Section */}
+      {/* Using 'details' for collapsable questions */}
       <div className="w-full md:max-w-md space-y-4">
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
         <summary className="cursor-pointer font-semibold">What sensors are used in the system?</summary>
