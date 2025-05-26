@@ -1,12 +1,8 @@
 {
-  "name": "your-project-name",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "vitest"
-  },
-
   "devDependencies": {
-    "cypress": "^13.15.0",
-    "vitest": "^3.0.8"
+    "cypress": "^13.15.0"
+  },
+  "dependencies": {
+    "react-icons": "^5.5.0"
   }
 }
