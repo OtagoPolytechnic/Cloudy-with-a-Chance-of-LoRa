@@ -4,7 +4,7 @@ import Link from "next/link";
 import NavigationBar from "../LandingPageComponents/NavigationBar";
 import Image from "next/image";
 
-
+//AboutPage component displays project information and FAQs
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen bg-blue-200/40 backdrop-blur-xl">
@@ -16,10 +16,13 @@ export default function AboutPage() {
             backgroundPosition: 'center',
             }}>
       </div>
+
+    {/* fixed nav bar on the left side of page */}
       <div className="fixed top-0 left-0 w-full z-50">
         <NavigationBar />
       </div>
-
+    
+   {/* Main content container */}
       <div className="relative z-10 flex flex-col items-center">
         {/* Blue card section */}
         <div className=" w-full flex flex-col md:flex-row items-center justify-center gap-6 px-8 py-10">
@@ -66,12 +69,12 @@ export default function AboutPage() {
       <div className="w-full md:max-w-md space-y-4">
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
         <summary className="cursor-pointer font-semibold">What sensors are used in the system?</summary>
-        <p className="mt-2 text-sm leading-relaxed">You will have access to a personalized dashboard where you can track data, make updates, and manage your sensor configurations.</p>
+        <p className="mt-2 text-sm leading-relaxed">XC3702 Barometric Pressure Sensor, XC3780 Duinotech Arduino Compatible Dust Sensor, Duinotech Arduino Compatible Air Quality Sensor</p>
       </details>
 
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
         <summary className="cursor-pointer font-semibold">How often is the data updated?</summary>
-        <p className="mt-2 text-sm leading-relaxed">Who knows</p>
+        <p className="mt-2 text-sm leading-relaxed">The data is updated constantly in real time.</p>
       </details>
 
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
@@ -81,12 +84,12 @@ export default function AboutPage() {
 
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
         <summary className="cursor-pointer font-semibold">What if I have more questions?</summary>
-        <p className="mt-2 text-sm leading-relaxed">Feel free to contact our support team or refer to the FAQ section in your dashboard for more guidance.</p>
+        <p className="mt-2 text-sm leading-relaxed">Feel free to talk to our development team or refer to the FAQ section on the website.</p>
       </details>
 
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-        <summary className="cursor-pointer font-semibold">Where is the weather sensor located?</summary>
-        <p className="mt-2 text-sm leading-relaxed">Roof.</p>
+        <summary className="cursor-pointer font-semibold">Where is the weather sensor device located?</summary>
+        <p className="mt-2 text-sm leading-relaxed">It is located on the roof of the Polytech's D-Block.</p>
       </details>
       </div>
         </div>
