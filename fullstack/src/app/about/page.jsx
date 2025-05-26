@@ -41,6 +41,7 @@ export default function AboutPage() {
         <div className="flex flex-col md:flex-row justify-center items-start gap-8 mt-8">
 
         {/* Project description box */}
+        
         <div className="bg-black/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl text-white md:w-[835px] p-8 pt-4 text-justify leading-relaxed">
         <p className="first-letter:text-2xl first-letter:font-bold first-letter:mr-1 first-letter:float-left">
         This project was a student-built weather station designed to meet the requirements outlined by our lecturer. It showcases the integration of LoRaWAN technology and the Internet of Things (IoT) to collect and transmit real-time environmental data.
@@ -84,7 +85,7 @@ export default function AboutPage() {
       </details>
 
       <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-        <summary className="cursor-pointer font-semibold">What does it mean to be a part of this platform</summary>
+        <summary className="cursor-pointer font-semibold">What does it mean to be a part of this platform?</summary>
         <p className="mt-2 text-sm leading-relaxed">Being part of our platform means you can remotely monitor, analyze, and receive insights from real-world weather and environmental data.</p>
       </details>
 
