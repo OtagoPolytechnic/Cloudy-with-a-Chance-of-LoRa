@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react';
 export default function LocationDetails() {
   // Local state to store the location info (city, country, and datetime)
   const [location, setLocation] = useState({
-    city: 'Loading...',     // Default message while fetching
+    city: 'Loading...', // Default message while fetching
     country: '',
-    datetime: ''
+    datetime: '',
   });
 
   // useEffect hook runs on component mount (empty dependency array [])
@@ -17,7 +17,7 @@ export default function LocationDetails() {
       try {
         // Fetch location info from OpenStreetMap's reverse geocoding API
         const res = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
+          `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`,
         );
         const data = await res.json(); // Parse JSON response
 
@@ -26,15 +26,15 @@ export default function LocationDetails() {
           data.address.city ||
           data.address.town ||
           data.address.village ||
-          "Unknown"; // fallback if all fields are missing
+          'Unknown'; // fallback if all fields are missing
 
         // Extract country name
-        const country = data.address.country || "";
+        const country = data.address.country || '';
 
         // Format current date and time (in NZ locale, adjust as needed)
         const now = new Date();
         const dateTimeStr = now.toLocaleString('en-NZ', {
-          month: 'long',   // Full month name
+          month: 'long', // Full month name
           day: 'numeric',
           year: 'numeric',
           hour: 'numeric',
@@ -70,7 +70,7 @@ export default function LocationDetails() {
           country: '',
           datetime: new Date().toLocaleString(), // fallback local time
         });
-      }
+      },
     );
   }, []); // Runs only once on initial render
 
@@ -89,7 +89,7 @@ export default function LocationDetails() {
       <p className="text-lg font-bold">
         {location.city}, {location.country}
       </p>
-      
+
       {/* Date and Time */}
       <p className="text-sm text-gray-300">{location.datetime}</p>
     </div>
