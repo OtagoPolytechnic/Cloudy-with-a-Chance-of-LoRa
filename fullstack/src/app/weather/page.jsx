@@ -5,7 +5,6 @@ import NavigationBar from '../LandingPageComponents/NavigationBar';
 import SearchHeader from '../LandingPageComponents/SearchHeader';
 import LocationDetails from '../LandingPageComponents/LocationDetails';
 import SunriseSunset from '../LandingPageComponents/SunriseSunset';
- 
 import Widget from '@/components/widget';
 import LineChartComponent from '@/components/graphs/LineChartComponent';
 import BarChartComponent from '@/components/graphs/BarChartComponent';
@@ -24,6 +23,8 @@ export default function WeatherDetails() {
     return () => window.removeEventListener('resize', checkScreen);
   }, []);
  
+  
+  // Configuration for the metrics and their chart components
   const graphOptions = {
     Temperature: {
       dataKey: 'temperature',
@@ -48,8 +49,6 @@ export default function WeatherDetails() {
   };
  
   const metricKeys = Object.keys(graphOptions);
-  // const timeFilters = ['Hourly', '7 Days', '30 Days', 'Statistics'];
- 
   const selectedOption = graphOptions[selectedGraph];
  
   return (
