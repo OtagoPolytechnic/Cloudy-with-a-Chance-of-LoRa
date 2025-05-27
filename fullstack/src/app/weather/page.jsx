@@ -8,12 +8,12 @@ import SunriseSunset from '../LandingPageComponents/SunriseSunset';
 import Widget from '@/components/widget';
 import LineChartComponent from '@/components/graphs/LineChartComponent';
 import BarChartComponent from '@/components/graphs/BarChartComponent';
- 
+
 export default function WeatherDetails() {
   const [selectedGraph, setSelectedGraph] = useState('Temperature');
   const [selectedTimeFilter, setSelectedTimeFilter] = useState('Hourly');
   const [isSmallScreen, setIsSmallScreen] = useState(false);
- 
+
   useEffect(() => {
     const checkScreen = () => {
       setIsSmallScreen(window.innerWidth < 768);
@@ -22,8 +22,7 @@ export default function WeatherDetails() {
     window.addEventListener('resize', checkScreen);
     return () => window.removeEventListener('resize', checkScreen);
   }, []);
- 
-  
+
   // Configuration for the metrics and their chart components
   const graphOptions = {
     Temperature: {
@@ -47,10 +46,10 @@ export default function WeatherDetails() {
       GraphComponent: LineChartComponent,
     },
   };
- 
+
   const metricKeys = Object.keys(graphOptions);
   const selectedOption = graphOptions[selectedGraph];
- 
+
   return (
     <div
       className="min-h-screen bg-cover bg-center font-sans relative text-white"
@@ -60,17 +59,17 @@ export default function WeatherDetails() {
       }}
     >
       <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-md z-0" />
- 
+
       <div className="relative z-10 w-full max-w-[2800px] mx-auto flex flex-col min-h-screen">
         {/* Navigation */}
         <div className="fixed top-0 left-0 w-full z-20 bg-white bg-opacity-90 shadow">
           <NavigationBar />
         </div>
- 
+
         {/* Main Content */}
         <div className="pt-24 px-4 sm:px-6 space-y-6">
           <SearchHeader />
- 
+
           {/* Metric Selection */}
           <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
             {metricKeys.map((metric) => (
@@ -87,7 +86,7 @@ export default function WeatherDetails() {
               </button>
             ))}
           </div>
- 
+
           {/* Time Filter Selection */}
           {/* <div className="flex justify-center gap-3 sm:gap-4">
             {timeFilters.map((filter) => (
@@ -110,7 +109,7 @@ export default function WeatherDetails() {
             <h2 className="text-2xl font-bold mb-6 text-center">
               {selectedGraph} Over Time ({selectedOption?.unit})
             </h2>
- 
+
             {selectedOption && (
               <Widget
                 name={selectedGraph}
@@ -121,7 +120,7 @@ export default function WeatherDetails() {
               />
             )}
           </div>
- 
+
           {/* Extra Info */}
           <div className="text-white w-full max-w-6xl mx-auto space-y-4">
             <LocationDetails />
@@ -132,4 +131,3 @@ export default function WeatherDetails() {
     </div>
   );
 }
- 

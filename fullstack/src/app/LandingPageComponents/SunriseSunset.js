@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 const SunriseSunset = () => {
   const [sunTimes, setSunTimes] = useState({
-    sunrise: "Loading...",
-    sunset: "Loading...",
+    sunrise: 'Loading...',
+    sunset: 'Loading...',
   });
 
   useEffect(() => {
@@ -15,18 +15,18 @@ const SunriseSunset = () => {
         try {
           // Call the Sunrise-Sunset API
           const res = await fetch(
-            `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`
+            `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`,
           );
           const data = await res.json();
 
-          if (data.status === "OK") {
+          if (data.status === 'OK') {
             // Convert UTC to local time
             const sunrise = new Date(data.results.sunrise);
             const sunset = new Date(data.results.sunset);
 
             const options = {
-              hour: "numeric",
-              minute: "2-digit",
+              hour: 'numeric',
+              minute: '2-digit',
             };
 
             setSunTimes({
@@ -35,23 +35,23 @@ const SunriseSunset = () => {
             });
           } else {
             setSunTimes({
-              sunrise: "Unavailable",
-              sunset: "Unavailable",
+              sunrise: 'Unavailable',
+              sunset: 'Unavailable',
             });
           }
         } catch (error) {
           setSunTimes({
-            sunrise: "Error",
-            sunset: "Error",
+            sunrise: 'Error',
+            sunset: 'Error',
           });
         }
       },
       () => {
         setSunTimes({
-          sunrise: "Permission denied",
-          sunset: "Permission denied",
+          sunrise: 'Permission denied',
+          sunset: 'Permission denied',
         });
-      }
+      },
     );
   }, []);
 

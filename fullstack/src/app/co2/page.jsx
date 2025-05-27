@@ -1,15 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import NavigationBar from "../LandingPageComponents/NavigationBar";
-import SearchHeader from "../LandingPageComponents/SearchHeader";
-import LineChartComponent from "../Dummy Data/LineChartComponent";
-import dummyWeatherData from "../Dummy Data/dummyWeatherData";
-import SunriseSunset from "../LandingPageComponents/SunriseSunset";
-import LocationDetails from "../LandingPageComponents/LocationDetails";
+import NavigationBar from '../LandingPageComponents/NavigationBar';
+import SearchHeader from '../LandingPageComponents/SearchHeader';
+import LineChartComponent from '../Dummy Data/LineChartComponent';
+import dummyWeatherData from '../Dummy Data/dummyWeatherData';
+import SunriseSunset from '../LandingPageComponents/SunriseSunset';
+import LocationDetails from '../LandingPageComponents/LocationDetails';
 import Widget from '@/components/widget';
 import BarChartComponent from '@/components/graphs/BarChartComponent';
-
 
 export default function CO2Page() {
   const [selectedMetric, setSelectedMetric] = useState('CO2');
