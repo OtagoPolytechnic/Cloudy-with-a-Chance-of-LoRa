@@ -28,7 +28,7 @@ describe('CO2 Page - Line Chart Data Rendering', () => {
     cy.get('svg circle').should('have.length.greaterThan', 0);
   });
 
-  // Switch to "Gas" metric and verify that its chart is also working
+
   it('switches to Gas and verifies the chart', () => {
     cy.contains('button', 'Gas').click();
 
