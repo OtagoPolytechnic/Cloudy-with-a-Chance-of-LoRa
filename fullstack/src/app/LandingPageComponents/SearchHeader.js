@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import dummyWeatherData from '../Dummy Data/dummyWeatherData';
-import { FaBars, FaMapMarkerAlt } from 'react-icons/fa';
-import { FiSettings } from 'react-icons/fi';
-import NavigationBar from '../LandingPageComponents/NavigationBar';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 // import { fetchHumidityData } from '@/components/widget'; // Update the path as needed
 
+
 export default function SearchHeader() {
-  /*
+   /*
   const [humidity, setHumidity] = useState(null);
 
   useEffect(() => {
@@ -59,8 +58,8 @@ export default function SearchHeader() {
       <div className="block sm:hidden w-full p-6 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 shadow-lg">
         <input
           type="text"
-          placeholder="Search for Locations..."
-          className="w-full max-w-[200px] h-[33px] p-3 pl-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white focus:outline-none mb-4 ml-14"
+          placeholder="Search..."
+          className="w-[180px] h-[33px] p-2 pl-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white focus:outline-none mb-4 ml-14"
         />
         <div className="flex justify-between items-start">
           <div className="space-y-2">
@@ -71,14 +70,11 @@ export default function SearchHeader() {
             <p className="text-sm">Chance of rain: {rainChance}%</p>
             <div className="flex items-center space-x-4 mt-2">
               <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
-                <span className="text-[#2F2C5D] text-3xl font-bold">
-                  {icon}
-                </span>
+                <span className="text-[#2F2C5D] text-3xl font-bold">{icon}</span>
               </div>
               <div>
                 <span className="text-5xl font-bold">{temperature}°</span>
                 <p className="text-sm">{condition}</p>
-                 {/*  <p className="text-sm">Humidity: {humidity ?? 'Loading...'}%</p> */}
               </div>
             </div>
           </div>
@@ -90,13 +86,11 @@ export default function SearchHeader() {
         <div className="w-2/5 space-y-4">
           <input
             type="text"
-            placeholder="Search for Locations..."
-            className="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white focus:outline-none"
+            placeholder="Search..."
+            className="w-[70%] max-w-sm p-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white focus:outline-none"
           />
           <div>
-            <h1 className="text-3xl font-semibold tracking-wide">
-              Otago Polytechnic
-            </h1>
+            <h1 className="text-3xl font-semibold tracking-wide">Otago Polytechnic</h1>
             <p className="text-sm">Chance of rain: {rainChance}%</p>
           </div>
           <div className="flex items-center space-x-4">
@@ -106,7 +100,6 @@ export default function SearchHeader() {
             <div>
               <span className="text-6xl font-bold">{temperature}°</span>
               <p className="text-sm">{condition}</p>
-            {/*   <p className="text-sm">Humidity: {humidity ?? 'Loading...'}%</p> */}
             </div>
           </div>
         </div>

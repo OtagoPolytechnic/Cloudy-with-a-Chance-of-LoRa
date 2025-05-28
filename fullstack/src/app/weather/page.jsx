@@ -52,7 +52,7 @@ export default function WeatherDetails() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center font-sans relative text-white"
+      className="min-h-screen bg-cover bg-center font-sans  text-white"
       style={{
         backgroundImage:
           "url('https://auckland.op.ac.nz/assets/newsandevents/CORP_campus_CampusBuildings_009-v3__FillWzcxNSw0NTRd.jpg')",
@@ -60,14 +60,14 @@ export default function WeatherDetails() {
     >
       <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-md z-0" />
 
-      <div className="relative z-10 w-full max-w-[2800px] mx-auto flex flex-col min-h-screen">
+      <div className="relative z-10 w-full min-h-screen max-w-[2800px] mx-auto overflow-auto flex flex-col lg:pr-10">
         {/* Navigation */}
         <div className="fixed top-0 left-0 w-full z-20 bg-white bg-opacity-90 shadow">
           <NavigationBar />
         </div>
 
         {/* Main Content */}
-        <div className="pt-24 px-4 sm:px-6 space-y-6">
+         <div className="relative z-10 flex flex-col flex-1 ml-0 lg:ml-28 px-4 pt-7 sm:px-6 pb-6 space-y-6">
           <SearchHeader />
 
           {/* Metric Selection */}
@@ -76,7 +76,7 @@ export default function WeatherDetails() {
               <button
                 key={metric}
                 onClick={() => setSelectedGraph(metric)}
-                className={`px-5 py-2.5 rounded-full font-semibold text-sm transition duration-300 ${
+                className={`px-3 py-2.5 rounded-full font-semibold text-sm transition duration-300 ${
                   selectedGraph === metric
                     ? 'bg-black text-white shadow-md'
                     : 'bg-gray-300 text-black hover:bg-gray-400'
@@ -122,7 +122,7 @@ export default function WeatherDetails() {
           </div>
 
           {/* Extra Info */}
-          <div className="text-white w-full max-w-6xl mx-auto space-y-4">
+          <div className="text-white w-full max-w-6xl mx-auto space-y-5 ">
             <LocationDetails />
             <SunriseSunset />
           </div>

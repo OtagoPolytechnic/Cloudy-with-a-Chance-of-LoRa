@@ -60,14 +60,14 @@ export default function CO2Page() {
     >
       <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-md z-0" />
 
-      <div className="relative z-10 w-full max-w-[2800px] mx-auto flex flex-col min-h-screen">
+      <div className="relative z-10 w-full min-h-screen max-w-[2800px] mx-auto overflow-auto flex flex-col lg:pr-10">
         {/* Navigation */}
         <div className="fixed top-0 left-0 w-full z-20 bg-white bg-opacity-90 shadow">
           <NavigationBar />
         </div>
 
         {/* Main Content */}
-        <div className="pt-24 px-4 sm:px-6 space-y-6">
+          <div className="relative z-10 flex flex-col flex-1 ml-0 lg:ml-28 px-4 pt-7 sm:px-6 pb-6 space-y-6">
           <SearchHeader />
 
           {/* Metric Selection */}
