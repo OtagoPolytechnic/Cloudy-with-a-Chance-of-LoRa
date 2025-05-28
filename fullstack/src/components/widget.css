@@ -33,6 +33,24 @@
   transform: translateY(-5px);
 }
 
+@media (max-width: 768px) {
+  .widget {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 1rem;
+    font-size: 20px;
+    min-height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .widget.expanded {
+    flex: 1 1 100%;
+    max-width: 100%;
+    transform: none;
+  }
+}
+
+
 .button-group .btn {
   padding: 0.5rem 1rem;
   border: none;

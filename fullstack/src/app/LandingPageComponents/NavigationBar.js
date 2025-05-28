@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Cloud, Settings, Info, Menu } from 'lucide-react';
+import { Home, Cloud, Settings, Info, Menu, Bot } from 'lucide-react'; // ✅ Add here
+
 
 // Define navigation items with icon components and paths
 const navItems = [
   { icon: Home, path: '/' },
   { icon: Cloud, path: '/weather' },
   { icon: Settings, path: '/co2' },
+  { icon: Bot, path: '/cloudAi' },
   { icon: Info, path: '/about' },
 ];
 

@@ -1,10 +1,10 @@
 'use client';
+
 import React, { useState } from 'react';
 import Image from 'next/image';
 import './widget.css';
 
 const CloudDetails = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -24,12 +24,21 @@ const CloudDetails = () => {
         method: 'POST',
         body: formData,
       });
+
       const resultData = await apiResponse.json();
 
       if (resultData.error) {
         setError(resultData.error);
       } else {
-        setResult(resultData.result);
+        const match = resultData.result.match(/Prediction:\s*(\w+)\s+Confidence:\s*(\d+(\.\d+)?)/i);
+        if (match) {
+          const label = match[1];
+          const confidence = parseFloat(match[2]);
+          const confidencePercent = Math.round(confidence * 100);
+          setResult(`Prediction: ${label} (${confidencePercent}%)`);
+        } else {
+          setResult(resultData.result);
+        }
       }
     } catch (error) {
       setError('Error occurred during prediction.');
@@ -52,87 +61,70 @@ const CloudDetails = () => {
     analyzeImage(imageBlob);
   };
 
-  const toggleExpand = () => setIsExpanded(!isExpanded);
-
   return (
-    <div
-      onClick={toggleExpand}
-      className={`widget ${isExpanded ? 'expanded' : ''} relative rounded-lg cursor-pointer flex items-center justify-center`}
-    >
-      <div className="text-center">
-        <h1 className="px-4 pb-2">Cloud Details (Experimental)</h1>
-        <p className={`text-lg mb-4 ${!isExpanded ? 'block' : 'hidden'}`}>
-          Click to expand
-        </p>
-        {/* Conditionally render content when isExpanded is true - using Widget Logic */}
-        {isExpanded && (
-          <>
-            <p className="text-lg">
-              This is a cloud prediction model that will return the type of
-              cloud found in an image.
-            </p>
-            <p className="text-lg mb-5">
-              Drag and drop an image or click the test image below:
-            </p>
+    <div className="widget expanded relative rounded-lg flex items-center justify-center w-full">
+      <div className="text-center w-full">
+        <h1 className="text-xl font-semibold pb-2 pt-5">Cloud Details (Experimental)</h1>
 
-            <div
-              onDrop={(e) => {
-                e.preventDefault();
-                handleFileUpload(e.dataTransfer.files[0]);
+        {/* Drop Zone */}
+        <div
+          onDrop={(e) => {
+            e.preventDefault();
+            handleFileUpload(e.dataTransfer.files[0]);
+          }}
+          onDragOver={(e) => e.preventDefault()}
+          className="border-2 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto border-dashed border-gray-400 rounded-md p-4 cursor-pointer mb-4 text-sm text-gray-300 hover:bg-white/5 transition"
+        >
+          <input
+            type="file"
+            accept="image/jpeg, image/png"
+            onChange={(e) => handleFileUpload(e.target.files[0])}
+            className="hidden"
+          />
+          Drag and Drop Image Here
+        </div>
+
+        {/* Test Images */}
+        <div className="flex gap-4 flex-wrap justify-center mb-4">
+          {images.map((image) => (
+            <Image
+              key={image.id}
+              width={112}
+              height={112}
+              src={image.src}
+              alt={image.alt}
+              className="w-28 h-28 rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleImageClick(image.src);
               }}
-              onDragOver={(e) => e.preventDefault()}
-              className="border-4 max-w-[600px] mx-auto border-dashed border-gray-400 rounded-lg p-10 cursor-pointer mb-4"
-            >
-              <input
-                type="file"
-                accept="image/jpeg, image/png"
-                onChange={(e) => handleFileUpload(e.target.files[0])}
-                className="hidden"
-              />
-              Drag and Drop
-            </div>
+            />
+          ))}
+        </div>
 
-            <div className="flex gap-4 flex-wrap justify-center mb-4">
-              {images.map((image) => (
-                <Image
-                  key={image.id}
-                  width={244}
-                  height={144}
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-36 h-36 rounded-lg cursor-pointer transition-transform duration-300 hover:scale-110 hover:shadow-lg"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleImageClick(image.src);
-                  }}
-                />
-              ))}
-            </div>
-
-            {loading && (
-              <div className="flex items-center justify-center space-x-2 text-lg text-[--secondary-foreground] mt-4">
-                <div className="loader w-6 h-6 rounded-full bg-gray-300 animate-pulse"></div>
-                <span>Analyzing image...</span>
-              </div>
-            )}
-
-            {error && <p className="text-red-500 mt-4">{error}</p>}
-
-            {result && (
-              <div className="mt-6 max-w-[600px] justify-center p-4 bg-white text-black rounded-md shadow-md">
-                <h3 className="text-xl font-semibold mb-2">
-                  Prediction Result:
-                </h3>
-                <pre className="text-sm">{result}</pre>
-              </div>
-            )}
-
-            <p className="text-sm mt-4">
-              Note: Predictions may not always be accurate. Please double-check
-              the results.
-            </p>
-          </>
+        {/* Loading */}
+        {loading && (
+          <div className="flex items-center justify-center space-x-2 text-base text-[--secondary-foreground] mt-4">
+            <div className="loader w-5 h-5 rounded-full bg-gray-300 animate-pulse"></div>
+            <span>Analyzing image...</span>
+          </div>
         )}
+
+        {/* Error */}
+        {error && <p className="text-red-500 mt-4 text-sm">{error}</p>}
+
+        {/* Result */}
+        {result && (
+          <div className="mt-6 w-full max-w-sm mx-auto p-4 bg-white text-black rounded-md shadow-md text-left">
+            <h3 className="text-lg font-semibold mb-2">Prediction Result</h3>
+            <p className="text-sm">{result}</p>
+          </div>
+        )}
+
+        {/* Note */}
+        <p className="text-xs text-white/60 mt-3 italic pb-3">
+          Note: Predictions are experimental and may not always be accurate.
+        </p>
       </div>
     </div>
   );
