@@ -109,7 +109,6 @@ export default function WeatherDetails() {
               {selectedGraph} Over Time ({selectedOption?.unit})
             </h2>
 
-
             {selectedOption && (
               <Widget
                 name={selectedGraph}
