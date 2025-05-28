@@ -1,6 +1,5 @@
 // Describe the test suite for verifying the CO2 page's line chart rendering
 describe('CO2 Page - Line Chart Data Rendering', () => {
-
   beforeEach(() => {
     cy.visit('http://localhost:3000/co2');
   });
@@ -27,7 +26,6 @@ describe('CO2 Page - Line Chart Data Rendering', () => {
     // Confirm that new data points are also rendered
     cy.get('svg circle').should('have.length.greaterThan', 0);
   });
-
 
   it('switches to Gas and verifies the chart', () => {
     cy.contains('button', 'Gas').click();
