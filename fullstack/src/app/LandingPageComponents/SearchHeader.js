@@ -1,9 +1,30 @@
+import React, { useEffect, useState } from 'react';
 import dummyWeatherData from '../Dummy Data/dummyWeatherData';
 import { FaBars, FaMapMarkerAlt } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import NavigationBar from '../LandingPageComponents/NavigationBar';
+// import { fetchHumidityData } from '@/components/widget'; // Update the path as needed
 
 export default function SearchHeader() {
+  /*
+  const [humidity, setHumidity] = useState(null);
+
+  useEffect(() => {
+    const getHumidity = async () => {
+      try {
+        const humidityValue = await fetchHumidityData();
+        setHumidity(humidityValue);
+      } catch (error) {
+        console.error('Error fetching humidity:', error);
+      }
+    };
+
+    getHumidity();
+    const interval = setInterval(getHumidity, 60000); // Update every 60 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+*/
   const hourlyData = dummyWeatherData['Hourly'];
   const latestData = hourlyData.slice(-1)[0];
   const temperature = latestData?.temperature ?? 0;
@@ -15,12 +36,12 @@ export default function SearchHeader() {
     temperature >= 30
       ? 'Hot'
       : temperature >= 22
-        ? 'Warm'
-        : temperature >= 15
-          ? 'Clear'
-          : temperature >= 5
-            ? 'Rain'
-            : 'Snowing';
+      ? 'Warm'
+      : temperature >= 15
+      ? 'Clear'
+      : temperature >= 5
+      ? 'Rain'
+      : 'Snowing';
 
   const conditionIconMap = {
     Clear: '☀️',
@@ -57,6 +78,7 @@ export default function SearchHeader() {
               <div>
                 <span className="text-5xl font-bold">{temperature}°</span>
                 <p className="text-sm">{condition}</p>
+                 {/*  <p className="text-sm">Humidity: {humidity ?? 'Loading...'}%</p> */}
               </div>
             </div>
           </div>
@@ -84,6 +106,7 @@ export default function SearchHeader() {
             <div>
               <span className="text-6xl font-bold">{temperature}°</span>
               <p className="text-sm">{condition}</p>
+            {/*   <p className="text-sm">Humidity: {humidity ?? 'Loading...'}%</p> */}
             </div>
           </div>
         </div>

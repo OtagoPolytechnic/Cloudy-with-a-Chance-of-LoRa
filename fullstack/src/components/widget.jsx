@@ -38,6 +38,18 @@ const fetchSensorData = async (dataKey) => {
   }
   return response.json();
 };
+/*
+
+export const fetchHumidityData = async () => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const response = await fetch(`${baseUrl}/api/humidity-data`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch humidity data');
+  }
+  const data = await response.json();
+  return data;
+};
+ */
 
 // Fetch graph data for expanded view
 const fetchGraphData = async (dataKey, length) => {
