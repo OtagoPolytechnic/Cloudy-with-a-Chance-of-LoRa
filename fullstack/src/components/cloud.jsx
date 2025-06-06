@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import './widget.css';
 
@@ -8,6 +8,7 @@ const CloudDetails = () => {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const fileInputRef = useRef(null);
 
   const images = [{ id: 1, src: '/images/1.png', alt: 'Cloud Image 1' }];
 
@@ -66,22 +67,31 @@ const CloudDetails = () => {
       <div className="text-center w-full">
         <h1 className="text-xl font-semibold pb-2 pt-5">Cloud Details (Experimental)</h1>
 
-        {/* Drop Zone */}
+        {/* Drop Zone - Clickable and Drag & Drop */}
         <div
+          onClick={() => fileInputRef.current?.click()}
           onDrop={(e) => {
             e.preventDefault();
             handleFileUpload(e.dataTransfer.files[0]);
           }}
           onDragOver={(e) => e.preventDefault()}
           className="border-2 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto border-dashed border-gray-400 rounded-md p-4 cursor-pointer mb-4 text-sm text-gray-300 hover:bg-white/5 transition"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              fileInputRef.current?.click();
+            }
+          }}
         >
+          Drag and Drop Image Here or Click to Upload
           <input
+            ref={fileInputRef}
             type="file"
             accept="image/jpeg, image/png"
             onChange={(e) => handleFileUpload(e.target.files[0])}
             className="hidden"
           />
-          Drag and Drop Image Here
         </div>
 
         {/* Test Images */}
