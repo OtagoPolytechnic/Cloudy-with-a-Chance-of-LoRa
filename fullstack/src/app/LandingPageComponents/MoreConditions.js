@@ -1,30 +1,34 @@
+'use client';
+
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Cloud } from 'lucide-react';
-import dummyWeatherData from '../Dummy Data/dummyWeatherData';
+import { useSummarySensorData } from '@/components/useSummarySensorData'; 
 
 const MoreConditions = () => {
   const router = useRouter();
 
-  // Use the latest hourly data point
-  const hourlyData = dummyWeatherData['Hourly'];
-  const latest = hourlyData[hourlyData.length - 1];
+  // Live data from hook
+  const { temperature, windSpeed, rainChance, uvIndex } = useSummarySensorData() ?? {};
 
-  // Compute rain chance
-  const rainCount = hourlyData.filter((d) => d.rain > 0).length;
-  const rainChance = Math.round((rainCount / hourlyData.length) * 100);
+  // Default values
+  const defaultTemperature = 20;
+  const defaultWindSpeed = 5;
+  const defaultRainChance = 0;
+  const defaultUvIndex = 3;
 
+  // Calculate values with fallback
+  const tempValue = temperature ?? defaultTemperature;
+  const windValue = windSpeed ?? defaultWindSpeed;
+  const rainPercent = rainChance ?? defaultRainChance;
+  const uvValue = uvIndex ?? defaultUvIndex;
+
+  // Prepare display data
   const airData = [
-    {
-      label: 'Feels Like',
-      value: latest?.temperature ? `${latest.temperature}°` : 'N/A',
-    },
-    { label: 'Wind', value: latest?.wind ? `${latest.wind} km/h` : 'N/A' },
-    {
-      label: 'Chance of Rain',
-      value: isNaN(rainChance) ? 'N/A' : `${rainChance}%`,
-    },
-    { label: 'UV Index', value: '3' }, // placeholder
+    { label: 'Feels Like', value: `${tempValue}°` },
+    { label: 'Wind', value: `${windValue} km/h` },
+    { label: 'Chance of Rain', value: `${rainPercent}` },
+    { label: 'UV Index', value: `${uvValue}` },
   ];
 
   return (
@@ -41,9 +45,7 @@ const MoreConditions = () => {
       <div className="flex items-center justify-between space-x-4">
         <div className="space-y-4">
           <h2 className="text-xl font-semibold text-white">More Conditions</h2>
-          <p className="text-gray-300 text-sm">
-            Details about weather conditions
-          </p>
+          <p className="text-gray-300 text-sm">Details about weather conditions</p>
         </div>
         <div className="flex flex-col items-center justify-center text-center"></div>
       </div>
