@@ -3,31 +3,37 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Cloud } from 'lucide-react';
-import { useSummarySensorData } from '@/components/useSummarySensorData'; 
+import { useSummarySensorData } from '@/components/useSummarySensorData';
 
 const MoreConditions = () => {
   const router = useRouter();
 
-  // Live data from hook
-  const { temperature, windSpeed, rainChance, uvIndex } = useSummarySensorData() ?? {};
+ 
+  const {
+    temperature,
+    wind,
+    rainChance,
+    humidity,
+    uvIndex,
+  } = useSummarySensorData() ?? {};
 
-  // Default values
+
   const defaultTemperature = 20;
-  const defaultWindSpeed = 5;
-  const defaultRainChance = 0;
-  const defaultUvIndex = 3;
+  const defaultWind = 5;
+  const defaultRainChance = 'Unlikely';
+  const defaultUVIndex = 3;
 
-  // Calculate values with fallback
+
   const tempValue = temperature ?? defaultTemperature;
-  const windValue = windSpeed ?? defaultWindSpeed;
-  const rainPercent = rainChance ?? defaultRainChance;
-  const uvValue = uvIndex ?? defaultUvIndex;
+  const windValue = wind ?? defaultWind;
+  const rainStr = rainChance ?? defaultRainChance;
+  const uvValue = uvIndex ?? defaultUVIndex;
 
-  // Prepare display data
+
   const airData = [
     { label: 'Feels Like', value: `${tempValue}°` },
     { label: 'Wind', value: `${windValue} km/h` },
-    { label: 'Chance of Rain', value: `${rainPercent}` },
+    { label: 'Chance of Rain', value: rainStr },
     { label: 'UV Index', value: `${uvValue}` },
   ];
 
