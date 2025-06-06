@@ -24,7 +24,6 @@ export default function WeatherDashboard() {
 
       {/* Main wrapper container for layout with max width */}
       <div className="relative z-10 w-full min-h-screen max-w-[2800px] mx-auto overflow-auto flex flex-col lg:pr-10">
-        
         {/* NavigationBar only shown on large screens */}
         <div className="pt -20">
           <NavigationBar />
@@ -32,7 +31,6 @@ export default function WeatherDashboard() {
 
         {/* Main content container */}
         <div className="relative z-10 flex flex-col flex-1 ml-0 lg:ml-28 px-4 pt-10 sm:pt-3 sm:px-6 pb-6 -mt-6 space-y-6">
-          
           {/* Search bar positioned with spacing compensation for overlapping sections */}
           <div className="-mt-10 sm:mt-0 pt-10">
             <SearchHeader />

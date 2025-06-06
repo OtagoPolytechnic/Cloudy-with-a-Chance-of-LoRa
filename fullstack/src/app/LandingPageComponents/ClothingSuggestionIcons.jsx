@@ -4,7 +4,6 @@ import { useSummarySensorData } from '@/components/useSummarySensorData';
 export default function ClothingSuggestionIcons() {
   const { temperature, isLoading, error, rainChance } = useSummarySensorData();
 
-  
   const temp = typeof temperature === 'number' ? temperature : 22;
 
   const suggestions = [

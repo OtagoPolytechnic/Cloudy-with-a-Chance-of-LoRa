@@ -48,7 +48,10 @@ const SevenDayForecast = () => {
               aria-current={isToday ? 'date' : undefined}
             >
               <span className="font-medium">{day.time}</span>
-              <span className="font-semibold" aria-label={`Weather condition: ${icon}, high ${high}, low ${low}`}>
+              <span
+                className="font-semibold"
+                aria-label={`Weather condition: ${icon}, high ${high}, low ${low}`}
+              >
                 {icon} {high}/{low}
               </span>
             </div>

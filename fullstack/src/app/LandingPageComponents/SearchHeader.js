@@ -21,12 +21,12 @@ export default function SearchHeader() {
     tempValue < 5
       ? 'Snowing'
       : rainChanceStr === 'Likely'
-      ? 'Rain'
-      : tempValue >= 30
-      ? 'Hot'
-      : tempValue >= 22
-      ? 'Warm'
-      : 'Clear';
+        ? 'Rain'
+        : tempValue >= 30
+          ? 'Hot'
+          : tempValue >= 22
+            ? 'Warm'
+            : 'Clear';
 
   // Map condition to an icon
   const conditionIconMap = {
@@ -59,7 +59,10 @@ export default function SearchHeader() {
             <p className="text-sm">Humidity: {humidityValue}%</p>
             <div className="flex items-center space-x-4 mt-2">
               <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
-                <span className="text-[#2F2C5D] text-3xl font-bold" aria-label={`Weather icon: ${condition}`}>
+                <span
+                  className="text-[#2F2C5D] text-3xl font-bold"
+                  aria-label={`Weather icon: ${condition}`}
+                >
                   {icon}
                 </span>
               </div>
@@ -82,13 +85,18 @@ export default function SearchHeader() {
             aria-label="Search location"
           />
           <div>
-            <h1 className="text-3xl font-semibold tracking-wide">Otago Polytechnic</h1>
+            <h1 className="text-3xl font-semibold tracking-wide">
+              Otago Polytechnic
+            </h1>
             <p className="text-sm">Chance of rain: {rainPercent}%</p>
             <p className="text-sm">Humidity: {humidityValue}%</p>
           </div>
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
-              <span className="text-[#2F2C5D] text-4xl font-bold" aria-label={`Weather icon: ${condition}`}>
+              <span
+                className="text-[#2F2C5D] text-4xl font-bold"
+                aria-label={`Weather icon: ${condition}`}
+              >
                 {icon}
               </span>
             </div>

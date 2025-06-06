@@ -15,7 +15,7 @@ const SunriseSunset = () => {
         try {
           // Fetch sunrise and sunset times (UTC ISO strings)
           const res = await fetch(
-            `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`
+            `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`,
           );
           const data = await res.json();
 
@@ -40,8 +40,11 @@ const SunriseSunset = () => {
       },
       () => {
         // Geolocation permission denied or error
-        setSunTimes({ sunrise: 'Permission denied', sunset: 'Permission denied' });
-      }
+        setSunTimes({
+          sunrise: 'Permission denied',
+          sunset: 'Permission denied',
+        });
+      },
     );
   }, []);
 
@@ -56,8 +59,14 @@ const SunriseSunset = () => {
     >
       <h3 className="text-sm text-gray-300">Sunrise &amp; Sunset</h3>
       <p className="text-lg font-bold" aria-live="polite">
-        <span role="img" aria-label="Sunrise">🌅</span> {sunTimes.sunrise} &nbsp;&nbsp;&nbsp;{' '}
-        <span role="img" aria-label="Sunset">🌇</span> {sunTimes.sunset}
+        <span role="img" aria-label="Sunrise">
+          🌅
+        </span>{' '}
+        {sunTimes.sunrise} &nbsp;&nbsp;&nbsp;{' '}
+        <span role="img" aria-label="Sunset">
+          🌇
+        </span>{' '}
+        {sunTimes.sunset}
       </p>
     </section>
   );

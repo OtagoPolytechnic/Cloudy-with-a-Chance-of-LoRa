@@ -6,11 +6,11 @@ const TodayForecast = () => {
 
   // Returns a weather emoji based on temperature
   const getConditionIcon = (temp) => {
-    if (temp >= 30) return '🔥';     // Very hot
-    if (temp >= 22) return '🌤️';    // Warm, partly sunny
-    if (temp >= 15) return '☀️';     // Mild sunny
-    if (temp >= 5) return '🌧️';      // Cool, rainy
-    return '❄️';                     // Cold, snowy
+    if (temp >= 30) return '🔥'; // Very hot
+    if (temp >= 22) return '🌤️'; // Warm, partly sunny
+    if (temp >= 15) return '☀️'; // Mild sunny
+    if (temp >= 5) return '🌧️'; // Cool, rainy
+    return '❄️'; // Cold, snowy
   };
 
   return (
@@ -18,7 +18,9 @@ const TodayForecast = () => {
       aria-label="Today's weather forecast"
       className="bg-white/20 backdrop-blur-md border border-white/30 p-4 sm:p-6 rounded-2xl shadow-lg w-full md:w-[830px]"
     >
-      <h2 className="text-lg sm:text-xl font-semibold mb-4">Today's Forecast</h2>
+      <h2 className="text-lg sm:text-xl font-semibold mb-4">
+        Today's Forecast
+      </h2>
 
       {/* Responsive grid for hourly forecast */}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 text-center text-xs sm:text-sm">

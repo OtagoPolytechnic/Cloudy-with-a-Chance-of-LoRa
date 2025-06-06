@@ -57,7 +57,6 @@ export default function CO2Page() {
 
       {/* Main layout wrapper */}
       <div className="relative z-10 w-full min-h-screen max-w-[2800px] mx-auto flex flex-col">
-        
         {/* Sticky navigation bar at top */}
         <div className="fixed top-0 left-0 w-full z-20 bg-white bg-opacity-90 shadow">
           <NavigationBar />

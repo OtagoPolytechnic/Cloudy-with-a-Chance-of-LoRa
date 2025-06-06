@@ -9,13 +9,8 @@ const MoreConditions = () => {
   const router = useRouter(); // Next.js router for navigation
 
   // Destructure sensor data using custom hook, fallback to empty object if undefined
-  const {
-    temperature,
-    wind,
-    rainChance,
-    humidity,
-    uvIndex,
-  } = useSummarySensorData() ?? {};
+  const { temperature, wind, rainChance, humidity, uvIndex } =
+    useSummarySensorData() ?? {};
 
   // Default fallback values for data in case sensor data is unavailable
   const defaultTemperature = 20;
@@ -53,7 +48,9 @@ const MoreConditions = () => {
       <div className="flex items-center justify-between space-x-4">
         <div className="space-y-4">
           <h2 className="text-xl font-semibold text-white">More Conditions</h2>
-          <p className="text-gray-300 text-sm">Details about weather conditions</p>
+          <p className="text-gray-300 text-sm">
+            Details about weather conditions
+          </p>
         </div>
         {/* Empty div for potential future content or alignment */}
         <div className="flex flex-col items-center justify-center text-center"></div>

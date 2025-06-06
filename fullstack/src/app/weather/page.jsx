@@ -50,7 +50,6 @@ export default function WeatherDetails() {
           "url('https://auckland.op.ac.nz/assets/newsandevents/CORP_campus_CampusBuildings_009-v3__FillWzcxNSw0NTRd.jpg')",
       }}
     >
-
       {/* Blurred translucent overlay for better text readability */}
       <div
         className="fixed inset-0 z-0 backdrop-blur-lg bg-blue-500/30"
@@ -59,7 +58,6 @@ export default function WeatherDetails() {
 
       {/* Main content wrapper with max width and padding */}
       <div className="z-10 w-full min-h-screen max-w-[2800px] mx-auto flex flex-col lg:pr-10">
-
         {/* Sticky/fixed top NavigationBar with translucent background */}
         <div className="fixed top-0 left-0 w-full z-20 bg-white bg-opacity-90 shadow">
           <NavigationBar />

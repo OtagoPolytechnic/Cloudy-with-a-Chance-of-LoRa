@@ -21,7 +21,6 @@ export default function AIPage() {
 
       {/* Main layout container */}
       <div className="relative z-10 w-full min-h-screen max-w-[2800px] mx-auto overflow-auto flex flex-col lg:pr-10">
-        
         {/* Navigation bar (not fixed, scrolls with page) */}
         <div className="pt-4">
           <NavigationBar />
@@ -29,13 +28,11 @@ export default function AIPage() {
 
         {/* Main content block */}
         <div className="relative z-10 flex flex-col flex-1 ml-0 lg:ml-28 px-4 pt-3 sm:px-6 pb-6 space-y-6">
-          
           {/* Search bar at top */}
           <SearchHeader />
 
           {/* Responsive flex layout for CloudDetails and About section */}
           <div className="flex flex-col lg:flex-row gap-6">
-            
             {/* Cloud Analysis Widget */}
             <div className="w-full lg:max-w-xl bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 shadow-lg">
               <CloudDetails />
@@ -48,7 +45,8 @@ export default function AIPage() {
               </h2>
 
               <p className="text-sm leading-relaxed">
-                This AI-powered cloud recognition tool uses a deep learning model to analyze images and classify cloud types such as{' '}
+                This AI-powered cloud recognition tool uses a deep learning
+                model to analyze images and classify cloud types such as{' '}
                 <span className="font-medium text-white">cumulus</span>,{' '}
                 <span className="font-medium text-white">stratus</span>,{' '}
                 <span className="font-medium text-white">cirrus</span>, and{' '}
@@ -56,11 +54,15 @@ export default function AIPage() {
               </p>
 
               <p className="text-sm leading-relaxed">
-                Just drag and drop a cloud image, or use the provided test image. The model will analyze and return the predicted cloud type, often accompanied by a short explanation.
+                Just drag and drop a cloud image, or use the provided test
+                image. The model will analyze and return the predicted cloud
+                type, often accompanied by a short explanation.
               </p>
 
               <p className="text-sm leading-relaxed text-white/80 italic">
-                Note: This tool is experimental and intended for educational or exploratory use. Results may not always be precise — consider verifying with official meteorological resources.
+                Note: This tool is experimental and intended for educational or
+                exploratory use. Results may not always be precise — consider
+                verifying with official meteorological resources.
               </p>
             </div>
 
