@@ -7,26 +7,28 @@ import { useSummarySensorData } from '@/components/useSummarySensorData';
 export default function SearchHeader() {
   const { humidity, temperature, rainChance } = useSummarySensorData();
 
-  // Fallback defaults if data is missing or null/undefined
-  const rainChanceStr = rainChance ?? 'Unlikely'; // default to 'Unlikely'
-  const rainPercent = rainChanceStr === 'Likely' ? 70 : 0; // default 0% rain if no data
+  // Fallbacks
+  const rainChanceStr = rainChance ?? 'Unlikely'; // fallback string
+  // Map rain chance string to a percentage (can expand as needed)
+  const rainPercent = rainChanceStr === 'Likely' ? 70 : 0;
 
-  const tempValue = temperature !== null && temperature !== undefined ? Math.round(temperature) : 20; // default 20°C
-  const humidityValue = humidity !== null && humidity !== undefined ? Math.round(humidity) : 5; // default 5%
+  // Round temperature and humidity or fallback to defaults
+  const tempValue = temperature != null ? Math.round(temperature) : 20;
+  const humidityValue = humidity != null ? Math.round(humidity) : 5;
 
-const condition =
-  tempValue < 5
-    ? 'Snowing'
-    : rainChanceStr === 'Likely'
-    ? 'Rain'
-    : tempValue >= 30
-    ? 'Hot'
-    : tempValue >= 22
-    ? 'Warm'
-    : tempValue >= 15
-    ? 'Clear'
-    : 'Clear';
+  // Determine condition text
+  const condition =
+    tempValue < 5
+      ? 'Snowing'
+      : rainChanceStr === 'Likely'
+      ? 'Rain'
+      : tempValue >= 30
+      ? 'Hot'
+      : tempValue >= 22
+      ? 'Warm'
+      : 'Clear';
 
+  // Map condition to an icon
   const conditionIconMap = {
     Clear: '☀️',
     Rain: '🌧️',
@@ -45,18 +47,21 @@ const condition =
           type="text"
           placeholder="Search..."
           className="w-[180px] h-[33px] p-2 pl-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white focus:outline-none mb-4 ml-14"
+          aria-label="Search location"
         />
         <div className="flex justify-between items-start">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm font-medium">
               <span>Otago Polytechnic</span>
-              <FaMapMarkerAlt className="text-xs" />
+              <FaMapMarkerAlt className="text-xs" aria-hidden="true" />
             </div>
             <p className="text-sm">Chance of rain: {rainPercent}%</p>
             <p className="text-sm">Humidity: {humidityValue}%</p>
             <div className="flex items-center space-x-4 mt-2">
               <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
-                <span className="text-[#2F2C5D] text-3xl font-bold">{icon}</span>
+                <span className="text-[#2F2C5D] text-3xl font-bold" aria-label={`Weather icon: ${condition}`}>
+                  {icon}
+                </span>
               </div>
               <div>
                 <span className="text-5xl font-bold">{tempValue}°</span>
@@ -74,6 +79,7 @@ const condition =
             type="text"
             placeholder="Search..."
             className="w-[70%] max-w-sm p-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white focus:outline-none"
+            aria-label="Search location"
           />
           <div>
             <h1 className="text-3xl font-semibold tracking-wide">Otago Polytechnic</h1>
@@ -82,7 +88,9 @@ const condition =
           </div>
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
-              <span className="text-[#2F2C5D] text-4xl font-bold">{icon}</span>
+              <span className="text-[#2F2C5D] text-4xl font-bold" aria-label={`Weather icon: ${condition}`}>
+                {icon}
+              </span>
             </div>
             <div>
               <span className="text-6xl font-bold">{tempValue}°</span>

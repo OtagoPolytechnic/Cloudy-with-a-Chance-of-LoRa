@@ -5,13 +5,16 @@ import Image from 'next/image';
 import './widget.css';
 
 const CloudDetails = () => {
+  // State hooks to manage analysis result, loading state, and error messages
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef(null); // Ref for file input trigger
 
+  // Predefined sample image(s) for testing
   const images = [{ id: 1, src: '/images/1.png', alt: 'Cloud Image 1' }];
 
+  // Sends the selected image to the cloud classification API
   const analyzeImage = async (file) => {
     try {
       setLoading(true);
@@ -28,6 +31,7 @@ const CloudDetails = () => {
 
       const resultData = await apiResponse.json();
 
+      // Check and parse the returned prediction string
       if (resultData.error) {
         setError(resultData.error);
       } else {
@@ -38,6 +42,7 @@ const CloudDetails = () => {
           const confidencePercent = Math.round(confidence * 100);
           setResult(`Prediction: ${label} (${confidencePercent}%)`);
         } else {
+          // Fallback in case parsing fails
           setResult(resultData.result);
         }
       }
@@ -48,6 +53,7 @@ const CloudDetails = () => {
     }
   };
 
+  // Handles file input validation and triggers analysis
   const handleFileUpload = (file) => {
     if (!file || (file.type !== 'image/jpeg' && file.type !== 'image/png')) {
       setError('Only JPEG and PNG images are supported.');
@@ -56,6 +62,7 @@ const CloudDetails = () => {
     analyzeImage(file);
   };
 
+  // Handles test image click and converts it into a blob for analysis
   const handleImageClick = async (imageSrc) => {
     const response = await fetch(imageSrc);
     const imageBlob = await response.blob();
@@ -67,7 +74,7 @@ const CloudDetails = () => {
       <div className="text-center w-full">
         <h1 className="text-xl font-semibold pb-2 pt-5">Cloud Details (Experimental)</h1>
 
-        {/* Drop Zone - Clickable and Drag & Drop */}
+        {/* Drag and drop or click-to-upload area */}
         <div
           onClick={() => fileInputRef.current?.click()}
           onDrop={(e) => {
@@ -94,7 +101,7 @@ const CloudDetails = () => {
           />
         </div>
 
-        {/* Test Images */}
+        {/* Sample/test images section */}
         <div className="flex gap-4 flex-wrap justify-center mb-4">
           {images.map((image) => (
             <Image
@@ -112,7 +119,7 @@ const CloudDetails = () => {
           ))}
         </div>
 
-        {/* Loading */}
+        {/* Loading indicator */}
         {loading && (
           <div className="flex items-center justify-center space-x-2 text-base text-[--secondary-foreground] mt-4">
             <div className="loader w-5 h-5 rounded-full bg-gray-300 animate-pulse"></div>
@@ -120,10 +127,10 @@ const CloudDetails = () => {
           </div>
         )}
 
-        {/* Error */}
+        {/* Error message display */}
         {error && <p className="text-red-500 mt-4 text-sm">{error}</p>}
 
-        {/* Result */}
+        {/* Result display box */}
         {result && (
           <div className="mt-6 w-full max-w-sm mx-auto p-4 bg-white text-black rounded-md shadow-md text-left">
             <h3 className="text-lg font-semibold mb-2">Prediction Result</h3>
@@ -131,7 +138,7 @@ const CloudDetails = () => {
           </div>
         )}
 
-        {/* Note */}
+        {/* Disclaimer for users */}
         <p className="text-xs text-white/60 mt-3 italic pb-3">
           Note: Predictions are experimental and may not always be accurate.
         </p>

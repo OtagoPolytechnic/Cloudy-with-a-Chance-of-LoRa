@@ -9,20 +9,22 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import {
-  calculateYAxisConfig,
-  filterAndSortData,
-  CustomXAxisTick,
+  calculateYAxisConfig, // Helper to dynamically configure Y-axis range/ticks
+  filterAndSortData,    // Filters and sorts chart data based on viewType
+  CustomXAxisTick,      // Custom X-axis tick rendering component
 } from '../../app/utils/chartUtils';
 
 const LineChartComponent = ({ data, datakey, viewType }) => {
-  const [isScrollEnabled, setIsScrollEnabled] = useState(
-    window.innerWidth <= 1060
-  );
+  // State to determine if chart should be scrollable based on screen width
+  const [isScrollEnabled, setIsScrollEnabled] = useState(window.innerWidth <= 1060);
+  // State for responsive chart height
   const [chartHeight, setChartHeight] = useState(280);
 
+  // Custom colors for chart styling
   const graphColor = '#113f67';
   const xyAxis = 'black';
 
+  // Update scroll and chart height on screen resize
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -30,16 +32,17 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
       setChartHeight(width < 480 ? 220 : width < 768 ? 260 : 280);
     };
 
-    handleResize();
+    handleResize(); // Run initially
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Get appropriate Y-axis settings and filtered chart data
   const { domain, ticks } = calculateYAxisConfig(data, datakey);
   const xAxisDataKey = viewType === 'hourly' ? 'hour' : 'day';
-
   const filteredData = filterAndSortData(data, xAxisDataKey, viewType);
 
+  // Duplicate single-entry data to ensure chart renders properly
   const safeData =
     filteredData.length === 1
       ? [
@@ -51,6 +54,7 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
         ]
       : filteredData;
 
+  // Determine width for scrollable charts (only if viewType is not 7days)
   const containerWidth =
     viewType !== '7days' && isScrollEnabled
       ? `${Math.max(safeData.length * 50, window.innerWidth)}px`
@@ -62,8 +66,7 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
         height: '100%',
         width: '100%',
         marginTop: '10px',
-        overflowX:
-          isScrollEnabled && viewType !== '7days' ? 'scroll' : 'hidden',
+        overflowX: isScrollEnabled && viewType !== '7days' ? 'scroll' : 'hidden',
       }}
     >
       <div style={{ width: containerWidth }}>
@@ -72,7 +75,10 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
             data={safeData}
             margin={{ top: 10, right: 22, left: 0, bottom: 15 }}
           >
+            {/* Grid lines for better readability */}
             <CartesianGrid stroke="white" strokeDasharray="5 5" />
+            
+            {/* X-axis customization */}
             <XAxis
               dataKey={xAxisDataKey}
               stroke={xyAxis}
@@ -82,17 +88,19 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
               angle={-45}
               dy={10}
             />
+
+            {/* Y-axis customization */}
             <YAxis
               type="number"
               domain={domain}
               ticks={ticks}
               stroke={xyAxis}
               allowDecimals={false}
-              tickFormatter={(value) =>
-                value < 10 ? value.toFixed(2) : value
-              }
+              tickFormatter={(value) => (value < 10 ? value.toFixed(2) : value)}
               tick={{ fontSize: 12 }}
             />
+
+            {/* Tooltip configuration */}
             <Tooltip
               cursor={{ fill: 'transparent' }}
               contentStyle={{
@@ -102,8 +110,10 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
                 padding: '5px',
               }}
               itemStyle={{ color: graphColor }}
-              labelFormatter={() => ''}
+              labelFormatter={() => ''} // Hide X-axis label in tooltip
             />
+
+            {/* Main chart line */}
             <Line
               type="monotone"
               dataKey={datakey}

@@ -16,26 +16,32 @@ export default function AIPage() {
           "url('https://living-future.org/wp-content/uploads/2022/10/2-5-scaled.jpg')",
       }}
     >
+      {/* Background blur overlay for improved readability */}
       <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-lg z-0" />
 
+      {/* Main layout container */}
       <div className="relative z-10 w-full min-h-screen max-w-[2800px] mx-auto overflow-auto flex flex-col lg:pr-10">
+        
+        {/* Navigation bar (not fixed, scrolls with page) */}
         <div className="pt-4">
           <NavigationBar />
         </div>
 
+        {/* Main content block */}
         <div className="relative z-10 flex flex-col flex-1 ml-0 lg:ml-28 px-4 pt-3 sm:px-6 pb-6 space-y-6">
+          
+          {/* Search bar at top */}
           <SearchHeader />
 
-          {/* Responsive container that stacks vertically on mobile */}
+          {/* Responsive flex layout for CloudDetails and About section */}
           <div className="flex flex-col lg:flex-row gap-6">
+            
             {/* Cloud Analysis Widget */}
             <div className="w-full lg:max-w-xl bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 shadow-lg">
               <CloudDetails />
             </div>
 
-
-
-            {/* About Section */}
+            {/* Informational “About” Panel */}
             <div className="w-full lg:max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl text-white/90 space-y-4 transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">
               <h2 className="text-xl font-bold tracking-tight text-white mb-2">
                 🔍 About Cloud Details
@@ -57,10 +63,12 @@ export default function AIPage() {
                 Note: This tool is experimental and intended for educational or exploratory use. Results may not always be precise — consider verifying with official meteorological resources.
               </p>
             </div>
-              <div className="text-white w-full max-w-6xl mx-auto space-y-4">
-            <LocationDetails />
-            <SunriseSunset />
-          </div>
+
+            {/* Weather Context Widgets (shown below on mobile, right-side on desktop) */}
+            <div className="text-white w-full max-w-6xl mx-auto space-y-4">
+              <LocationDetails />
+              <SunriseSunset />
+            </div>
           </div>
         </div>
       </div>

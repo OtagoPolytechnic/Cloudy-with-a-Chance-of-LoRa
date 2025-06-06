@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import './widget.css';
 
+// Define units and labels for each sensor type
 const sensorMapping = {
   temperature: { unit: '°C', label: 'Temperature' },
   pressure: { unit: 'hPa', label: 'Air Pressure' },
@@ -14,20 +15,19 @@ const sensorMapping = {
   humidity: { unit: '%', label: 'Humidity' },
 };
 
+// Tooltips for each sensor to give helpful context
 const tooltipMapping = {
-  temperature:
-    'Shows current ambient temperature in Celsius. Comfortable indoor range: 20-25°C; low or high values may affect comfort and efficiency.',
-  pressure:
-    'Displays air pressure in hectopascals. Standard at sea level is 1013 hPa; variations can indicate weather changes.',
-  wind: 'Represents wind speed in kilometers per hour. High speeds can influence ventilation and comfort in open areas.',
-  dust: 'Shows airborne dust concentration in micrograms per cubic meter. Lower levels indicate better air quality; values above 50 µg/m³ may affect health.',
-  co2: 'Indicates CO₂ concentration in parts per million. Levels below 1000 ppm are optimal indoors; higher levels suggest poor ventilation.',
-  gas: 'Reflects tvoc (Total volatile organic compounds) concentration in parts per million. Elevated readings could signal indoor air quality issues or pollutant sources.',
-  rain: 'Indicates the current rainfall level measured in millimeters per hour. Light rain is generally below 2.5 mm per hour',
-  humidity:
-    'Shows the relative humidity in percentage. Ideal indoor range is 30-50%; high levels can cause discomfort and mold growth.',
+  temperature: 'Shows current ambient temperature in Celsius...',
+  pressure: 'Displays air pressure in hectopascals...',
+  wind: 'Represents wind speed in kilometers per hour...',
+  dust: 'Shows airborne dust concentration...',
+  co2: 'Indicates CO₂ concentration in parts per million...',
+  gas: 'Reflects tvoc (Total volatile organic compounds)...',
+  rain: 'Indicates the current rainfall level in mm...',
+  humidity: 'Shows the relative humidity in percentage...',
 };
 
+// Fetch the latest sensor data
 const fetchSensorData = async (dataKey) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const response = await fetch(`${baseUrl}/api/${dataKey}-data`);
@@ -35,10 +35,12 @@ const fetchSensorData = async (dataKey) => {
   return response.json();
 };
 
+// Fetch graph data for different durations
 const fetchGraphData = async (dataKey, length) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   let table, value;
 
+  // Map dataKey to correct table and column name
   switch (dataKey) {
     case 'rain':
       table = 'rainfall_measurement';
@@ -72,12 +74,15 @@ const fetchGraphData = async (dataKey, length) => {
   return response.json();
 };
 
+// Main widget component
 const Widget = ({ name, dataKey, GraphComponent }) => {
-  const [graphDataCache, setGraphDataCache] = useState({});
-  const [viewLength, setViewLength] = useState(1);
-  const [openTooltip, setOpenTooltip] = useState(false);
-  const graphData = graphDataCache[viewLength] || [];
+  const [graphDataCache, setGraphDataCache] = useState({}); // Caches graph data by view length
+  const [viewLength, setViewLength] = useState(1); // Current graph view (1=hourly, 7=weekly, etc.)
+  const [openTooltip, setOpenTooltip] = useState(false); // Controls tooltip open state
 
+  const graphData = graphDataCache[viewLength] || []; // Get current graph data
+
+  // Fetch latest sensor data using React Query
   const { data, error, isLoading } = useQuery({
     queryKey: [dataKey],
     queryFn: () => fetchSensorData(dataKey),
@@ -85,6 +90,7 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
     cacheTime: 300000,
   });
 
+  // Fetch and update graph data on mount and interval
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -98,11 +104,12 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
       }
     };
 
-    fetchData();
-    const interval = setInterval(fetchData, 60000);
-    return () => clearInterval(interval);
+    fetchData(); // Initial fetch
+    const interval = setInterval(fetchData, 60000); // Refresh every 60s
+    return () => clearInterval(interval); // Clean up
   }, [viewLength, dataKey]);
 
+  // Switch between view lengths (hourly, 7 days, 30 days)
   const handleViewChange = async (length) => {
     setViewLength(length);
     if (!graphDataCache[length]) {
@@ -118,20 +125,23 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
     }
   };
 
+  // Get the most recent data entry
   const latestData = data?.length ? data[data.length - 1] : null;
 
+  // Display latest sensor value
   const renderLatestData = () => {
     if (isLoading) return 'Loading...';
     if (error) return 'Error fetching data';
     if (!latestData) return 'No Data Available';
 
     let value;
+    // Determine correct value from data based on key
     switch (dataKey) {
       case 'temperature':
         value = latestData.avg_temperature;
         break;
       case 'wind':
-        value = parseFloat(latestData.wind_speed * 3.6).toFixed(2);
+        value = parseFloat(latestData.wind_speed * 3.6).toFixed(2); // Convert m/s to km/h
         break;
       case 'co2':
         value = latestData.co2_level;
@@ -154,12 +164,14 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
     return `${value} ${unit}`;
   };
 
+  // Toggle the info tooltip
   const handleTooltipToggle = () => {
     setOpenTooltip((prev) => !prev);
   };
 
   return (
     <div className="widget expanded relative rounded-lg">
+      {/* Header with label and tooltip icon */}
       <div className="flex justify-between items-start p-4">
         <div className="flex items-center space-x-1">
           <p>{name}</p>
@@ -189,10 +201,13 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
         </div>
       </div>
 
+      {/* Latest value display */}
       <p className="px-4 pb-2">{renderLatestData()}</p>
 
+      {/* Graph area */}
       {GraphComponent && (
         <>
+          {/* View toggle buttons */}
           <div
             className="button-group flex justify-center space-x-2 mb-2"
             onClick={(e) => e.stopPropagation()}
@@ -217,6 +232,7 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
             </button>
           </div>
 
+          {/* Graph rendering */}
           <div
             className="graph-container custom-scrollbar flex items-center justify-center h-[300px] px-2"
             onClick={(e) => e.stopPropagation()}

@@ -17,19 +17,24 @@ export default function AboutPage() {
           "url('https://living-future.org/wp-content/uploads/2022/10/2-5-scaled.jpg')",
       }}
     >
+      {/* Background overlay with blur and color */}
       <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-lg z-0" />
 
+      {/* Main container */}
       <div className="relative z-10 w-full min-h-screen max-w-[2800px] mx-auto overflow-auto flex flex-col lg:pr-10">
+        
+        {/* Navigation bar */}
         <div className="pt-4">
           <NavigationBar />
         </div>
 
+        {/* Content area with side margin for large screens */}
         <div className="relative z-10 flex flex-col flex-1 ml-0 lg:ml-28 px-4 pt-3 sm:px-6 pb-6 space-y-6">
           <SearchHeader />
 
-          {/* 3-column responsive layout */}
+          {/* 3-column responsive grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* About Project */}
+            {/* About Project Section */}
             <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 shadow-lg text-white leading-relaxed text-justify space-y-4">
               <h1 className="text-2xl font-bold mb-2">🌦️ About Our Weather Station</h1>
               <p>
@@ -38,9 +43,7 @@ export default function AboutPage() {
                 LoRaWAN technology and the Internet of Things (IoT) to collect and
                 transmit real-time environmental data.
               </p>
-              <p>
-                Our weather station uses various sensors to measure key conditions such as:
-              </p>
+              <p>Our weather station uses various sensors to measure key conditions such as:</p>
               <ul className="list-disc list-inside ml-4">
                 <li>Temperature</li>
                 <li>Humidity</li>
@@ -94,34 +97,34 @@ export default function AboutPage() {
               ))}
             </div>
 
-           <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 shadow-lg space-y-4">
-  <h2 className="text-xl font-bold text-white text-center mb-2">
-    📸 Highlights
-  </h2>
-  <div className="grid grid-cols-2 gap-3">
-    {crewImages.map((img, i) => (
-      <div
-        key={i}
-        className="overflow-hidden rounded-xl border border-white/20 group aspect-[4/3]"
-      >
-        <div className="relative w-full h-0 pb-[75%]"> {/* 4:3 aspect ratio */}
-          <Image
-            src={`/images/Crew/${img}`}
-            alt={`Crew member ${i + 1}`}
-            fill
-            className="object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out rounded-xl"
-          />
-        </div>
-      </div>
-      
-    ))}
-  </div>
-</div>
-      <div className="text-white w-full max-w-6xl mx-auto space-y-4">
-                    <LocationDetails />
-                    <SunriseSunset />
+            {/* Crew Highlights */}
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 shadow-lg space-y-4">
+              <h2 className="text-xl font-bold text-white text-center mb-2">📸 Highlights</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {crewImages.map((img, i) => (
+                  <div
+                    key={i}
+                    className="overflow-hidden rounded-xl border border-white/20 group aspect-[4/3]"
+                  >
+                    <div className="relative w-full h-0 pb-[75%]"> {/* 4:3 aspect ratio */}
+                      <Image
+                        src={`/images/Crew/${img}`}
+                        alt={`Crew member ${i + 1}`}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out rounded-xl"
+                      />
+                    </div>
                   </div>
-</div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Location and Sunrise/Sunset details below grid */}
+          <div className="text-white w-full max-w-6xl mx-auto space-y-4 mt-6">
+            <LocationDetails />
+            <SunriseSunset />
+          </div>
         </div>
       </div>
     </div>
