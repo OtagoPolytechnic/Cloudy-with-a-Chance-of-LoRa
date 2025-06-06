@@ -16,16 +16,21 @@ import {
 
 const LineChartComponent = ({ data, datakey, viewType }) => {
   const [isScrollEnabled, setIsScrollEnabled] = useState(
-    window.innerWidth <= 1060,
+    window.innerWidth <= 1060
   );
+  const [chartHeight, setChartHeight] = useState(280);
+
   const graphColor = '#113f67';
-  const xyAxis = 'white';
+  const xyAxis = 'black';
 
   useEffect(() => {
     const handleResize = () => {
-      setIsScrollEnabled(window.innerWidth <= 1060);
+      const width = window.innerWidth;
+      setIsScrollEnabled(width <= 1060);
+      setChartHeight(width < 480 ? 220 : width < 768 ? 260 : 280);
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -33,13 +38,22 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
   const { domain, ticks } = calculateYAxisConfig(data, datakey);
   const xAxisDataKey = viewType === 'hourly' ? 'hour' : 'day';
 
-  // Use the utility function for filtering and sorting data
   const filteredData = filterAndSortData(data, xAxisDataKey, viewType);
 
-  // Adjust container width for scroll functionality
+  const safeData =
+    filteredData.length === 1
+      ? [
+          {
+            ...filteredData[0],
+            [xAxisDataKey]: `${filteredData[0][xAxisDataKey]} (1)`,
+          },
+          filteredData[0],
+        ]
+      : filteredData;
+
   const containerWidth =
     viewType !== '7days' && isScrollEnabled
-      ? `${Math.max(filteredData.length * 50, window.innerWidth)}px`
+      ? `${Math.max(safeData.length * 50, window.innerWidth)}px`
       : '100%';
 
   return (
@@ -53,9 +67,9 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
       }}
     >
       <div style={{ width: containerWidth }}>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={chartHeight}>
           <LineChart
-            data={filteredData}
+            data={safeData}
             margin={{ top: 10, right: 22, left: 0, bottom: 15 }}
           >
             <CartesianGrid stroke="white" strokeDasharray="5 5" />
@@ -74,9 +88,9 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
               ticks={ticks}
               stroke={xyAxis}
               allowDecimals={false}
-              tickFormatter={(value) => {
-                return value < 10 ? value.toFixed(2) : value; // Only format if value is under 10
-              }}
+              tickFormatter={(value) =>
+                value < 10 ? value.toFixed(2) : value
+              }
               tick={{ fontSize: 12 }}
             />
             <Tooltip

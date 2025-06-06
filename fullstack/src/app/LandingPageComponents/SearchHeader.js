@@ -1,46 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import dummyWeatherData from '../Dummy Data/dummyWeatherData';
-import { FaMapMarkerAlt } from 'react-icons/fa';
-// import { fetchHumidityData } from '@/components/widget'; // Update the path as needed
+'use client';
 
+import React from 'react';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { useSummarySensorData } from '@/components/useSummarySensorData';
 
 export default function SearchHeader() {
-   /*
-  const [humidity, setHumidity] = useState(null);
+  const { humidity, temperature, rainChance } = useSummarySensorData();
 
-  useEffect(() => {
-    const getHumidity = async () => {
-      try {
-        const humidityValue = await fetchHumidityData();
-        setHumidity(humidityValue);
-      } catch (error) {
-        console.error('Error fetching humidity:', error);
-      }
-    };
+  // Fallback defaults if data is missing or null/undefined
+  const rainChanceStr = rainChance ?? 'Unlikely'; // default to 'Unlikely'
+  const rainPercent = rainChanceStr === 'Likely' ? 70 : 0; // default 0% rain if no data
 
-    getHumidity();
-    const interval = setInterval(getHumidity, 60000); // Update every 60 seconds
-    return () => clearInterval(interval);
-  }, []);
+  const tempValue = temperature !== null && temperature !== undefined ? Math.round(temperature) : 20; // default 20°C
+  const humidityValue = humidity !== null && humidity !== undefined ? Math.round(humidity) : 5; // default 5%
 
-*/
-  const hourlyData = dummyWeatherData['Hourly'];
-  const latestData = hourlyData.slice(-1)[0];
-  const temperature = latestData?.temperature ?? 0;
-
-  const rainCount = hourlyData.filter((data) => data.rain > 0).length;
-  const rainChance = Math.round((rainCount / hourlyData.length) * 100);
-
-  const condition =
-    temperature >= 30
-      ? 'Hot'
-      : temperature >= 22
-      ? 'Warm'
-      : temperature >= 15
-      ? 'Clear'
-      : temperature >= 5
-      ? 'Rain'
-      : 'Snowing';
+const condition =
+  tempValue < 5
+    ? 'Snowing'
+    : rainChanceStr === 'Likely'
+    ? 'Rain'
+    : tempValue >= 30
+    ? 'Hot'
+    : tempValue >= 22
+    ? 'Warm'
+    : tempValue >= 15
+    ? 'Clear'
+    : 'Clear';
 
   const conditionIconMap = {
     Clear: '☀️',
@@ -67,13 +52,14 @@ export default function SearchHeader() {
               <span>Otago Polytechnic</span>
               <FaMapMarkerAlt className="text-xs" />
             </div>
-            <p className="text-sm">Chance of rain: {rainChance}%</p>
+            <p className="text-sm">Chance of rain: {rainPercent}%</p>
+            <p className="text-sm">Humidity: {humidityValue}%</p>
             <div className="flex items-center space-x-4 mt-2">
               <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
                 <span className="text-[#2F2C5D] text-3xl font-bold">{icon}</span>
               </div>
               <div>
-                <span className="text-5xl font-bold">{temperature}°</span>
+                <span className="text-5xl font-bold">{tempValue}°</span>
                 <p className="text-sm">{condition}</p>
               </div>
             </div>
@@ -91,14 +77,15 @@ export default function SearchHeader() {
           />
           <div>
             <h1 className="text-3xl font-semibold tracking-wide">Otago Polytechnic</h1>
-            <p className="text-sm">Chance of rain: {rainChance}%</p>
+            <p className="text-sm">Chance of rain: {rainPercent}%</p>
+            <p className="text-sm">Humidity: {humidityValue}%</p>
           </div>
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
               <span className="text-[#2F2C5D] text-4xl font-bold">{icon}</span>
             </div>
             <div>
-              <span className="text-6xl font-bold">{temperature}°</span>
+              <span className="text-6xl font-bold">{tempValue}°</span>
               <p className="text-sm">{condition}</p>
             </div>
           </div>

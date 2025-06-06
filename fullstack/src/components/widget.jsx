@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import './widget.css';
@@ -15,14 +15,17 @@ const sensorMapping = {
 };
 
 const tooltipMapping = {
-  temperature: 'Shows current ambient temperature in Celsius. Comfortable indoor range: 20-25°C; low or high values may affect comfort and efficiency.',
-  pressure: 'Displays air pressure in hectopascals. Standard at sea level is 1013 hPa; variations can indicate weather changes.',
+  temperature:
+    'Shows current ambient temperature in Celsius. Comfortable indoor range: 20-25°C; low or high values may affect comfort and efficiency.',
+  pressure:
+    'Displays air pressure in hectopascals. Standard at sea level is 1013 hPa; variations can indicate weather changes.',
   wind: 'Represents wind speed in kilometers per hour. High speeds can influence ventilation and comfort in open areas.',
   dust: 'Shows airborne dust concentration in micrograms per cubic meter. Lower levels indicate better air quality; values above 50 µg/m³ may affect health.',
   co2: 'Indicates CO₂ concentration in parts per million. Levels below 1000 ppm are optimal indoors; higher levels suggest poor ventilation.',
-  gas: 'Reflects tvoc (Total volatile organic compounds) concentration in ppm. Elevated readings could signal indoor air quality issues.',
-  rain: 'Indicates the current rainfall level in millimeters per hour. Light rain is generally below 2.5 mm/h.',
-  humidity: 'Shows the relative humidity in percentage. Ideal indoor range is 30-50%; high levels can cause discomfort and mold growth.',
+  gas: 'Reflects tvoc (Total volatile organic compounds) concentration in parts per million. Elevated readings could signal indoor air quality issues or pollutant sources.',
+  rain: 'Indicates the current rainfall level measured in millimeters per hour. Light rain is generally below 2.5 mm per hour',
+  humidity:
+    'Shows the relative humidity in percentage. Ideal indoor range is 30-50%; high levels can cause discomfort and mold growth.',
 };
 
 const fetchSensorData = async (dataKey) => {
@@ -34,8 +37,7 @@ const fetchSensorData = async (dataKey) => {
 
 const fetchGraphData = async (dataKey, length) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-  let table = dataKey;
-  let value = dataKey;
+  let table, value;
 
   switch (dataKey) {
     case 'rain':
@@ -58,16 +60,21 @@ const fetchGraphData = async (dataKey, length) => {
       table = 'humidity';
       value = 'humidity';
       break;
+    default:
+      table = dataKey;
+      value = dataKey;
   }
 
-  const response = await fetch(`${baseUrl}/api/get-graph-data?table=${table}&value=${value}&length=${length}`);
+  const response = await fetch(
+    `${baseUrl}/api/get-graph-data?table=${table}&value=${value}&length=${length}`,
+  );
   if (!response.ok) throw new Error('Failed to fetch graph data');
   return response.json();
 };
 
 const Widget = ({ name, dataKey, GraphComponent }) => {
-  const [viewLength, setViewLength] = useState(1);
   const [graphDataCache, setGraphDataCache] = useState({});
+  const [viewLength, setViewLength] = useState(1);
   const [openTooltip, setOpenTooltip] = useState(false);
   const graphData = graphDataCache[viewLength] || [];
 
@@ -79,22 +86,37 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
   });
 
   useEffect(() => {
-    const loadData = async () => {
+    const fetchData = async () => {
       try {
-        const graphData = await fetchGraphData(dataKey, viewLength);
+        const updatedGraphData = await fetchGraphData(dataKey, viewLength);
         setGraphDataCache((prev) => ({
           ...prev,
-          [viewLength]: graphData,
+          [viewLength]: updatedGraphData,
         }));
       } catch (err) {
-        console.error(`Graph fetch failed for ${dataKey}:`, err);
+        console.error(`Error fetching ${viewLength}-day data:`, err);
       }
     };
 
-    if (!graphDataCache[viewLength]) {
-      loadData();
+    fetchData();
+    const interval = setInterval(fetchData, 60000);
+    return () => clearInterval(interval);
+  }, [viewLength, dataKey]);
+
+  const handleViewChange = async (length) => {
+    setViewLength(length);
+    if (!graphDataCache[length]) {
+      try {
+        const updatedGraphData = await fetchGraphData(dataKey, length);
+        setGraphDataCache((prev) => ({
+          ...prev,
+          [length]: updatedGraphData,
+        }));
+      } catch (err) {
+        console.error(`Error fetching ${length}-day data:`, err);
+      }
     }
-  }, [dataKey, viewLength]);
+  };
 
   const latestData = data?.length ? data[data.length - 1] : null;
 
@@ -127,8 +149,13 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
         value = latestData[dataKey];
     }
 
-    const unit = sensorMapping[dataKey]?.unit || '';
+    if (value == null) return 'No Data Available';
+    const unit = dataKey ? sensorMapping[dataKey]?.unit || '' : '';
     return `${value} ${unit}`;
+  };
+
+  const handleTooltipToggle = () => {
+    setOpenTooltip((prev) => !prev);
   };
 
   return (
@@ -143,7 +170,7 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
                   className="inline-flex items-center justify-center w-6 h-6 text-white rounded-full text-lg cursor-pointer"
                   style={{ backgroundColor: '#113f67' }}
                   aria-label="Info"
-                  onClick={() => setOpenTooltip((prev) => !prev)}
+                  onClick={handleTooltipToggle}
                 >
                   i
                 </span>
@@ -152,6 +179,7 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
                 side="top"
                 align="center"
                 className="bg-gray-700 text-white text-xs p-2 rounded shadow-lg max-w-xs"
+                onPointerDownOutside={() => setOpenTooltip(false)}
               >
                 {tooltipMapping[dataKey]}
                 <Tooltip.Arrow className="fill-gray-700" />
@@ -165,26 +193,48 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
 
       {GraphComponent && (
         <>
-          <div className="button-group flex justify-center space-x-2 mb-2">
-            {[1, 7, 30].map((len) => (
-              <button
-                key={len}
-                onClick={() => setViewLength(len)}
-                className={`btn ${viewLength === len ? 'active' : ''}`}
-              >
-                {len === 1 ? 'Hourly' : `${len} Days`}
-              </button>
-            ))}
+          <div
+            className="button-group flex justify-center space-x-2 mb-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => handleViewChange(1)}
+              className={`btn ${viewLength === 1 ? 'active' : ''}`}
+            >
+              Hourly
+            </button>
+            <button
+              onClick={() => handleViewChange(7)}
+              className={`btn ${viewLength === 7 ? 'active' : ''}`}
+            >
+              7 Days
+            </button>
+            <button
+              onClick={() => handleViewChange(30)}
+              className={`btn ${viewLength === 30 ? 'active' : ''}`}
+            >
+              30 Days
+            </button>
           </div>
-          <div className="graph-container custom-scrollbar">
-            <GraphComponent
-              data={graphData}
-              datakey="avg_value"
-              viewType={viewLength === 1 ? 'hourly' : 'day'}
-              xAxisLabel={viewLength === 1 ? 'Time' : 'Date'}
-              yAxisLabel="Average Value"
-              tooltipFormatter={(value) => `${value.toFixed(2)} units`}
-            />
+
+          <div
+            className="graph-container custom-scrollbar flex items-center justify-center h-[300px] px-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {graphData && graphData.length > 0 ? (
+              <GraphComponent
+                data={graphData}
+                datakey="avg_value"
+                viewType={viewLength === 1 ? 'hourly' : 'day'}
+                xAxisLabel={viewLength === 1 ? 'Time' : 'Date'}
+                yAxisLabel="Average Value"
+                tooltipFormatter={(value) => `${value.toFixed(2)} units`}
+              />
+            ) : (
+              <p className="text-center text-sm text-gray-500">
+                No Data Available
+              </p>
+            )}
           </div>
         </>
       )}
