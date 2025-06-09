@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useSummarySensorData } from '@/components/useSummarySensorData';
 
 export default function ClothingSuggestionIcons() {
+  // Custom hook to fetch summary sensor data
   const { temperature, isLoading, error, rainChance } = useSummarySensorData();
 
- 
+  // Fallback temperature if data is unavailable
   const temp = typeof temperature === 'number' ? temperature : 22;
 
+  // Clothing suggestions based on temperature range
   const suggestions = [
     {
       icon: '🧥',
@@ -38,13 +40,16 @@ export default function ClothingSuggestionIcons() {
     },
   ];
 
+  // Determine initial suggestion based on temp
   const [activeIndex, setActiveIndex] = useState(() => {
     const idx = suggestions.findIndex((s) => s.isMatch(temp));
     return idx !== -1 ? idx : 0;
   });
 
+  // Update suggestion when data changes
   useEffect(() => {
     if (!isLoading && !error) {
+      // Force "Jacket" suggestion if rain is likely
       if (rainChance === 'Likely') {
         setActiveIndex(0); 
       } else {
@@ -54,6 +59,7 @@ export default function ClothingSuggestionIcons() {
     }
   }, [temp, isLoading, error, rainChance]);
 
+  // Render suggestion cards
   return (
     <div className="grid grid-cols-2 gap-4 p-6 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 shadow-lg w-[640px] h-[557px]">
       {suggestions.map((item, index) => {
