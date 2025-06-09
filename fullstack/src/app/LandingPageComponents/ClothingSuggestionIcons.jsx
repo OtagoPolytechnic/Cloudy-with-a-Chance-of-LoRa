@@ -4,6 +4,7 @@ import { useSummarySensorData } from '@/components/useSummarySensorData';
 export default function ClothingSuggestionIcons() {
   const { temperature, isLoading, error, rainChance } = useSummarySensorData();
 
+ 
   const temp = typeof temperature === 'number' ? temperature : 22;
 
   const suggestions = [
@@ -38,16 +39,14 @@ export default function ClothingSuggestionIcons() {
   ];
 
   const [activeIndex, setActiveIndex] = useState(() => {
-    // Initial activeIndex based on default temp (22)
     const idx = suggestions.findIndex((s) => s.isMatch(temp));
     return idx !== -1 ? idx : 0;
   });
 
   useEffect(() => {
     if (!isLoading && !error) {
-      // If it's raining, always suggest Jacket (index 0)
       if (rainChance === 'Likely') {
-        setActiveIndex(0);
+        setActiveIndex(0); 
       } else {
         const index = suggestions.findIndex((s) => s.isMatch(temp));
         setActiveIndex(index !== -1 ? index : 0);
@@ -55,14 +54,10 @@ export default function ClothingSuggestionIcons() {
     }
   }, [temp, isLoading, error, rainChance]);
 
-  if (isLoading) return <div>Loading clothing suggestions...</div>;
-  if (error) return <div>Error loading weather data.</div>;
-
   return (
     <div className="grid grid-cols-2 gap-4 p-6 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 shadow-lg w-[640px] h-[557px]">
       {suggestions.map((item, index) => {
         const isActive = index === activeIndex;
-
         return (
           <div
             key={index}
