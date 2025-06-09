@@ -1,7 +1,22 @@
 describe('Weather Dashboard', () => {
   beforeEach(() => {
     // Visit the weather station page
-    cy.visit('http://localhost:3000/');
+    cy.visit('http://localhost:3000/', {
+      onBeforeLoad(win) {
+        // Mock geolocation to simulate user being in Dunedin, NZ
+        // This bypasses the browser's location permission popup during Cypress tests
+        cy.stub(win.navigator.geolocation, 'getCurrentPosition').callsFake(
+          (cb) => {
+            cb({
+              coords: {
+                latitude: -45.8788,
+                longitude: 170.5028,
+              },
+            });
+          },
+        );
+      },
+    });
   });
   it('displays the current weather data', () => {
     // Check that the page loads and contains specific weather data labels
@@ -15,7 +30,7 @@ describe('Weather Dashboard', () => {
   });
 
   it('should display the search bar', () => {
-    cy.get('input[placeholder="Search for Locations..."]')
+    cy.get('input[placeholder="Search..."]')
       .should('exist')
       .and('be.visible');
   });

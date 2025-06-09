@@ -32,4 +32,18 @@ describe('Weather Page - Graph Rendering and Data', () => {
       cy.get('svg circle').should('have.length.greaterThan', 0);
     });
   });
+  it('highlights the "Hourly" time filter button when clicked', () => {
+    cy.contains('button', 'Hourly').click();
+    cy.contains('button', 'Hourly').should('have.class', 'btn active');
+  });
+
+  it('highlights the "7 Days" time filter button when clicked', () => {
+    cy.contains('button', '7 Days').click();
+    cy.contains('button', '7 Days').should('have.class', 'btn active');
+  });
+
+  it('highlights the "30 Days" time filter button when clicked', () => {
+    cy.contains('button', '30 Days').click();
+    cy.contains('button', '30 Days').should('have.class', 'btn active');
+  });
 });
