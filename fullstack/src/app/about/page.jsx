@@ -1,139 +1,129 @@
 'use client';
 
-import Link from 'next/link';
-import NavigationBar from '../LandingPageComponents/NavigationBar';
 import Image from 'next/image';
+import NavigationBar from '../LandingPageComponents/NavigationBar';
+import SearchHeader from '../LandingPageComponents/SearchHeader';
+import SunriseSunset from '../LandingPageComponents/SunriseSunset';
+import LocationDetails from '../LandingPageComponents/LocationDetails';
 
-//AboutPage component displays project information and FAQs
 export default function AboutPage() {
+  const crewImages = ['crew1.jpg', 'crew2.jpg', 'crew3.jpg', 'crew4.jpg'];
+
   return (
-    <div className="relative min-h-screen bg-blue-200/40 backdrop-blur-xl">
-      <div
-        className="absolute inset-0 -z-10 bg-cover bg-center blur-xl"
-        style={{
-          backgroundImage: `url('/images/OP-pic.jpg')`,
-          backgroundSize: '100%',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-        }}
-      ></div>
+    <div
+      className="min-h-screen bg-gradient-to-br from-[#1E1B47] to-[#2F2C5D] text-white relative font-sans bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://living-future.org/wp-content/uploads/2022/10/2-5-scaled.jpg')",
+      }}
+    >
+      {/* Background overlay with blur and color */}
+      <div className="absolute inset-0 bg-blue-500/30 backdrop-blur-lg z-0" />
 
-      {/* fixed nav bar on the left side of page */}
-      <div className="fixed top-0 left-0 w-full z-50">
-        <NavigationBar />
-      </div>
-
-      {/* Main content container */}
-      <div className="relative z-10 flex flex-col items-center">
-        {/* Blue card section */}
-        <div className=" w-full flex flex-col md:flex-row items-center justify-center gap-6 px-8 py-10">
-          <h1 className="text-2xl font-bold text-black text-center">
-            About Us
-          </h1>
-          <div className="w-40 h-40 md:w-48 md:h-48 relative">
-            <Image
-              src="/images/OP_shield_2009.gif"
-              alt="Logo"
-              layout="fill"
-              objectFit="contain"
-              className="rounded-lg"
-            />
-          </div>
+      {/* Main container */}
+      <div className="relative z-10 w-full min-h-screen max-w-[2800px] mx-auto overflow-auto flex flex-col lg:pr-10">
+        
+        {/* Navigation bar */}
+        <div className="pt-4">
+          <NavigationBar />
         </div>
-        <div className="w-full px-4 sm:px-8 lg:px-32">
-          <div className="flex flex-col md:flex-row justify-center items-start gap-8 mt-8">
-            {/* Project description box */}
-            <div className="bg-black/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl text-white md:w-[835px] p-8 pt-4 text-justify leading-relaxed">
-              <p className="first-letter:text-2xl first-letter:font-bold first-letter:mr-1 first-letter:float-left">
-                This project was a student-built weather station designed to
-                meet the requirements outlined by our lecturer. It showcases the
-                integration of LoRaWAN technology and the Internet of Things
-                (IoT) to collect and transmit real-time environmental data.
-              </p>
-              <p className="mt-4">
-                Our weather station uses various sensors to measure key
-                conditions such as:
-              </p>
 
-              {/* List of sensor types */}
-              <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                <li> Temperature</li>
-                <li> Humidity</li>
-                <li> Wind speed</li>
-                <li> And more...</li>
+        {/* Content area with side margin for large screens */}
+        <div className="relative z-10 flex flex-col flex-1 ml-0 lg:ml-28 px-4 pt-3 sm:px-6 pb-6 space-y-6">
+          <SearchHeader />
+
+          {/* 3-column responsive grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* About Project Section */}
+            <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 shadow-lg text-white leading-relaxed text-justify space-y-4">
+              <h1 className="text-2xl font-bold mb-2">🌦️ About Our Weather Station</h1>
+              <p>
+                This project was a student-built weather station designed to meet the
+                requirements outlined by our lecturer. It showcases the integration of
+                LoRaWAN technology and the Internet of Things (IoT) to collect and
+                transmit real-time environmental data.
+              </p>
+              <p>Our weather station uses various sensors to measure key conditions such as:</p>
+              <ul className="list-disc list-inside ml-4">
+                <li>Temperature</li>
+                <li>Humidity</li>
+                <li>Wind speed</li>
+                <li>And more...</li>
               </ul>
-
-              {/* Description of data transmission using LoRaWAN */}
-              <p className="mt-4">
-                Using LoRaWAN (Long Range Wide Area Network), this data is sent
-                wire lessly over long distances to a central server where it can
-                be processed, stored, and visualized. This approach allows for
-                low-power, long-range communication, making the system ideal for
-                remote or outdoor locations.
+              <p>
+                Using LoRaWAN, this data is sent wirelessly over long distances to a
+                central server where it can be processed and visualized.
               </p>
-
-              {/* Project goals */}
-              <p className="mt-4">
-                The primary goal of this project is not only to meet technical
-                criteria, but to deepen our understanding of modern
-                communication protocols, IoT infrastructure, and environmental
-                monitoring through hands-on development and testing.
+              <p>
+                The goal is to deepen understanding of communication protocols, IoT, and
+                environmental monitoring through hands-on development and testing.
               </p>
             </div>
 
             {/* FAQ Section */}
-            {/* Using 'details' for collapsable questions */}
-            <div className="w-full md:max-w-md space-y-4">
-              <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-                <summary className="cursor-pointer font-semibold">
-                  What sensors are used in the system?
-                </summary>
-                <p className="mt-2 text-sm leading-relaxed">
-                  XC3702 Barometric Pressure Sensor, XC3780 Duinotech Arduino
-                  Compatible Dust Sensor, Duinotech Arduino Compatible Air
-                  Quality Sensor
-                </p>
-              </details>
-
-              <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-                <summary className="cursor-pointer font-semibold">
-                  How often is the data updated?
-                </summary>
-                <p className="mt-2 text-sm leading-relaxed">
-                  The data is updated constantly in real time.
-                </p>
-              </details>
-
-              <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-                <summary className="cursor-pointer font-semibold">
-                  What does it mean to be a part of this platform?
-                </summary>
-                <p className="mt-2 text-sm leading-relaxed">
-                  Being part of our platform means you can remotely monitor,
-                  analyze, and receive insights from real-world weather and
-                  environmental data.
-                </p>
-              </details>
-
-              <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-                <summary className="cursor-pointer font-semibold">
-                  What if I have more questions?
-                </summary>
-                <p className="mt-2 text-sm leading-relaxed">
-                  Feel free to talk to our development team or refer to the FAQ
-                  section on the website.
-                </p>
-              </details>
-
-              <details className="bg-black/20 backdrop-blur-md border border-white/30 rounded-xl p-4 text-white">
-                <summary className="cursor-pointer font-semibold">
-                  Where is the weather sensor device located?
-                </summary>
-                <p className="mt-2 text-sm leading-relaxed">
-                  It is located on the roof of the Polytech's D-Block.
-                </p>
-              </details>
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-xl text-white/90 space-y-4">
+              <h2 className="text-xl font-bold mb-2">❓ FAQ</h2>
+              {[
+                {
+                  q: 'What sensors are used?',
+                  a: 'XC3702 Barometric, XC3780 Dust Sensor, Duinotech Air Quality Sensor',
+                },
+                {
+                  q: 'How often is data updated?',
+                  a: 'The data is updated constantly in real time.',
+                },
+                {
+                  q: 'What does the platform offer?',
+                  a: 'Remote monitoring, analysis, and insights from real-world data.',
+                },
+                {
+                  q: 'More questions?',
+                  a: 'Talk to our team or visit the FAQ section online.',
+                },
+                {
+                  q: 'Device location?',
+                  a: 'On the roof of the Polytech’s D-Block.',
+                },
+              ].map(({ q, a }) => (
+                <details
+                  key={q}
+                  className="bg-white/10 backdrop-blur-md border border-white/30 rounded-xl p-4"
+                >
+                  <summary className="cursor-pointer font-semibold text-white">
+                    {q}
+                  </summary>
+                  <p className="mt-2 text-sm leading-relaxed text-white/80">{a}</p>
+                </details>
+              ))}
             </div>
+
+            {/* Crew Highlights */}
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 shadow-lg space-y-4">
+              <h2 className="text-xl font-bold text-white text-center mb-2">📸 Highlights</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {crewImages.map((img, i) => (
+                  <div
+                    key={i}
+                    className="overflow-hidden rounded-xl border border-white/20 group aspect-[4/3]"
+                  >
+                    <div className="relative w-full h-0 pb-[75%]"> {/* 4:3 aspect ratio */}
+                      <Image
+                        src={`/images/Crew/${img}`}
+                        alt={`Crew member ${i + 1}`}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out rounded-xl"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Location and Sunrise/Sunset details below grid */}
+          <div className="text-white w-full max-w-6xl mx-auto space-y-4 mt-6">
+            <LocationDetails />
+            <SunriseSunset />
           </div>
         </div>
       </div>

@@ -1,34 +1,40 @@
+'use client';
+
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Cloud } from 'lucide-react';
-import dummyWeatherData from '../Dummy Data/dummyWeatherData';
+import { useSummarySensorData } from '@/components/useSummarySensorData';
 
 const MoreConditions = () => {
-  const router = useRouter();
+  const router = useRouter(); // Next.js router for navigation
 
-  // Use the latest hourly data point
-  const hourlyData = dummyWeatherData['Hourly'];
-  const latest = hourlyData[hourlyData.length - 1];
+  // Destructure sensor data using custom hook, fallback to empty object if undefined
+  const { temperature, wind, rainChance, humidity, uvIndex } =
+    useSummarySensorData() ?? {};
 
-  // Compute rain chance
-  const rainCount = hourlyData.filter((d) => d.rain > 0).length;
-  const rainChance = Math.round((rainCount / hourlyData.length) * 100);
+  // Default fallback values for data in case sensor data is unavailable
+  const defaultTemperature = 20;
+  const defaultWind = 5;
+  const defaultRainChance = 'Unlikely';
+  const defaultUVIndex = 3;
 
+  // Use sensor values or fallbacks
+  const tempValue = temperature ?? defaultTemperature;
+  const windValue = wind ?? defaultWind;
+  const rainStr = rainChance ?? defaultRainChance;
+  const uvValue = uvIndex ?? defaultUVIndex;
+
+  // Data array for easier rendering of weather conditions
   const airData = [
-    {
-      label: 'Feels Like',
-      value: latest?.temperature ? `${latest.temperature}°` : 'N/A',
-    },
-    { label: 'Wind', value: latest?.wind ? `${latest.wind} km/h` : 'N/A' },
-    {
-      label: 'Chance of Rain',
-      value: isNaN(rainChance) ? 'N/A' : `${rainChance}%`,
-    },
-    { label: 'UV Index', value: '3' }, // placeholder
+    { label: 'Feels Like', value: `${tempValue}°` },
+    { label: 'Wind', value: `${windValue} km/h` },
+    { label: 'Chance of Rain', value: rainStr },
+    { label: 'UV Index', value: `${uvValue}` },
   ];
 
   return (
     <section className="relative bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-2xl md:h-[320px] md:w-[835px] shadow-lg mt-8">
+      {/* Button to navigate to detailed weather page */}
       <button
         onClick={() => router.push('/weather')}
         className="absolute top-4 right-4 flex items-center gap-1 text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-md text-xs transition"
@@ -38,6 +44,7 @@ const MoreConditions = () => {
         More Info
       </button>
 
+      {/* Header section */}
       <div className="flex items-center justify-between space-x-4">
         <div className="space-y-4">
           <h2 className="text-xl font-semibold text-white">More Conditions</h2>
@@ -45,9 +52,11 @@ const MoreConditions = () => {
             Details about weather conditions
           </p>
         </div>
+        {/* Empty div for potential future content or alignment */}
         <div className="flex flex-col items-center justify-center text-center"></div>
       </div>
 
+      {/* Grid layout for weather details */}
       <div className="grid grid-cols-2 gap-4 mt-4">
         {airData.map((item, index) => (
           <div

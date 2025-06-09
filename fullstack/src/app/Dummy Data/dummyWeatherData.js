@@ -1,4 +1,5 @@
 const dummyWeatherData = {
+  // Hourly weather data for the current day, including temperature, humidity, rain (mm), and wind speed (km/h)
   Hourly: [
     { time: '10:00', temperature: 20, humidity: 60, rain: 0.2, wind: 5 },
     { time: '11:00', temperature: 21, humidity: 62, rain: 0.1, wind: 6 },
@@ -7,6 +8,8 @@ const dummyWeatherData = {
     { time: '14:00', temperature: 24, humidity: 60, rain: 0.5, wind: 6.5 },
     { time: '15:00', temperature: 25, humidity: 59, rain: 0.4, wind: 6 },
   ],
+
+  // Daily weather summaries for the upcoming 7 days
   '7 Days': [
     { time: 'Mon', temperature: 22, humidity: 60, rain: 1.2, wind: 8 },
     { time: 'Tue', temperature: 24, humidity: 63, rain: 0.6, wind: 7 },
@@ -17,7 +20,9 @@ const dummyWeatherData = {
     { time: 'Sun', temperature: 24, humidity: 61, rain: 1.0, wind: 7 },
   ],
 
+  // CO2 and related air quality sensor data with various time resolutions
   'CO2 Data': {
+    // Hourly CO2, gas, dust, and pressure readings
     Hourly: [
       { time: '10:00', co2: 420, gas: 150, dust: 70, pressure: 1012 },
       { time: '11:00', co2: 422, gas: 152, dust: 72, pressure: 1013 },
@@ -26,6 +31,8 @@ const dummyWeatherData = {
       { time: '14:00', co2: 423, gas: 151, dust: 71, pressure: 1010 },
       { time: '15:00', co2: 425, gas: 153, dust: 73, pressure: 1011 },
     ],
+
+    // 1-day aggregated data (hourly-ish resolution)
     '1 Day': [
       { time: '10:00', co2: 420, gas: 150, dust: 70, pressure: 1012 },
       { time: '11:00', co2: 422, gas: 152, dust: 72, pressure: 1013 },
@@ -33,6 +40,8 @@ const dummyWeatherData = {
       { time: '13:00', co2: 421, gas: 149, dust: 69, pressure: 1012 },
       { time: '14:00', co2: 423, gas: 151, dust: 71, pressure: 1010 },
     ],
+
+    // 7-day average data for CO2 and other sensors
     '7 Days': [
       { time: 'Mon', co2: 420, gas: 150, dust: 70, pressure: 1012 },
       { time: 'Tue', co2: 415, gas: 140, dust: 65, pressure: 1010 },
@@ -42,6 +51,8 @@ const dummyWeatherData = {
       { time: 'Sat', co2: 419, gas: 150, dust: 69, pressure: 1009 },
       { time: 'Sun', co2: 416, gas: 148, dust: 67, pressure: 1010 },
     ],
+
+    // 30-day CO2 and sensor data with randomized values for demo purposes
     '30 Days': Array.from({ length: 30 }, (_, i) => ({
       time: `Day ${i + 1}`,
       co2: 410 + Math.random() * 20,
@@ -49,6 +60,8 @@ const dummyWeatherData = {
       dust: 60 + Math.random() * 15,
       pressure: 1005 + Math.random() * 10,
     })),
+
+    // Statistical summary for CO2 data: average, max, and min values
     Statistics: [
       { time: 'Avg', co2: 418, gas: 148, dust: 68, pressure: 1011 },
       { time: 'Max', co2: 430, gas: 160, dust: 75, pressure: 1015 },
@@ -56,6 +69,7 @@ const dummyWeatherData = {
     ],
   },
 
+  // 30-day weather data with randomized values for temperature, humidity, rain, and wind
   '30 Days': Array.from({ length: 30 }, (_, i) => ({
     time: `Day ${i + 1}`,
     temperature: 20 + Math.random() * 6,
@@ -64,6 +78,7 @@ const dummyWeatherData = {
     wind: 5 + Math.random() * 5,
   })),
 
+  // Statistical summary of weather data: average, max, and min values for key metrics
   Statistics: [
     { time: 'Avg', temperature: 23, humidity: 62, rain: 1.1, wind: 7 },
     { time: 'Max', temperature: 28, humidity: 68, rain: 2.5, wind: 11 },
