@@ -10,13 +10,15 @@ import {
 } from 'recharts';
 import {
   calculateYAxisConfig, // Helper to dynamically configure Y-axis range/ticks
-  filterAndSortData,    // Filters and sorts chart data based on viewType
-  CustomXAxisTick,      // Custom X-axis tick rendering component
+  filterAndSortData, // Filters and sorts chart data based on viewType
+  CustomXAxisTick, // Custom X-axis tick rendering component
 } from '../../app/utils/chartUtils';
 
 const LineChartComponent = ({ data, datakey, viewType }) => {
   // State to determine if chart should be scrollable based on screen width
-  const [isScrollEnabled, setIsScrollEnabled] = useState(window.innerWidth <= 1060);
+  const [isScrollEnabled, setIsScrollEnabled] = useState(
+    window.innerWidth <= 1060,
+  );
   // State for responsive chart height
   const [chartHeight, setChartHeight] = useState(280);
 
@@ -66,7 +68,8 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
         height: '100%',
         width: '100%',
         marginTop: '10px',
-        overflowX: isScrollEnabled && viewType !== '7days' ? 'scroll' : 'hidden',
+        overflowX:
+          isScrollEnabled && viewType !== '7days' ? 'scroll' : 'hidden',
       }}
     >
       <div style={{ width: containerWidth }}>
@@ -77,7 +80,7 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
           >
             {/* Grid lines for better readability */}
             <CartesianGrid stroke="white" strokeDasharray="5 5" />
-            
+
             {/* X-axis customization */}
             <XAxis
               dataKey={xAxisDataKey}

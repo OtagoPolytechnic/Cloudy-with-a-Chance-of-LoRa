@@ -10,8 +10,8 @@ import {
 } from 'recharts';
 import {
   calculateYAxisConfig, // Utility to dynamically set Y-axis domain and ticks
-  filterAndSortData,    // Filters and orders chart data by X-axis key
-  CustomXAxisTick,      // Custom X-axis label renderer
+  filterAndSortData, // Filters and orders chart data by X-axis key
+  CustomXAxisTick, // Custom X-axis label renderer
 } from '../../app/utils/chartUtils';
 
 const BarChartComponent = ({ data, datakey, viewType }) => {
@@ -22,7 +22,7 @@ const BarChartComponent = ({ data, datakey, viewType }) => {
   const [fontSize, setFontSize] = useState(12);
 
   const graphColor = '#113f67'; // Main color for bars and tooltips
-  const xyAxis = 'black';       // Axis label color
+  const xyAxis = 'black'; // Axis label color
 
   // Responsive adjustments on window resize
   useEffect(() => {
