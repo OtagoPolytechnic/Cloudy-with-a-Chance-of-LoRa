@@ -72,11 +72,9 @@ describe('Weather Dashboard', () => {
   });
 
   it('should display sunrise and sunset times', () => {
-    cy.contains('Sunrise & Sunset')   
-      
-  }); 
-  
-  
+    cy.contains('Sunrise & Sunset');
+  });
+
   it('should display current location', () => {
     cy.contains('Current Location').should('exist');
     cy.contains('Dunedin, New Zealand').should('exist');
@@ -92,12 +90,12 @@ describe('Weather Dashboard', () => {
     cy.get('a[href="/weather"]').first().click();
     cy.url().should('include', '/weather');
   });
-  
+
   it('should navigate to co2 page', () => {
     cy.get('a[href="/co2"]').first().click();
     cy.url().should('include', '/co2');
   });
-  
+
   it('should navigate to about page', () => {
     cy.get('a[href="/about"]').first().click();
     cy.url().should('include', '/about');

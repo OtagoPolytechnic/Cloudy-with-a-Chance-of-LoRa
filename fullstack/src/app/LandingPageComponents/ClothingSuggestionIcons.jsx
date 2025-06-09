@@ -51,7 +51,7 @@ export default function ClothingSuggestionIcons() {
     if (!isLoading && !error) {
       // Force "Jacket" suggestion if rain is likely
       if (rainChance === 'Likely') {
-        setActiveIndex(0); 
+        setActiveIndex(0);
       } else {
         const index = suggestions.findIndex((s) => s.isMatch(temp));
         setActiveIndex(index !== -1 ? index : 0);
