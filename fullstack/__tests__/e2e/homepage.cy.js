@@ -30,9 +30,7 @@ describe('Weather Dashboard', () => {
   });
 
   it('should display the search bar', () => {
-    cy.get('input[placeholder="Search..."]')
-      .should('exist')
-      .and('be.visible');
+    cy.get('input[placeholder="Search..."]').should('exist').and('be.visible');
   });
 
   it('should display temperature and condition summary', () => {
