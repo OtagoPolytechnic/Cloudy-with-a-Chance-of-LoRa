@@ -7,24 +7,27 @@ const SunriseSunset = () => {
   });
 
   useEffect(() => {
-    // Request user's geolocation
+    if (!navigator.geolocation) {
+      setSunTimes({
+        sunrise: 'Geolocation unsupported',
+        sunset: 'Geolocation unsupported',
+      });
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
 
         try {
-          // Fetch sunrise and sunset times (UTC ISO strings)
           const res = await fetch(
             `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`,
           );
           const data = await res.json();
 
           if (data.status === 'OK') {
-            // Convert UTC time strings to local Date objects
             const sunrise = new Date(data.results.sunrise);
             const sunset = new Date(data.results.sunset);
-
-            // Format time in hours and minutes based on user's locale
             const options = { hour: 'numeric', minute: '2-digit' };
 
             setSunTimes({
@@ -35,11 +38,12 @@ const SunriseSunset = () => {
             setSunTimes({ sunrise: 'Unavailable', sunset: 'Unavailable' });
           }
         } catch (error) {
-          setSunTimes({ sunrise: 'Error', sunset: 'Error' });
+          console.error('Sunrise/Sunset fetch error:', error);
+          setSunTimes({ sunrise: 'Fetch error', sunset: 'Fetch error' });
         }
       },
-      () => {
-        // Geolocation permission denied or error
+      (geoError) => {
+        console.error('Geolocation error:', geoError);
         setSunTimes({
           sunrise: 'Permission denied',
           sunset: 'Permission denied',
@@ -59,13 +63,9 @@ const SunriseSunset = () => {
     >
       <h3 className="text-sm text-gray-300">Sunrise &amp; Sunset</h3>
       <p className="text-lg font-bold" aria-live="polite">
-        <span role="img" aria-label="Sunrise">
-          🌅
-        </span>{' '}
-        {sunTimes.sunrise} &nbsp;&nbsp;&nbsp;{' '}
-        <span role="img" aria-label="Sunset">
-          🌇
-        </span>{' '}
+        <span role="img" aria-label="Sunrise">🌅</span>{' '}
+        {sunTimes.sunrise} &nbsp;&nbsp;&nbsp;
+        <span role="img" aria-label="Sunset">🌇</span>{' '}
         {sunTimes.sunset}
       </p>
     </section>
