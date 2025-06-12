@@ -30,6 +30,11 @@ export const GET = async (request) => {
     });
   } catch (err) {
     console.error(err);
-    response.status(500).send('Server Error');
+    return new Response(JSON.stringify({ error: 'Server Error' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 };
