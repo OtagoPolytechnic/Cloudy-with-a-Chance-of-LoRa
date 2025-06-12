@@ -35,7 +35,9 @@ const CloudDetails = () => {
       if (resultData.error) {
         setError(resultData.error);
       } else {
-        const match = resultData.result.match(/Prediction:\s*(\w+)\s+Confidence:\s*(\d+(\.\d+)?)/i);
+        const match = resultData.result.match(
+          /Prediction:\s*(\w+)\s+Confidence:\s*(\d+(\.\d+)?)/i,
+        );
         if (match) {
           const label = match[1];
           const confidence = parseFloat(match[2]);
@@ -72,7 +74,9 @@ const CloudDetails = () => {
   return (
     <div className="widget expanded relative rounded-lg flex items-center justify-center w-full">
       <div className="text-center w-full">
-        <h1 className="text-xl font-semibold pb-2 pt-5">Cloud Details (Experimental)</h1>
+        <h1 className="text-xl font-semibold pb-2 pt-5">
+          Cloud Details (Experimental)
+        </h1>
 
         {/* Drag and drop or click-to-upload area */}
         <div

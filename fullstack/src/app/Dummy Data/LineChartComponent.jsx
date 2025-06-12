@@ -106,4 +106,4 @@ export default function LineChartComponent({ data, dataKey, unit, timeRange }) {
     </div>
   );
 }
-*/ 
+*/
