@@ -45,6 +45,7 @@
   transition:
     background-color 0.3s,
     color 0.3s;
+  white-space: nowrap;
 }
 
 .button-group .btn:hover {
@@ -56,28 +57,93 @@
   color: white;
 }
 
-.custom-scrollbar {
-  overflow-x: auto; /* Ensures the scroll bar appears */
+.graph-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 1rem;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  height: 6px; /* Adjust the height to be smaller */
+.graph-inner {
+  min-width: 800px;
+  height: 100%;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+.graph-wrapper::-webkit-scrollbar {
+  height: 0px;
+}
+.graph-wrapper {
+  scrollbar-width: none;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #113f67;
-  border-radius: 4px;
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .widget {
+    flex: 1 1 100%;
+    max-width: 100%;
+    font-size: 24px;
+    min-height: 180px;
+  }
+
+  .widget.expanded {
+    font-size: 26px;
+    min-height: 220px;
+  }
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #0d2e4b;
+@media (max-width: 768px) {
+  .widget {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 1rem;
+    font-size: 20px;
+    min-height: 400px;
+    margin-bottom: 1rem;
+  }
+
+  .widget.expanded {
+    flex: 1 1 100%;
+    max-width: 100%;
+    font-size: 22px;
+    min-height: auto;
+    transform: none;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .button-group .btn {
+    width: 100%;
+    max-width: 200px;
+    font-size: 0.9rem;
+    white-space: normal;
+  }
+
+  .graph-container {
+    height: 600px;
+  }
 }
 
-.custom-scrollbar {
-  scrollbar-width: thin; /* Firefox - sets the scrollbar to be thin */
-  scrollbar-color: #113f67 transparent; /* Custom color for Firefox */
+@media (max-width: 480px) {
+  .widget {
+    font-size: 18px;
+    padding: 0.75rem;
+  }
+
+  .widget.expanded {
+    font-size: 20px;
+  }
+
+  .button-group .btn {
+    max-width: 100%;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .graph-container {
+    height: 220px;
+  }
 }
