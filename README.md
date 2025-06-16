@@ -20,7 +20,8 @@ Taylah Baillie\
 Kayla Patterson\
 Sophie Dickerson\
 Bradley Robertson\
-Tylor Bennett 
+Tylor Bennett\
+Cameron Yeoman
 
 ![image](https://github.com/user-attachments/assets/5f475268-6e93-40e9-be77-9283d3bdee53)
 ![image (1)](https://github.com/user-attachments/assets/63b9ee18-2c2f-4e1f-8e24-5f0deef75373)
