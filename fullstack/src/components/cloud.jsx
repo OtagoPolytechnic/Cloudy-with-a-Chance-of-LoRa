@@ -1,31 +1,31 @@
-'use client';
+"use client";
 
-import React, { useRef, useState } from 'react';
-import Image from 'next/image';
-import './widget.css';
+import React, { useRef, useState } from "react";
+import Image from "next/image";
+import "./widget.css";
 
 const CloudDetails = () => {
   // State hooks to manage analysis result, loading state, and error messages
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const fileInputRef = useRef(null); // Ref for file input trigger
 
   // Predefined sample image(s) for testing
-  const images = [{ id: 1, src: '/images/1.png', alt: 'Cloud Image 1' }];
+  const images = [{ id: 1, src: "/images/1.png", alt: "Cloud Image 1" }];
 
   // Sends the selected image to the cloud classification API
   const analyzeImage = async (file) => {
     try {
       setLoading(true);
-      setError('');
-      setResult('');
+      setError("");
+      setResult("");
 
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append("image", file);
 
-      const apiResponse = await fetch('https://weather.op-bit.nz/analyze', {
-        method: 'POST',
+      const apiResponse = await fetch("https://weather.op-bit.nz/analyze", {
+        method: "POST",
         body: formData,
       });
 
@@ -36,7 +36,7 @@ const CloudDetails = () => {
         setError(resultData.error);
       } else {
         const match = resultData.result.match(
-          /Prediction:\s*(\w+)\s+Confidence:\s*(\d+(\.\d+)?)/i,
+          /Prediction:\s*(\w+)\s+Confidence:\s*(\d+(\.\d+)?)/i
         );
         if (match) {
           const label = match[1];
@@ -49,7 +49,7 @@ const CloudDetails = () => {
         }
       }
     } catch (error) {
-      setError('Error occurred during prediction.');
+      setError("Error occurred during prediction.");
     } finally {
       setLoading(false);
     }
@@ -57,8 +57,8 @@ const CloudDetails = () => {
 
   // Handles file input validation and triggers analysis
   const handleFileUpload = (file) => {
-    if (!file || (file.type !== 'image/jpeg' && file.type !== 'image/png')) {
-      setError('Only JPEG and PNG images are supported.');
+    if (!file || (file.type !== "image/jpeg" && file.type !== "image/png")) {
+      setError("Only JPEG and PNG images are supported.");
       return;
     }
     analyzeImage(file);
@@ -90,7 +90,7 @@ const CloudDetails = () => {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === "Enter" || e.key === " ") {
               fileInputRef.current?.click();
             }
           }}

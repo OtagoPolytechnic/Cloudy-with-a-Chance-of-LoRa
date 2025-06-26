@@ -1,37 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import * as Tooltip from '@radix-ui/react-tooltip';
-import './widget.css';
+import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import * as Tooltip from "@radix-ui/react-tooltip";
+import "./widget.css";
 
 // Define units and labels for each sensor type
 const sensorMapping = {
-  temperature: { unit: '°C', label: 'Temperature' },
-  pressure: { unit: 'hPa', label: 'Air Pressure' },
-  wind: { unit: 'km/h', label: 'Wind Speed' },
-  dust: { unit: 'µg/m³', label: 'Dust Reading' },
-  co2: { unit: 'ppm', label: 'CO2 Levels' },
-  gas: { unit: 'ppm', label: 'Gas Levels' },
-  rain: { unit: 'mm', label: 'Rain Levels' },
-  humidity: { unit: '%', label: 'Humidity' },
+  temperature: { unit: "°C", label: "Temperature" },
+  pressure: { unit: "hPa", label: "Air Pressure" },
+  wind: { unit: "km/h", label: "Wind Speed" },
+  dust: { unit: "µg/m³", label: "Dust Reading" },
+  co2: { unit: "ppm", label: "CO2 Levels" },
+  gas: { unit: "ppm", label: "Gas Levels" },
+  rain: { unit: "mm", label: "Rain Levels" },
+  humidity: { unit: "%", label: "Humidity" },
 };
 
 // Tooltips for each sensor to give helpful context
 const tooltipMapping = {
-  temperature: 'Shows current ambient temperature in Celsius...',
-  pressure: 'Displays air pressure in hectopascals...',
-  wind: 'Represents wind speed in kilometers per hour...',
-  dust: 'Shows airborne dust concentration...',
-  co2: 'Indicates CO₂ concentration in parts per million...',
-  gas: 'Reflects tvoc (Total volatile organic compounds)...',
-  rain: 'Indicates the current rainfall level in mm...',
-  humidity: 'Shows the relative humidity in percentage...',
+  temperature: "Shows current ambient temperature in Celsius...",
+  pressure: "Displays air pressure in hectopascals...",
+  wind: "Represents wind speed in kilometers per hour...",
+  dust: "Shows airborne dust concentration...",
+  co2: "Indicates CO₂ concentration in parts per million...",
+  gas: "Reflects tvoc (Total volatile organic compounds)...",
+  rain: "Indicates the current rainfall level in mm...",
+  humidity: "Shows the relative humidity in percentage...",
 };
 
 // Fetch the latest sensor data
 const fetchSensorData = async (dataKey) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const response = await fetch(`${baseUrl}/api/${dataKey}-data`);
-  if (!response.ok) throw new Error('Failed to fetch data');
+  if (!response.ok) throw new Error("Failed to fetch data");
   return response.json();
 };
 
@@ -42,25 +42,25 @@ const fetchGraphData = async (dataKey, length) => {
 
   // Map dataKey to correct table and column name
   switch (dataKey) {
-    case 'rain':
-      table = 'rainfall_measurement';
-      value = 'rainfall_mm';
+    case "rain":
+      table = "rainfall_measurement";
+      value = "rainfall_mm";
       break;
-    case 'co2':
-      table = 'co2';
-      value = 'co2_level';
+    case "co2":
+      table = "co2";
+      value = "co2_level";
       break;
-    case 'gas':
-      table = 'gas';
-      value = 'gas_level';
+    case "gas":
+      table = "gas";
+      value = "gas_level";
       break;
-    case 'wind':
-      table = 'wind';
-      value = 'wind_speed';
+    case "wind":
+      table = "wind";
+      value = "wind_speed";
       break;
-    case 'humidity':
-      table = 'humidity';
-      value = 'humidity';
+    case "humidity":
+      table = "humidity";
+      value = "humidity";
       break;
     default:
       table = dataKey;
@@ -68,9 +68,9 @@ const fetchGraphData = async (dataKey, length) => {
   }
 
   const response = await fetch(
-    `${baseUrl}/api/get-graph-data?table=${table}&value=${value}&length=${length}`,
+    `${baseUrl}/api/get-graph-data?table=${table}&value=${value}&length=${length}`
   );
-  if (!response.ok) throw new Error('Failed to fetch graph data');
+  if (!response.ok) throw new Error("Failed to fetch graph data");
   return response.json();
 };
 
@@ -130,37 +130,37 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
 
   // Display latest sensor value
   const renderLatestData = () => {
-    if (isLoading) return 'Loading...';
-    if (error) return 'Error fetching data';
-    if (!latestData) return 'No Data Available';
+    if (isLoading) return "Loading...";
+    if (error) return "Error fetching data";
+    if (!latestData) return "No Data Available";
 
     let value;
     // Determine correct value from data based on key
     switch (dataKey) {
-      case 'temperature':
+      case "temperature":
         value = latestData.avg_temperature;
         break;
-      case 'wind':
+      case "wind":
         value = parseFloat(latestData.wind_speed * 3.6).toFixed(2); // Convert m/s to km/h
         break;
-      case 'co2':
+      case "co2":
         value = latestData.co2_level;
         break;
-      case 'gas':
+      case "gas":
         value = latestData.gas_level;
         break;
-      case 'rain':
+      case "rain":
         value = parseFloat(latestData.rainfall_mm).toFixed(2);
         break;
-      case 'humidity':
+      case "humidity":
         value = latestData.humidity;
         break;
       default:
         value = latestData[dataKey];
     }
 
-    if (value == null) return 'No Data Available';
-    const unit = dataKey ? sensorMapping[dataKey]?.unit || '' : '';
+    if (value == null) return "No Data Available";
+    const unit = dataKey ? sensorMapping[dataKey]?.unit || "" : "";
     return `${value} ${unit}`;
   };
 
@@ -180,7 +180,7 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
               <Tooltip.Trigger asChild>
                 <span
                   className="inline-flex items-center justify-center w-6 h-6 text-white rounded-full text-lg cursor-pointer"
-                  style={{ backgroundColor: '#113f67' }}
+                  style={{ backgroundColor: "#113f67" }}
                   aria-label="Info"
                   onClick={handleTooltipToggle}
                 >
@@ -214,19 +214,19 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
           >
             <button
               onClick={() => handleViewChange(1)}
-              className={`btn ${viewLength === 1 ? 'active' : ''}`}
+              className={`btn ${viewLength === 1 ? "active" : ""}`}
             >
               Hourly
             </button>
             <button
               onClick={() => handleViewChange(7)}
-              className={`btn ${viewLength === 7 ? 'active' : ''}`}
+              className={`btn ${viewLength === 7 ? "active" : ""}`}
             >
               7 Days
             </button>
             <button
               onClick={() => handleViewChange(30)}
-              className={`btn ${viewLength === 30 ? 'active' : ''}`}
+              className={`btn ${viewLength === 30 ? "active" : ""}`}
             >
               30 Days
             </button>
@@ -241,8 +241,8 @@ const Widget = ({ name, dataKey, GraphComponent }) => {
               <GraphComponent
                 data={graphData}
                 datakey="avg_value"
-                viewType={viewLength === 1 ? 'hourly' : 'day'}
-                xAxisLabel={viewLength === 1 ? 'Time' : 'Date'}
+                viewType={viewLength === 1 ? "hourly" : "day"}
+                xAxisLabel={viewLength === 1 ? "Time" : "Date"}
                 yAxisLabel="Average Value"
                 tooltipFormatter={(value) => `${value.toFixed(2)} units`}
               />

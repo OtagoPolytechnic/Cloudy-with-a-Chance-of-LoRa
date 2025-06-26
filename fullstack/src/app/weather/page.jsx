@@ -1,40 +1,40 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import NavigationBar from '../LandingPageComponents/NavigationBar';
-import SearchHeader from '../LandingPageComponents/SearchHeader';
-import LocationDetails from '../LandingPageComponents/LocationDetails';
-import SunriseSunset from '../LandingPageComponents/SunriseSunset';
-import Widget from '@/components/widget';
-import LineChartComponent from '@/components/graphs/LineChartComponent';
+import { useState } from "react";
+import NavigationBar from "../LandingPageComponents/NavigationBar";
+import SearchHeader from "../LandingPageComponents/SearchHeader";
+import LocationDetails from "../LandingPageComponents/LocationDetails";
+import SunriseSunset from "../LandingPageComponents/SunriseSunset";
+import Widget from "@/components/widget";
+import LineChartComponent from "@/components/graphs/LineChartComponent";
 
 export default function WeatherDetails() {
   // Track selected metric (e.g. Temperature, Humidity)
-  const [selectedMetric, setSelectedMetric] = useState('Temperature');
+  const [selectedMetric, setSelectedMetric] = useState("Temperature");
 
   // Track selected time filter (could be extended with daily, weekly, etc.)
-  const [selectedTimeFilter, setSelectedTimeFilter] = useState('Hourly');
+  const [selectedTimeFilter, setSelectedTimeFilter] = useState("Hourly");
 
   // Configuration map for each metric
   const graphOptions = {
     Temperature: {
-      dataKey: 'temperature',
-      unit: '°C',
+      dataKey: "temperature",
+      unit: "°C",
       GraphComponent: LineChartComponent,
     },
     Humidity: {
-      dataKey: 'humidity',
-      unit: '%',
+      dataKey: "humidity",
+      unit: "%",
       GraphComponent: LineChartComponent,
     },
     Rain: {
-      dataKey: 'rain',
-      unit: 'mm',
+      dataKey: "rain",
+      unit: "mm",
       GraphComponent: LineChartComponent,
     },
     Wind: {
-      dataKey: 'wind',
-      unit: 'km/h',
+      dataKey: "wind",
+      unit: "km/h",
       GraphComponent: LineChartComponent,
     },
   };
@@ -53,7 +53,7 @@ export default function WeatherDetails() {
       {/* Blurred translucent overlay for better text readability */}
       <div
         className="fixed inset-0 z-0 backdrop-blur-lg bg-blue-500/30"
-        style={{ height: '100vh', width: '100vw' }}
+        style={{ height: "100vh", width: "100vw" }}
       />
 
       {/* Main content wrapper with max width and padding */}
@@ -66,7 +66,7 @@ export default function WeatherDetails() {
         {/* Main content container */}
         <div
           className="relative z-10 flex flex-col flex-1 ml-0 lg:ml-28 px-4 pt-7 sm:px-6 pb-20 space-y-6"
-          style={{ minHeight: 'calc(100vh - 30px)', overflow: 'visible' }}
+          style={{ minHeight: "calc(100vh - 30px)", overflow: "visible" }}
         >
           {/* Search bar for location input */}
           <SearchHeader />
@@ -79,8 +79,8 @@ export default function WeatherDetails() {
                 onClick={() => setSelectedMetric(metric)}
                 className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-full font-semibold text-sm sm:text-base transition duration-300 ${
                   selectedMetric === metric
-                    ? 'bg-black text-white shadow' // Active style
-                    : 'bg-gray-300 text-black hover:bg-gray-400' // Inactive style
+                    ? "bg-black text-white shadow" // Active style
+                    : "bg-gray-300 text-black hover:bg-gray-400" // Inactive style
                 }`}
               >
                 {metric}

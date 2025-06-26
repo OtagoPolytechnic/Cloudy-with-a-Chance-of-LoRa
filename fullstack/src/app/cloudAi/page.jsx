@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import NavigationBar from '../LandingPageComponents/NavigationBar';
-import SearchHeader from '../LandingPageComponents/SearchHeader';
-import CloudDetails from '@/components/cloud';
-import SunriseSunset from '../LandingPageComponents/SunriseSunset';
-import LocationDetails from '../LandingPageComponents/LocationDetails';
+import React from "react";
+import NavigationBar from "../LandingPageComponents/NavigationBar";
+import SearchHeader from "../LandingPageComponents/SearchHeader";
+import CloudDetails from "@/components/cloud";
+import SunriseSunset from "../LandingPageComponents/SunriseSunset";
+import LocationDetails from "../LandingPageComponents/LocationDetails";
 
 export default function AIPage() {
   return (
@@ -46,10 +46,10 @@ export default function AIPage() {
 
               <p className="text-sm leading-relaxed">
                 This AI-powered cloud recognition tool uses a deep learning
-                model to analyze images and classify cloud types such as{' '}
-                <span className="font-medium text-white">cumulus</span>,{' '}
-                <span className="font-medium text-white">stratus</span>,{' '}
-                <span className="font-medium text-white">cirrus</span>, and{' '}
+                model to analyze images and classify cloud types such as{" "}
+                <span className="font-medium text-white">cumulus</span>,{" "}
+                <span className="font-medium text-white">stratus</span>,{" "}
+                <span className="font-medium text-white">cirrus</span>, and{" "}
                 <span className="font-medium text-white">nimbostratus</span>.
               </p>
 

@@ -1,42 +1,42 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import NavigationBar from '../LandingPageComponents/NavigationBar';
-import SearchHeader from '../LandingPageComponents/SearchHeader';
-import LocationDetails from '../LandingPageComponents/LocationDetails';
-import SunriseSunset from '../LandingPageComponents/SunriseSunset';
-import Widget from '@/components/widget';
-import LineChartComponent from '@/components/graphs/LineChartComponent';
-import BarChartComponent from '@/components/graphs/BarChartComponent';
+import NavigationBar from "../LandingPageComponents/NavigationBar";
+import SearchHeader from "../LandingPageComponents/SearchHeader";
+import LocationDetails from "../LandingPageComponents/LocationDetails";
+import SunriseSunset from "../LandingPageComponents/SunriseSunset";
+import Widget from "@/components/widget";
+import LineChartComponent from "@/components/graphs/LineChartComponent";
+import BarChartComponent from "@/components/graphs/BarChartComponent";
 
 export default function CO2Page() {
   // Track the currently selected metric
-  const [selectedMetric, setSelectedMetric] = useState('CO2');
+  const [selectedMetric, setSelectedMetric] = useState("CO2");
 
   // Track the selected time granularity (can be expanded later)
-  const [selectedTimeFilter, setSelectedTimeFilter] = useState('Hourly');
+  const [selectedTimeFilter, setSelectedTimeFilter] = useState("Hourly");
 
   // Configurations for each graph type and its unit
   const graphOptions = {
     CO2: {
-      dataKey: 'co2',
-      unit: 'ppm',
+      dataKey: "co2",
+      unit: "ppm",
       GraphComponent: BarChartComponent,
     },
     Gas: {
-      dataKey: 'gas',
-      unit: 'ppm',
+      dataKey: "gas",
+      unit: "ppm",
       GraphComponent: BarChartComponent,
     },
     Dust: {
-      dataKey: 'dust',
-      unit: 'µg/m³',
+      dataKey: "dust",
+      unit: "µg/m³",
       GraphComponent: LineChartComponent,
     },
     Pressure: {
-      dataKey: 'pressure',
-      unit: 'hPa',
+      dataKey: "pressure",
+      unit: "hPa",
       GraphComponent: LineChartComponent,
     },
   };
@@ -75,8 +75,8 @@ export default function CO2Page() {
                 onClick={() => setSelectedMetric(metric)}
                 className={`px-4 py-2.5 rounded-full font-semibold text-sm transition duration-300 ${
                   selectedMetric === metric
-                    ? 'bg-black text-white shadow' // Active button
-                    : 'bg-gray-300 text-black hover:bg-gray-400' // Inactive button
+                    ? "bg-black text-white shadow" // Active button
+                    : "bg-gray-300 text-black hover:bg-gray-400" // Inactive button
                 }`}
               >
                 {metric}

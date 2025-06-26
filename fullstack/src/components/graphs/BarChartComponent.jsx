@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -7,12 +7,12 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 import {
   calculateYAxisConfig, // Utility to dynamically set Y-axis domain and ticks
   filterAndSortData, // Filters and orders chart data by X-axis key
   CustomXAxisTick, // Custom X-axis label renderer
-} from '../../app/utils/chartUtils';
+} from "../../app/utils/chartUtils";
 
 const BarChartComponent = ({ data, datakey, viewType }) => {
   // Responsive layout states
@@ -21,8 +21,8 @@ const BarChartComponent = ({ data, datakey, viewType }) => {
   const [barSize, setBarSize] = useState(26);
   const [fontSize, setFontSize] = useState(12);
 
-  const graphColor = '#113f67'; // Main color for bars and tooltips
-  const xyAxis = 'black'; // Axis label color
+  const graphColor = "#113f67"; // Main color for bars and tooltips
+  const xyAxis = "black"; // Axis label color
 
   // Responsive adjustments on window resize
   useEffect(() => {
@@ -35,13 +35,13 @@ const BarChartComponent = ({ data, datakey, viewType }) => {
     };
 
     handleResize(); // Initial run
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Y-axis settings and X-axis key (hour or day)
   const { domain, ticks } = calculateYAxisConfig(data, datakey);
-  const xAxisDataKey = viewType === 'hourly' ? 'hour' : 'day';
+  const xAxisDataKey = viewType === "hourly" ? "hour" : "day";
 
   // Prepare and optionally pad data for rendering
   const filteredData = filterAndSortData(data, xAxisDataKey, viewType);
@@ -50,31 +50,31 @@ const BarChartComponent = ({ data, datakey, viewType }) => {
   // Add padding bars if only one data point is present to prevent rendering issues
   const paddedData = isSingleData
     ? [
-        { [xAxisDataKey]: '', [datakey]: 0 },
+        { [xAxisDataKey]: "", [datakey]: 0 },
         filteredData[0],
-        { [xAxisDataKey]: ' ', [datakey]: 0 },
+        { [xAxisDataKey]: " ", [datakey]: 0 },
       ]
     : filteredData;
 
   // Calculate scrollable width for small screens unless it's a 7-day view
   const containerWidth =
-    viewType !== '7days' && isScrollEnabled
+    viewType !== "7days" && isScrollEnabled
       ? `${Math.max(paddedData.length * 48, 400)}px`
-      : '100%';
+      : "100%";
 
   return (
     <div
       style={{
-        height: '100%',
-        width: '100%',
-        marginTop: '10px',
-        overflowX: viewType !== '7days' && isScrollEnabled ? 'auto' : 'hidden',
+        height: "100%",
+        width: "100%",
+        marginTop: "10px",
+        overflowX: viewType !== "7days" && isScrollEnabled ? "auto" : "hidden",
       }}
     >
       <div
         style={{
           width: isSingleData ? 360 : containerWidth,
-          margin: '0 auto',
+          margin: "0 auto",
         }}
       >
         <ResponsiveContainer width="100%" height={chartHeight}>
@@ -107,16 +107,16 @@ const BarChartComponent = ({ data, datakey, viewType }) => {
 
             {/* Tooltip configuration */}
             <Tooltip
-              cursor={{ fill: 'transparent' }}
+              cursor={{ fill: "transparent" }}
               contentStyle={{
-                backgroundColor: '#ffffff',
+                backgroundColor: "#ffffff",
                 borderColor: graphColor,
-                borderRadius: '8px',
-                padding: '5px',
+                borderRadius: "8px",
+                padding: "5px",
                 fontSize: fontSize - 2,
               }}
               itemStyle={{ color: graphColor }}
-              labelFormatter={() => ''} // Hide X-axis label in tooltip
+              labelFormatter={() => ""} // Hide X-axis label in tooltip
             />
 
             {/* Bar configuration */}
