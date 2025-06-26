@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="page-footer p-6 text-center text-sm flex flex-col items-center w-full">

@@ -1,0 +1,19 @@
+# All these file extensions will be ignored by the formatting script
+# Ignores all json files 
+**/*.json
+# Ignores the css files 
+**/*.css
+# Means it wont format the github/workflow files, so that the file doesn't format itself
+**/*.yml
+**/*.yaml
+.github/workflows/*
+# Ignores the readme files and simialar files, as theres no need for that
+**/*.md
+# Ignores cloud AI files
+**/*.ipynb
+# Ignores arduino files
+**/*.ino 
+# Ignores Python files 
+**/*.pyc
+# Ignores Javascript files
+**/*.js
