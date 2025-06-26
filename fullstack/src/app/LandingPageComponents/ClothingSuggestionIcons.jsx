@@ -1,41 +1,41 @@
-import { useState, useEffect } from 'react';
-import { useSummarySensorData } from '@/components/useSummarySensorData';
+import { useState, useEffect } from "react";
+import { useSummarySensorData } from "@/components/useSummarySensorData";
 
 export default function ClothingSuggestionIcons() {
   // Custom hook to fetch summary sensor data
   const { temperature, isLoading, error, rainChance } = useSummarySensorData();
 
   // Fallback temperature if data is unavailable
-  const temp = typeof temperature === 'number' ? temperature : 22;
+  const temp = typeof temperature === "number" ? temperature : 22;
 
   // Clothing suggestions based on temperature range
   const suggestions = [
     {
-      icon: '🧥',
-      label: 'Jacket',
-      tempRange: '0°–10°C',
-      bg: 'bg-blue-400/30',
+      icon: "🧥",
+      label: "Jacket",
+      tempRange: "0°–10°C",
+      bg: "bg-blue-400/30",
       isMatch: (t) => t <= 10,
     },
     {
-      icon: '🧣',
-      label: 'Layer Up',
-      tempRange: '10°–18°C',
-      bg: 'bg-purple-400/30',
+      icon: "🧣",
+      label: "Layer Up",
+      tempRange: "10°–18°C",
+      bg: "bg-purple-400/30",
       isMatch: (t) => t > 10 && t <= 18,
     },
     {
-      icon: '👕',
-      label: 'Light Wear',
-      tempRange: '18°–26°C',
-      bg: 'bg-yellow-400/30',
+      icon: "👕",
+      label: "Light Wear",
+      tempRange: "18°–26°C",
+      bg: "bg-yellow-400/30",
       isMatch: (t) => t > 18 && t <= 26,
     },
     {
-      icon: '🩳',
-      label: 'Relaxing',
-      tempRange: '26°C+',
-      bg: 'bg-orange-400/30',
+      icon: "🩳",
+      label: "Relaxing",
+      tempRange: "26°C+",
+      bg: "bg-orange-400/30",
       isMatch: (t) => t > 26,
     },
   ];
@@ -50,7 +50,7 @@ export default function ClothingSuggestionIcons() {
   useEffect(() => {
     if (!isLoading && !error) {
       // Force "Jacket" suggestion if rain is likely
-      if (rainChance === 'Likely') {
+      if (rainChance === "Likely") {
         setActiveIndex(0);
       } else {
         const index = suggestions.findIndex((s) => s.isMatch(temp));
@@ -69,7 +69,7 @@ export default function ClothingSuggestionIcons() {
             key={index}
             className={`flex flex-col items-center justify-center rounded-2xl p-4 transition-all duration-300 ${
               isActive
-                ? 'bg-white/80 text-black border border-white/20 shadow-xl scale-105'
+                ? "bg-white/80 text-black border border-white/20 shadow-xl scale-105"
                 : `${item.bg} text-white opacity-60 border border-white/20`
             }`}
           >

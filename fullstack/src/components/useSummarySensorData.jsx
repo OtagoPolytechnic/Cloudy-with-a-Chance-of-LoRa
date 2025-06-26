@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 // Base URL for API calls
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -44,29 +44,29 @@ const estimateUVIndex = (tempC, hasRecentRain) => {
 export const useSummarySensorData = () => {
   // Fetch latest humidity
   const humidityQuery = useQuery({
-    queryKey: ['humidity-latest'],
-    queryFn: () => fetchSensorData('humidity'),
+    queryKey: ["humidity-latest"],
+    queryFn: () => fetchSensorData("humidity"),
     staleTime: 60000,
   });
 
   // Fetch recent rain data
   const rainQuery = useQuery({
-    queryKey: ['rain-recent'],
-    queryFn: () => fetchSensorData('rain'),
+    queryKey: ["rain-recent"],
+    queryFn: () => fetchSensorData("rain"),
     staleTime: 60000,
   });
 
   // Fetch latest temperature
   const tempQuery = useQuery({
-    queryKey: ['temperature-latest'],
-    queryFn: () => fetchSensorData('temperature'),
+    queryKey: ["temperature-latest"],
+    queryFn: () => fetchSensorData("temperature"),
     staleTime: 60000,
   });
 
   // Fetch latest wind speed
   const windQuery = useQuery({
-    queryKey: ['wind-latest'],
-    queryFn: () => fetchSensorData('wind'),
+    queryKey: ["wind-latest"],
+    queryFn: () => fetchSensorData("wind"),
     staleTime: 60000,
   });
 
@@ -92,7 +92,7 @@ export const useSummarySensorData = () => {
 
   // Check if it rained in the last 6 records
   const recentRain = rainQuery.data?.slice(-6).some((r) => r.rainfall_mm > 0);
-  const rainChance = recentRain ? 'Likely' : 'Unlikely';
+  const rainChance = recentRain ? "Likely" : "Unlikely";
 
   // Get latest humidity or estimate if missing
   const latestHumidity =

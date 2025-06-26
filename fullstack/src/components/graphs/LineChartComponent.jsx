@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -7,24 +7,24 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 import {
   calculateYAxisConfig, // Helper to dynamically configure Y-axis range/ticks
   filterAndSortData, // Filters and sorts chart data based on viewType
   CustomXAxisTick, // Custom X-axis tick rendering component
-} from '../../app/utils/chartUtils';
+} from "../../app/utils/chartUtils";
 
 const LineChartComponent = ({ data, datakey, viewType }) => {
   // State to determine if chart should be scrollable based on screen width
   const [isScrollEnabled, setIsScrollEnabled] = useState(
-    window.innerWidth <= 1060,
+    window.innerWidth <= 1060
   );
   // State for responsive chart height
   const [chartHeight, setChartHeight] = useState(280);
 
   // Custom colors for chart styling
-  const graphColor = '#113f67';
-  const xyAxis = 'black';
+  const graphColor = "#113f67";
+  const xyAxis = "black";
 
   // Update scroll and chart height on screen resize
   useEffect(() => {
@@ -35,13 +35,13 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
     };
 
     handleResize(); // Run initially
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Get appropriate Y-axis settings and filtered chart data
   const { domain, ticks } = calculateYAxisConfig(data, datakey);
-  const xAxisDataKey = viewType === 'hourly' ? 'hour' : 'day';
+  const xAxisDataKey = viewType === "hourly" ? "hour" : "day";
   const filteredData = filterAndSortData(data, xAxisDataKey, viewType);
 
   // Duplicate single-entry data to ensure chart renders properly
@@ -58,18 +58,18 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
 
   // Determine width for scrollable charts (only if viewType is not 7days)
   const containerWidth =
-    viewType !== '7days' && isScrollEnabled
+    viewType !== "7days" && isScrollEnabled
       ? `${Math.max(safeData.length * 50, window.innerWidth)}px`
-      : '100%';
+      : "100%";
 
   return (
     <div
       style={{
-        height: '100%',
-        width: '100%',
-        marginTop: '10px',
+        height: "100%",
+        width: "100%",
+        marginTop: "10px",
         overflowX:
-          isScrollEnabled && viewType !== '7days' ? 'scroll' : 'hidden',
+          isScrollEnabled && viewType !== "7days" ? "scroll" : "hidden",
       }}
     >
       <div style={{ width: containerWidth }}>
@@ -86,7 +86,7 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
               dataKey={xAxisDataKey}
               stroke={xyAxis}
               tick={<CustomXAxisTick viewType={viewType} color={xyAxis} />}
-              tickLine={{ transform: 'translateY(5px)' }}
+              tickLine={{ transform: "translateY(5px)" }}
               textAnchor="end"
               angle={-45}
               dy={10}
@@ -105,15 +105,15 @@ const LineChartComponent = ({ data, datakey, viewType }) => {
 
             {/* Tooltip configuration */}
             <Tooltip
-              cursor={{ fill: 'transparent' }}
+              cursor={{ fill: "transparent" }}
               contentStyle={{
-                backgroundColor: '#ffffff',
+                backgroundColor: "#ffffff",
                 borderColor: graphColor,
-                borderRadius: '8px',
-                padding: '5px',
+                borderRadius: "8px",
+                padding: "5px",
               }}
               itemStyle={{ color: graphColor }}
-              labelFormatter={() => ''} // Hide X-axis label in tooltip
+              labelFormatter={() => ""} // Hide X-axis label in tooltip
             />
 
             {/* Main chart line */}

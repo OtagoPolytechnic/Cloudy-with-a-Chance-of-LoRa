@@ -1,11 +1,11 @@
-import React from 'react';
-import { parseISO, format } from 'date-fns';
+import React from "react";
+import { parseISO, format } from "date-fns";
 
 export function calculateYAxisConfig(
   data,
   dataKey,
   minRange = 0,
-  maxRange = 4000,
+  maxRange = 4000
 ) {
   if (!data || data.length === 0) {
     return { domain: [0, 10], ticks: [0, 2, 4, 6, 8, 10] }; // Fallback for empty data
@@ -79,7 +79,7 @@ export function calculateYAxisConfig(
 
 export function filterAndSortData(data, xAxisDataKey, viewType) {
   const validData = data.filter(
-    (item) => item[xAxisDataKey] !== undefined && item[xAxisDataKey] !== null,
+    (item) => item[xAxisDataKey] !== undefined && item[xAxisDataKey] !== null
   );
 
   const sortedData = validData.slice().sort((a, b) => {
@@ -88,22 +88,22 @@ export function filterAndSortData(data, xAxisDataKey, viewType) {
     return isNaN(dateA) || isNaN(dateB) ? 0 : dateA - dateB;
   });
 
-  return sortedData.slice(viewType === 'hourly' ? -24 : -30);
+  return sortedData.slice(viewType === "hourly" ? -24 : -30);
 }
 
 // Custom tick component for displaying date and day
 export const CustomXAxisTick = ({ x, y, payload, viewType, color }) => {
   try {
     let displayDate = payload.value;
-    if (viewType === 'hourly') {
+    if (viewType === "hourly") {
       // For hourly, format as "11am, 12pm"
       const time = new Date(displayDate);
-      displayDate = format(time, 'haaa');
+      displayDate = format(time, "haaa");
     } else {
       // For daily, format as "dd/MM" on the first line and "EEE" on the second line
       const date = parseISO(payload.value);
-      const formattedDate = format(date, 'dd/MM');
-      const formattedDay = format(date, 'EEE');
+      const formattedDate = format(date, "dd/MM");
+      const formattedDay = format(date, "EEE");
       displayDate = (
         <>
           <tspan x={0} dy="1em">
@@ -133,10 +133,10 @@ export const CustomXAxisTick = ({ x, y, payload, viewType, color }) => {
     );
   } catch (error) {
     console.error(
-      'Error formatting date:',
+      "Error formatting date:",
       error,
-      'Original value:',
-      payload.value,
+      "Original value:",
+      payload.value
     );
     return null;
   }

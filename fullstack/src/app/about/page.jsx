@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import NavigationBar from '../LandingPageComponents/NavigationBar';
-import SearchHeader from '../LandingPageComponents/SearchHeader';
-import SunriseSunset from '../LandingPageComponents/SunriseSunset';
-import LocationDetails from '../LandingPageComponents/LocationDetails';
+import Image from "next/image";
+import NavigationBar from "../LandingPageComponents/NavigationBar";
+import SearchHeader from "../LandingPageComponents/SearchHeader";
+import SunriseSunset from "../LandingPageComponents/SunriseSunset";
+import LocationDetails from "../LandingPageComponents/LocationDetails";
 
 export default function AboutPage() {
-  const crewImages = ['crew1.jpg', 'crew2.jpg', 'crew3.jpg', 'crew4.jpg'];
+  const crewImages = ["crew1.jpg", "crew2.jpg", "crew3.jpg", "crew4.jpg"];
 
   return (
     <div
@@ -70,24 +70,24 @@ export default function AboutPage() {
               <h2 className="text-xl font-bold mb-2">❓ FAQ</h2>
               {[
                 {
-                  q: 'What sensors are used?',
-                  a: 'XC3702 Barometric, XC3780 Dust Sensor, Duinotech Air Quality Sensor',
+                  q: "What sensors are used?",
+                  a: "XC3702 Barometric, XC3780 Dust Sensor, Duinotech Air Quality Sensor",
                 },
                 {
-                  q: 'How often is data updated?',
-                  a: 'The data is updated constantly in real time.',
+                  q: "How often is data updated?",
+                  a: "The data is updated constantly in real time.",
                 },
                 {
-                  q: 'What does the platform offer?',
-                  a: 'Remote monitoring, analysis, and insights from real-world data.',
+                  q: "What does the platform offer?",
+                  a: "Remote monitoring, analysis, and insights from real-world data.",
                 },
                 {
-                  q: 'More questions?',
-                  a: 'Talk to our team or visit the FAQ section online.',
+                  q: "More questions?",
+                  a: "Talk to our team or visit the FAQ section online.",
                 },
                 {
-                  q: 'Device location?',
-                  a: 'On the roof of the Polytech’s D-Block.',
+                  q: "Device location?",
+                  a: "On the roof of the Polytech’s D-Block.",
                 },
               ].map(({ q, a }) => (
                 <details
@@ -116,7 +116,7 @@ export default function AboutPage() {
                     className="overflow-hidden rounded-xl border border-white/20 group aspect-[4/3]"
                   >
                     <div className="relative w-full h-0 pb-[75%]">
-                      {' '}
+                      {" "}
                       {/* 4:3 aspect ratio */}
                       <Image
                         src={`/images/Crew/${img}`}

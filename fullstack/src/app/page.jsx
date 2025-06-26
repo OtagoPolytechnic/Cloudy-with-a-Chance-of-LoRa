@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import NavigationBar from './LandingPageComponents/NavigationBar';
-import SearchHeader from './LandingPageComponents/SearchHeader';
-import TodayForecast from './LandingPageComponents/TodayForecast';
-import MoreConditions from './LandingPageComponents/MoreConditions';
-import SevenDayForecast from './LandingPageComponents/SevenDayForecast';
-import SunriseSunset from './LandingPageComponents/SunriseSunset';
-import LocationDetails from './LandingPageComponents/LocationDetails';
-import ClothingSuggestionIcons from './LandingPageComponents/ClothingSuggestionIcons';
+import NavigationBar from "./LandingPageComponents/NavigationBar";
+import SearchHeader from "./LandingPageComponents/SearchHeader";
+import TodayForecast from "./LandingPageComponents/TodayForecast";
+import MoreConditions from "./LandingPageComponents/MoreConditions";
+import SevenDayForecast from "./LandingPageComponents/SevenDayForecast";
+import SunriseSunset from "./LandingPageComponents/SunriseSunset";
+import LocationDetails from "./LandingPageComponents/LocationDetails";
+import ClothingSuggestionIcons from "./LandingPageComponents/ClothingSuggestionIcons";
 
 export default function WeatherDashboard() {
   return (
