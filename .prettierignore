@@ -5,6 +5,8 @@
 **/*.css
 # Means it wont format the github/workflow files, so that the file doesn't format itself
 **/*.yml
+**/*.yaml
+.github/workflows/*
 # Ignores the readme files and simialar files, as theres no need for that
 **/*.md
 # Ignores cloud AI files
