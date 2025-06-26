@@ -2,7 +2,7 @@ name: Prettier Check
 
 on:
   pull_request:
-    branches: [staging]
+    branches: [formatting-fix]
 jobs:
   format:
     runs-on: ubuntu-latest
